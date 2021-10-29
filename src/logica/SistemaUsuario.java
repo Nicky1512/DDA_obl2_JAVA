@@ -38,6 +38,12 @@ public class SistemaUsuario {
         return null;
     }
     
+    public void agregarJugador(Jugador j){
+        jugadores.add(j);
+    }
+    public void agregarAdmin(Administrador a){
+        admins.add(a);
+    }
 //    public ArrayList<Usuario> getUsuarios(){
 //        return usuarios;
 //    }

@@ -26,6 +26,13 @@ public class Sistema {
         return sistemaUsuario.loginAdmin(usuario, password);
     }
     
+    public void agregarJugador(Jugador j){
+        sistemaUsuario.agregarJugador(j);
+    }
+    
+    public void agregarAdmin(Administrador a){
+        sistemaUsuario.agregarAdmin(a);
+    }
 
     
 }
