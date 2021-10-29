@@ -6,6 +6,7 @@ import logica.Carta;
 import logica.Jugador;
 import logica.Mazo;
 import logica.Palo;
+import logica.Sistema;
 
 public class DatosPrueba {
 
@@ -58,6 +59,19 @@ public class DatosPrueba {
         
         Mazo mazo = new Mazo(cartas);
         
+        Sistema.getInstancia().agregarAdmin(Lucas);
+        Sistema.getInstancia().agregarAdmin(Nicole);
+        Sistema.getInstancia().agregarAdmin(Lucas);
+        
+        Sistema.getInstancia().agregarJugador(j1);
+        Sistema.getInstancia().agregarJugador(j2);
+        Sistema.getInstancia().agregarJugador(j3);
+        Sistema.getInstancia().agregarJugador(j4);
+        Sistema.getInstancia().agregarJugador(j5);
+        Sistema.getInstancia().agregarJugador(j6);
+        Sistema.getInstancia().agregarJugador(j7);
+        Sistema.getInstancia().agregarJugador(j8);
+        Sistema.getInstancia().agregarJugador(j9);
         
     }
 }
