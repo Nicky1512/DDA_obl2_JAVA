@@ -1,6 +1,7 @@
 
 package logica;
 
+import logica.Figuras.Figura;
 import java.util.ArrayList;
 
 public class Participacion {
@@ -17,7 +18,7 @@ public class Participacion {
     }
     
     public Participacion(){
-        
+            
     }
 
     public Jugador getJugador() {

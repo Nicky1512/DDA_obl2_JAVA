@@ -1,8 +1,9 @@
 package logica;
 
 import java.util.ArrayList;
+import observador.Observable;
 
-public class Juego {
+public class Juego extends Observable{
 
     private Mazo mazo;
     private ArrayList<Participacion> participantes;
