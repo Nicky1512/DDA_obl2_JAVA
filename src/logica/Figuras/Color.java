@@ -1,17 +1,30 @@
 package logica.Figuras;
 
 import logica.Carta;
+import logica.Palo;
 
-public class Color extends Figura{
+public class Color extends Figura {
+
+    public Color(String nombre) {
+        super(nombre);
+    }
 
     @Override
     public Figura determinarFigura(Carta[] cartas) {
-        Par ret = null;
-        Boolean hayColor = false;
-        while(!hayColor){
-            //TODO: Buscar si todas las cartas son del mismo color
+        Color ret = null;
+        Boolean hayDistinto = false;
+        int pos = 1;
+        Palo palo = cartas[0].getPalo();
+        while (!hayDistinto && pos <= cartas.length) {
+            if (palo == cartas[pos].getPalo()) {
+                pos++;
+            } else {
+                hayDistinto = true;
+            }
+        }
+        if (!hayDistinto) {
+            ret = new Color("Color");
         }
         return ret;
     }
-    
 }
