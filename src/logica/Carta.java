@@ -1,13 +1,17 @@
 package logica;
 
-public class Carta {
+import java.util.Comparator;
 
-    public Carta(String valor, Palo palo) {
+public class Carta implements Comparator<Carta> {
+
+    public Carta(String valor, int orden, Palo palo) {
         this.valor = valor;
+        this.orden = orden;
         this.palo = palo;
     }
-    
+
     private String valor;
+    private int orden;
     private Palo palo;
 
     public String getValor() {
@@ -25,5 +29,10 @@ public class Carta {
     public void setPalo(Palo palo) {
         this.palo = palo;
     }
-    
+
+    @Override
+    public int compare(Carta o1, Carta o2) {
+        return o1.orden - o2.orden;
+    }
+
 }
