@@ -34,7 +34,8 @@ public class Par extends Figura {
     }
 
     @Override
-    public Boolean determinarFigura(Carta[] cartas) {
+    public Figura determinarFigura(Carta[] cartas) {
+        Par ret = null;
         Boolean hayPar = false;
         Carta cartaPar = null;
         Carta cartaMayor = null;
@@ -54,11 +55,7 @@ public class Par extends Figura {
                 } 
             }
         }
-        if(hayPar){
-            this.setNombre("Par");
-            this.setCartaPar(cartaPar);
-            this.setCartaMasAlta(cartaMayor);
-        }
-        return hayPar;
+        if(hayPar) ret = new Par(cartaPar, cartaMayor, "Par");
+        return ret;
     }
 }

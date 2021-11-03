@@ -110,6 +110,8 @@ public class DatosPrueba {
 //        Figura fColor = color.determinarFigura(mano);
 //        Figura fPierna = pierna.determinarFigura(mano);
 //        Figura fPar = par.determinarFigura(mano);
+
+
             
     }
 }
