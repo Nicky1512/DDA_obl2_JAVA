@@ -20,5 +20,5 @@ public abstract class Figura {
         this.nombre = nombre;
     }
     
-    public abstract Boolean determinarFigura(Carta[] cartas);
+    public abstract Figura determinarFigura(Carta[] cartas);
 }

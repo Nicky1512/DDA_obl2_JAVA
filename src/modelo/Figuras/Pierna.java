@@ -24,7 +24,8 @@ public class Pierna extends Figura {
     }
 
     @Override
-    public Boolean determinarFigura(Carta[] cartas) {
+    public Figura determinarFigura(Carta[] cartas) {
+        Pierna ret = null;
         Boolean hayTres = false;
         Carta cartaClave = null;
         Arrays.sort(cartas);
@@ -36,10 +37,9 @@ public class Pierna extends Figura {
             }
         }
         if (hayTres) {
-            this.setNombre("Pierna");
-            this.setCartaClave(cartaClave);
+            ret = new Pierna(cartaClave, "Pierna");
         }
-        return hayTres;
+        return ret;
     }
 
 }
