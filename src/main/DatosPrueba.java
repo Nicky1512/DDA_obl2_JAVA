@@ -7,6 +7,7 @@ import modelo.Figuras.Color;
 import modelo.Figuras.Figura;
 import modelo.Figuras.Par;
 import modelo.Figuras.Pierna;
+import modelo.Juego;
 import modelo.Jugador;
 import modelo.Mazo;
 import modelo.Palo;
@@ -16,7 +17,9 @@ public class DatosPrueba {
 
     public static void cargar() {
 
-        //TODO: Agregar precarga de apuestaBase y cantParticipantes
+        Juego.setApuestaBase(10); //Mayor a 0
+        Juego.setCantidadJugadores(4); //Mayor a 1 y menor que 6
+        
         Administrador Lucas = new Administrador("Lucas", "123", "Lucas Andueza");
         Administrador Bruno = new Administrador("Bruno", "234", "Bruno Barcelo");
         Administrador Nicole = new Administrador("Nicole", "852", "Nicole Fabian");
@@ -107,8 +110,6 @@ public class DatosPrueba {
 //        Figura fColor = color.determinarFigura(mano);
 //        Figura fPierna = pierna.determinarFigura(mano);
 //        Figura fPar = par.determinarFigura(mano);
-             
-        Figura fPierna2 = pierna.determinarFigura(mano2);
-
+            
     }
 }
