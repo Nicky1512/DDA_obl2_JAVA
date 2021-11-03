@@ -13,8 +13,7 @@ public class Color extends Figura {
     }
     
     @Override
-    public Figura determinarFigura(Carta[] cartas) {
-        Color ret = null;
+    public Boolean determinarFigura(Carta[] cartas) {
         Boolean hayDistinto = false;
         int pos = 1;
         Palo palo = cartas[0].getPalo();
@@ -26,8 +25,8 @@ public class Color extends Figura {
             }
         }
         if (!hayDistinto) {
-            ret = new Color("Color");
+            this.setNombre("Color");
         }
-        return ret;
-    }
+        return !hayDistinto;
+    }    
 }

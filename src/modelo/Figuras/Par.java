@@ -21,13 +21,20 @@ public class Par extends Figura {
         return cartaPar;
     }
 
+    public Carta getCartaMasAlta() {
+        return cartaMasAlta;
+    }
+
+    public void setCartaMasAlta(Carta cartaMasAlta) {
+        this.cartaMasAlta = cartaMasAlta;
+    }
+
     public void setCartaPar(Carta cartaPar) {
         this.cartaPar = cartaPar;
     }
 
     @Override
-    public Figura determinarFigura(Carta[] cartas) {
-        Par ret = null;
+    public Boolean determinarFigura(Carta[] cartas) {
         Boolean hayPar = false;
         Carta cartaPar = null;
         Carta cartaMayor = null;
@@ -47,7 +54,11 @@ public class Par extends Figura {
                 } 
             }
         }
-        if(hayPar) ret = new Par(cartaPar, cartaMayor, "Par");
-        return ret;
+        if(hayPar){
+            this.setNombre("Par");
+            this.setCartaPar(cartaPar);
+            this.setCartaMasAlta(cartaMayor);
+        }
+        return hayPar;
     }
 }

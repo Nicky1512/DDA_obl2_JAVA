@@ -1,17 +1,40 @@
 package modelo;
 
 import java.util.ArrayList;
+import java.util.Date;
 import observador.Observable;
 
-public class Juego extends Observable{
+public class Juego extends Observable {
 
+    private Date fechaInicio;
+    private static int cantidadJugadores;
+    private static double apuestaBase;
+
+    public static int getCantidadJugadores() {
+        return cantidadJugadores;
+    }
+
+    public static void setCantidadJugadores(int cantidadJugadores) {
+        if (cantidadJugadores > 1 && cantidadJugadores < 6) {
+            Juego.cantidadJugadores = cantidadJugadores;
+        }
+    }
+
+    public static double getApuestaBase() {
+        return apuestaBase;
+    }
+
+    public static void setApuestaBase(double apuestaBase) {
+        if (apuestaBase > 0) {
+            Juego.apuestaBase = apuestaBase;
+        }
+    }
     private Mazo mazo;
     private ArrayList<Participacion> participantes;
     private Pozo pozo;
 
-    public Juego(Mazo mazo, ArrayList<Participacion> participantes, Pozo pozo) {
+    public Juego(Mazo mazo, Pozo pozo) {
         this.mazo = mazo;
-        this.participantes = participantes;
         this.pozo = pozo;
     }
 
@@ -48,8 +71,8 @@ public class Juego extends Observable{
     private void removerJugadores() {
         //Hacer copia para que no de error de ejecucion ?
         for (Participacion p : participantes) {
-            
-            if(p.getJugador().getSaldo() == 0){
+
+            if (p.getJugador().getSaldo() == 0) {
                 participantes.remove(p);
             }
         }
