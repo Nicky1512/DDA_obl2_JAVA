@@ -5,8 +5,8 @@
  */
 package iu;
 
-import logica.Administrador;
-import logica.Sistema;
+import modelo.Administrador;
+import modelo.Sistema;
 
 /**
  *

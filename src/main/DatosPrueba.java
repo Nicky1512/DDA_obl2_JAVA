@@ -1,12 +1,16 @@
 package main;
 
 import java.util.ArrayList;
-import logica.Administrador;
-import logica.Carta;
-import logica.Jugador;
-import logica.Mazo;
-import logica.Palo;
-import logica.Sistema;
+import modelo.Administrador;
+import modelo.Carta;
+import modelo.Figuras.Color;
+import modelo.Figuras.Figura;
+import modelo.Figuras.Par;
+import modelo.Figuras.Pierna;
+import modelo.Jugador;
+import modelo.Mazo;
+import modelo.Palo;
+import modelo.Sistema;
 
 public class DatosPrueba {
 
@@ -70,6 +74,41 @@ public class DatosPrueba {
         Sistema.getInstancia().agregarJugador(j7);
         Sistema.getInstancia().agregarJugador(j8);
         Sistema.getInstancia().agregarJugador(j9);
+        
+        
+        
+//        Carta c1 = mazo.robarCarta();
+//        Carta c2 = mazo.robarCarta();
+//        Carta c3 = mazo.robarCarta();
+//        Carta c4 = mazo.robarCarta();
+//        Carta c5 = mazo.robarCarta();
+  
+//        Carta c1 = new Carta("A", 13, p1);
+//        Carta c2 = new Carta("A", 13, p2);
+//        Carta c3 = new Carta("A", 13, p3);
+//        Carta c4 = new Carta("3", 2, p1);
+//        Carta c5 = new Carta("2", 1, p1);
+        
+        
+        Carta c6 = new Carta("A", 13, p1);
+        Carta c7 = new Carta("9", 8, p2);
+        Carta c8 = new Carta("9", 8, p3);
+        Carta c9 = new Carta("9", 8, p1);
+        Carta c10 = new Carta("10", 9, p1);
+       
+        
+//        Carta[] mano = {c3, c4, c1, c2, c5};
+        Carta[] mano2 = {c6, c9, c7, c10, c8};
+        
+//        Color color = new Color();
+        Pierna pierna = new Pierna();
+//        Par par = new Par();
+        
+//        Figura fColor = color.determinarFigura(mano);
+//        Figura fPierna = pierna.determinarFigura(mano);
+//        Figura fPar = par.determinarFigura(mano);
+             
+        Figura fPierna2 = pierna.determinarFigura(mano2);
 
     }
 }
