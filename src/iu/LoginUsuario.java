@@ -7,8 +7,8 @@ package iu;
 
 import java.awt.Frame;
 import java.util.ArrayList;
-import logica.Sistema;
-import logica.Usuario;
+import modelo.Sistema;
+import modelo.Usuario;
 
 /**
  *

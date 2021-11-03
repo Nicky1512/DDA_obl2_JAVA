@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
@@ -11,3 +12,17 @@
         </group>
     </open-files>
 </project-private>
+=======
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/D:/Nicky/ORT/DDA/Obligatorio%202/codigo/DDA_obl2_JAVA/src/modelo/Figuras/Color.java</file>
+            <file>file:/D:/Nicky/ORT/DDA/Obligatorio%202/codigo/DDA_obl2_JAVA/src/modelo/Figuras/Par.java</file>
+            <file>file:/D:/Nicky/ORT/DDA/Obligatorio%202/codigo/DDA_obl2_JAVA/src/modelo/Figuras/Figura.java</file>
+            <file>file:/D:/Nicky/ORT/DDA/Obligatorio%202/codigo/DDA_obl2_JAVA/src/modelo/Carta.java</file>
+        </group>
+    </open-files>
+</project-private>
+>>>>>>> 272b159aa4bec0551672952fa57ab2bc56511010
