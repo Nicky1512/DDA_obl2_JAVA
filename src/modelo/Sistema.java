@@ -15,7 +15,7 @@ public class Sistema extends Observable{
     }
     
     public Usuario loginUsuario(String usuario, String pass){
-        return sistemaUsuario.loginUsuario(usuario, pass);
+        return sistemaUsuario.loginJugador(usuario, pass);
     }
     
     public Administrador loginAdmin(String usuario, String password){

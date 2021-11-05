@@ -9,6 +9,16 @@ public class Juego extends Observable {
     private Date fechaInicio;
     private static int cantidadJugadores;
     private static double apuestaBase;
+    private ArrayList<Participacion> participantes;
+    
+//    Pozo existe?, Mazo?
+    private Mazo mazo;
+    private Pozo pozo;
+
+    public Juego(Mazo mazo, Pozo pozo) {
+        this.mazo = mazo;
+        this.pozo = pozo;
+    }
 
     public static int getCantidadJugadores() {
         return cantidadJugadores;
@@ -29,15 +39,7 @@ public class Juego extends Observable {
             Juego.apuestaBase = apuestaBase;
         }
     }
-    private Mazo mazo;
-    private ArrayList<Participacion> participantes;
-    private Pozo pozo;
-
-    public Juego(Mazo mazo, Pozo pozo) {
-        this.mazo = mazo;
-        this.pozo = pozo;
-    }
-
+    
     public ArrayList<Participacion> getParticipantes() {
         return participantes;
     }

@@ -24,7 +24,7 @@ public class DatosPrueba {
         Administrador Bruno = new Administrador("Bruno", "234", "Bruno Barcelo");
         Administrador Nicole = new Administrador("Nicole", "852", "Nicole Fabian");
 
-        Jugador j1 = new Jugador(5000, "Luis", "pass123", "Luis Ramirez");
+        Jugador j1 = new Jugador(5000, "Luis", "123", "Luis Ramirez");
         Jugador j2 = new Jugador(2500, "Ana", "7898789Pass", "Ana Pou");
         Jugador j3 = new Jugador(1000, "Jessica", "otraPass", "Jessica Suarez");
         Jugador j4 = new Jugador(200, "Pepe", "pass125823", "Pepe Chaplin");
