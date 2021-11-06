@@ -18,8 +18,8 @@ public class Sistema extends Observable {
     private Sistema() {
     }
 
-    public Usuario loginUsuario(String usuario, String pass) {
-        return cUsuarios.loginUsuario(usuario, pass);
+    public Usuario loginJugador(String usuario, String pass) {
+        return cUsuarios.loginJugador(usuario, pass);
     }
 
     public Administrador loginAdmin(String usuario, String password) {

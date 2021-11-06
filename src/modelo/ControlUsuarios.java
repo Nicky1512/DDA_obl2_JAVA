@@ -35,7 +35,7 @@ public class ControlUsuarios {
         return null;
     }
     
-    public Jugador loginUsuario(String usuario, String password){
+    public Jugador loginJugador(String usuario, String password){
         Jugador loginRequest = (Jugador)login(usuario, password, jugadores );
         Sesion s = null;
         if(loginRequest != null){

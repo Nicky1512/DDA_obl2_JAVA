@@ -40,4 +40,17 @@ public class ControlJuegos {
         this.figuras.add(figura);
     }
 
+    public void barajarMazo(){
+        mazo.barajar();
+    }
+
+    public Carta[] repartirCartas(){
+        Carta[] cartas = null;
+        int contador = 0;
+        do{
+            cartas[contador] = mazo.robarCarta();
+            contador++;
+        }while(contador < 5);
+        return cartas;
+    }
 }
