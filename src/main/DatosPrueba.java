@@ -79,8 +79,9 @@ public class DatosPrueba {
 
         Mazo mazo = new Mazo(cartas);
         ControlJuegos.getInstancia().setMazo(mazo);
-        Juego juego = new Juego(mazo);
+        Juego juego = new Juego();
         ControlJuegos.getInstancia().setJuegoAIniciar(juego);
+        //TODO setear mazo en juego
 
         Color color = new Color("Color");
         Pierna pierna = new Pierna("Pierna");

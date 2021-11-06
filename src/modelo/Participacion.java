@@ -43,7 +43,5 @@ public class Participacion {
 
     public void setCartas(ArrayList<Carta> cartas) {
         this.cartas = cartas;
-    }
-
-      
+    }    
 }

@@ -6,9 +6,11 @@ import observador.Observable;
 
 public class Juego extends Observable {
 
-    private Date fechaInicio;
     private static int cantidadJugadores;
     private static double apuestaBase;
+    private Date fechaInicio;
+    private ArrayList<Mano> manos;
+    private ArrayList<Jugador> jugadores;
 
     public static int getCantidadJugadores() {
         return cantidadJugadores;
@@ -29,23 +31,8 @@ public class Juego extends Observable {
             Juego.apuestaBase = apuestaBase;
         }
     }
-    private Mazo mazo;
-    private ArrayList<Participacion> participantes;
-    
-    public Juego(Mazo mazo) {
-        this.mazo = mazo;
-    }
 
-    public ArrayList<Participacion> getParticipantes() {
-        return participantes;
-    }
-
-    public void setParticipantes(ArrayList<Participacion> participantes) {
-        this.participantes = participantes;
-    }
-   
-    public Mazo getMazo() {
-        return mazo;
+    public Juego() {
     }
 
     public void retirarJugador(Participacion jugador) {
@@ -60,10 +47,10 @@ public class Juego extends Observable {
     //Remueve jugadores con saldo 0
     private void removerJugadores() {
         //Hacer copia para que no de error de ejecucion ?
-        for (Participacion p : participantes) {
+        for (Jugador j : jugadores) {
 
-            if (p.getJugador().getSaldo() == 0) {
-                participantes.remove(p);
+            if (j.getSaldo() == 0) {
+                jugadores.remove(j);
             }
         }
     }
