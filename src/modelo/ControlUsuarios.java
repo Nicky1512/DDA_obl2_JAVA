@@ -3,11 +3,27 @@ package modelo;
 
 import java.util.ArrayList;
 
-public class SistemaUsuario {
+public class ControlUsuarios {
     
-    private ArrayList<Jugador> jugadores = new ArrayList();
-    private ArrayList<Administrador> admins = new ArrayList();
-    private ArrayList<Sesion> conectados = new ArrayList();
+    private ArrayList<Jugador> jugadores;
+    private ArrayList<Administrador> admins;
+    private ArrayList<Sesion> conectados;
+    
+    private static ControlUsuarios instancia;
+
+    private ControlUsuarios() {
+        jugadores = new ArrayList();
+        admins = new ArrayList();
+        conectados = new ArrayList();
+    }
+
+    public static ControlUsuarios getInstancia() {
+        if (instancia == null) {
+            instancia = new ControlUsuarios();
+        }
+        return instancia;
+    }
+
     
     public Usuario login (String usuario, String password, ArrayList listaUsuarios){
         Usuario user;

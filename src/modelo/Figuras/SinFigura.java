@@ -1,26 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package modelo.Figuras;
 
 import java.util.Arrays;
 import modelo.Carta;
 
-/**
- *
- * @author Bruno
- */
 public class SinFigura extends Figura {
-    
 
     private Carta CartaMasAlta;
-    
-    public SinFigura(){
-        
+
+    public SinFigura(String nombre) {
+        super(nombre);
     }
-    public SinFigura(Carta c, String nombre){
+
+    public SinFigura(Carta c, String nombre) {
         super(nombre);
         this.CartaMasAlta = c;
     }
@@ -38,9 +29,9 @@ public class SinFigura extends Figura {
         SinFigura ret = null;
         Arrays.sort(cartas);
         Carta c = cartas[0];
-        ret = new SinFigura(c, "Sin figura");
+        ret = new SinFigura(c, "SinFigura");
         return ret;
-        
+
     }
-    
+
 }

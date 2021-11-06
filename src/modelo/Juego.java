@@ -31,11 +31,9 @@ public class Juego extends Observable {
     }
     private Mazo mazo;
     private ArrayList<Participacion> participantes;
-    private Pozo pozo;
-
-    public Juego(Mazo mazo, Pozo pozo) {
+    
+    public Juego(Mazo mazo) {
         this.mazo = mazo;
-        this.pozo = pozo;
     }
 
     public ArrayList<Participacion> getParticipantes() {
@@ -45,15 +43,7 @@ public class Juego extends Observable {
     public void setParticipantes(ArrayList<Participacion> participantes) {
         this.participantes = participantes;
     }
-
-    public Pozo getPozo() {
-        return pozo;
-    }
-
-    public void setPozo(Pozo pozo) {
-        this.pozo = pozo;
-    }
-
+   
     public Mazo getMazo() {
         return mazo;
     }

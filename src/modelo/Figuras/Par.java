@@ -14,9 +14,10 @@ public class Par extends Figura {
         this.cartaMasAlta = cartaMasAlta;
     }
 
-    public Par() {
+    public Par(String nombre) {
+        super(nombre);
     }
-        
+
     public Carta getCartaPar() {
         return cartaPar;
     }
@@ -43,19 +44,21 @@ public class Par extends Figura {
         //TODO: Completar algoritmo para encontrar pares
         for (int i = 0; i < cartas.length; i++) {
             for (int j = 1; j < cartas.length - 1; j++) {
-                if(cartas[i].getValor().equals(cartas[j].getValor())){
-                    hayPar = true;               
+                if (cartas[i].getValor().equals(cartas[j].getValor())) {
+                    hayPar = true;
                     cartaPar = cartas[i];
-                    if(i == 0){
-                        cartaMayor = cartas[j+1];
-                    }else{
+                    if (i == 0) {
+                        cartaMayor = cartas[j + 1];
+                    } else {
                         cartaMayor = cartas[0];
                     }
                     break;
-                } 
+                }
             }
         }
-        if(hayPar) ret = new Par(cartaPar, cartaMayor, "Par");
+        if (hayPar) {
+            ret = new Par(cartaPar, cartaMayor, "Par");
+        }
         return ret;
     }
 }

@@ -12,7 +12,8 @@ public class Pierna extends Figura {
         this.cartaClave = cartaClave;
     }
 
-    public Pierna() {
+    public Pierna(String nombre) {
+       super(nombre);
     }
 
     public Carta getCartaClave() {
