@@ -3,12 +3,14 @@ package modelo;
 
 import modelo.Figuras.Figura;
 import java.util.ArrayList;
+import observador.Observable;
 
-public class Participacion {
+public class Participacion  {
     private double apuesta;
     private Jugador jugador;
     private ArrayList<Carta> cartas;
     private Figura figura;
+    public enum Eventos {salir, apostar, pasar, observarCartas} ;
 
     public Participacion(double apuesta, Jugador jugador, ArrayList<Carta> cartas) {
         this.apuesta = apuesta;
