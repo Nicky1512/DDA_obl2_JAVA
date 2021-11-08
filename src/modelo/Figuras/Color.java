@@ -30,4 +30,9 @@ public class Color extends Figura {
         }
         return ret;
     }    
+
+    @Override
+    public Figura desempatarFiguras(Figura[] figuras) {
+        throw new UnsupportedOperationException("Not supported yet."); //Todo: Crear metodo para desempatar Color
+    }
 }

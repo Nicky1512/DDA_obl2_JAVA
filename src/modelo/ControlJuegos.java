@@ -17,6 +17,14 @@ public class ControlJuegos {
         figuras = new ArrayList();
     }
 
+    public ArrayList<Figura> getFiguras() {
+        return figuras;
+    }
+
+    public void setFiguras(ArrayList<Figura> figuras) {
+        this.figuras = figuras;
+    }
+
     public static ControlJuegos getInstancia() {
         if (instancia == null) {
             instancia = new ControlJuegos();

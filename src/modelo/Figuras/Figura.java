@@ -21,4 +21,6 @@ public abstract class Figura {
     }
     
     public abstract Figura determinarFigura(Carta[] cartas);
+    
+    public abstract Figura desempatarFiguras(Figura[] figuras);
 }

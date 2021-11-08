@@ -1,4 +1,3 @@
-
 package modelo;
 
 import modelo.Figuras.Figura;
@@ -16,6 +15,10 @@ public class Participacion  {
         this.apuesta = apuesta;
         this.jugador = jugador;
         this.cartas = cartas;
+    }
+
+    public Figura getFigura() {
+        return figura;
     }
     
     public Participacion(){
@@ -46,4 +49,14 @@ public class Participacion  {
     public void setCartas(ArrayList<Carta> cartas) {
         this.cartas = cartas;
     }    
+    
+    public void figurasEnMano(){
+        for(Figura fig:ControlJuegos.getInstancia().getFiguras()){
+            Figura miFigura = fig.determinarFigura((Carta[]) this.cartas.toArray());
+            if(miFigura != null){
+                this.figura = miFigura;
+                break;
+            }
+        }
+    }
 }

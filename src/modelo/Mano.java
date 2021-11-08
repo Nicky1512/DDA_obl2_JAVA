@@ -1,6 +1,7 @@
 package modelo;
 
 import java.util.ArrayList;
+import modelo.Figuras.Figura;
 
 public class Mano {
 
@@ -36,5 +37,25 @@ public class Mano {
 
     public void setParticipantes(ArrayList<Participacion> participantes) {
         this.participantes = participantes;
+    }
+
+    public Jugador determinarGanador() {
+        for (Figura fig : ControlJuegos.getInstancia().getFiguras()) {
+            ArrayList<Participacion> participaciones = new ArrayList<Participacion>();
+            for (Participacion p : participantes) {
+                if (fig.getClass().getName() == p.getFigura().getClass().getName()) {
+                    participaciones.add(p);
+                }
+            }
+            if (participaciones.size() > 1) {
+                //Get figuras
+                //fig.desempatarFiguras(figuras);
+                //Se que figura gano, pero no se de quien es
+                return null;
+            } else if (participaciones.size() == 1) {
+                return participaciones.get(0).getJugador();
+            }
+        }
+        return null;
     }
 }
