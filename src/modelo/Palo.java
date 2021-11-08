@@ -1,6 +1,7 @@
 package modelo;
 
 public class Palo {
+
     private String nombre;
     private int orden;
 
@@ -24,5 +25,11 @@ public class Palo {
     public void setOrden(int orden) {
         this.orden = orden;
     }
-    
+
+    public static Palo determinarMayor(Palo p1, Palo p2) {
+        if (p1.orden > p2.orden) {
+            return p1;
+        }
+        return p2;
+    }
 }

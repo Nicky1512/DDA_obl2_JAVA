@@ -30,6 +30,14 @@ public class Carta implements Comparable<Carta> {
         this.palo = palo;
     }
 
+    public int getOrden() {
+        return orden;
+    }
+
+    public void setOrden(int orden) {
+        this.orden = orden;
+    }
+
 //    @Override
 //    public int compare(Carta o1, Carta o2) {
 //        return o2.orden - o1.orden;

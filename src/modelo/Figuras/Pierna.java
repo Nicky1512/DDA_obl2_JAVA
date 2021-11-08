@@ -2,6 +2,7 @@ package modelo.Figuras;
 
 import java.util.Arrays;
 import modelo.Carta;
+import modelo.Participacion;
 
 public class Pierna extends Figura {
 
@@ -44,8 +45,14 @@ public class Pierna extends Figura {
     }
 
     @Override
-    public Figura desempatarFiguras(Figura[] figuras) {
-        throw new UnsupportedOperationException("Not supported yet."); //Todo: Crear metodo para desempatar Pierna
+    public Participacion desempatarFiguras(Participacion[] participaciones) {
+        Participacion max = participaciones[0];
+        for (Participacion p : participaciones) {
+            if (((Color) max.getFigura()).getPalo().getOrden() < ((Color) p.getFigura()).getPalo().getOrden()) {
+                max = p;
+            }
+        }
+        return max;
     }
 
 }

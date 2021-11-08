@@ -2,16 +2,28 @@ package modelo.Figuras;
 
 import modelo.Carta;
 import modelo.Palo;
+import modelo.Participacion;
 
 public class Color extends Figura {
 
-    public Color(String nombre) {
+    private Palo palo;
+
+    public Color(String nombre, Palo palo) {
         super(nombre);
+        this.palo = palo;
     }
 
     public Color() {
     }
-    
+
+    public Palo getPalo() {
+        return palo;
+    }
+
+    public void setPalo(Palo palo) {
+        this.palo = palo;
+    }
+
     @Override
     public Figura determinarFigura(Carta[] cartas) {
         Boolean hayDistinto = false;
@@ -26,13 +38,19 @@ public class Color extends Figura {
             }
         }
         if (!hayDistinto) {
-            ret = new Color("Color");
+            ret = new Color("Color", palo);
         }
         return ret;
-    }    
+    }
 
     @Override
-    public Figura desempatarFiguras(Figura[] figuras) {
-        throw new UnsupportedOperationException("Not supported yet."); //Todo: Crear metodo para desempatar Color
+    public Participacion desempatarFiguras(Participacion[] participaciones) {
+        Participacion max = participaciones[0];
+        for (Participacion p : participaciones) {
+            if (((Color) max.getFigura()).getPalo().getOrden() < ((Color) p.getFigura()).getPalo().getOrden()) {
+                max = p;
+            }
+        }
+        return max;
     }
 }

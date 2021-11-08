@@ -47,11 +47,9 @@ public class Mano {
                     participaciones.add(p);
                 }
             }
-            if (participaciones.size() > 1) {
-                //Get figuras
-                //fig.desempatarFiguras(figuras);
-                //Se que figura gano, pero no se de quien es
-                return null;
+            if (participaciones.size() > 1) {          
+                Participacion ganador = fig.desempatarFiguras((Participacion[]) participaciones.toArray());
+                return ganador.getJugador();
             } else if (participaciones.size() == 1) {
                 return participaciones.get(0).getJugador();
             }

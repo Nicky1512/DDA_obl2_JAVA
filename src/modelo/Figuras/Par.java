@@ -2,6 +2,7 @@ package modelo.Figuras;
 
 import java.util.Arrays;
 import modelo.Carta;
+import modelo.Participacion;
 
 public class Par extends Figura {
 
@@ -63,7 +64,17 @@ public class Par extends Figura {
     }
 
     @Override
-    public Figura desempatarFiguras(Figura[] figuras) {
-        throw new UnsupportedOperationException("Not supported yet."); //Todo: Crear metodo para desempatar Par
+    public Participacion desempatarFiguras(Participacion[] participaciones) {
+        Participacion max = participaciones[0];
+        for (Participacion p : participaciones) {
+            if (((Par) max.getFigura()).getCartaPar().getOrden() < ((Par) p.getFigura()).getCartaPar().getOrden()) {
+                max = p;
+            } else if (((Par) max.getFigura()).getCartaPar().getOrden() == ((Par) p.getFigura()).getCartaPar().getOrden()) {
+                if (((Par) max.getFigura()).getCartaMasAlta().getOrden() == ((Par) p.getFigura()).getCartaMasAlta().getOrden()) {
+                    max = p;
+                }
+            }
+        }
+        return max;
     }
 }

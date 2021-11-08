@@ -1,6 +1,7 @@
 package modelo.Figuras;
 
 import modelo.Carta;
+import modelo.Participacion;
 
 public abstract class Figura {
     
@@ -22,5 +23,5 @@ public abstract class Figura {
     
     public abstract Figura determinarFigura(Carta[] cartas);
     
-    public abstract Figura desempatarFiguras(Figura[] figuras);
+    public abstract Participacion desempatarFiguras(Participacion[] participaciones);
 }

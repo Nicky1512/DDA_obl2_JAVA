@@ -2,6 +2,7 @@ package modelo.Figuras;
 
 import java.util.Arrays;
 import modelo.Carta;
+import modelo.Participacion;
 
 public class SinFigura extends Figura {
 
@@ -35,8 +36,14 @@ public class SinFigura extends Figura {
     }
 
     @Override
-    public Figura desempatarFiguras(Figura[] figuras) {
-        throw new UnsupportedOperationException("Not supported yet."); //Todo: Crear metodo para desempatar sinfigura
+    public Participacion desempatarFiguras(Participacion[] participaciones) {
+        Participacion max = participaciones[0];
+        for (Participacion p : participaciones) {
+            if (((SinFigura) max.getFigura()).getCartaMasAlra().getOrden() < ((SinFigura) p.getFigura()).getCartaMasAlra().getOrden()) {
+                max = p;
+            }
+        }
+        return max;
     }
 
 }
