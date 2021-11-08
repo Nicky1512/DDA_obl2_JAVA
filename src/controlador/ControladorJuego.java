@@ -37,9 +37,9 @@ public class ControladorJuego implements Observador{
         this.participacion = participacion;
     }
     
-    public void salir(){
-        participacion.quitar(this);
-    }
+//    public void salir(){
+//        participacion.quitar(this);
+//    }
     
     public void apostar(double a){
         participacion.setApuesta(a);
