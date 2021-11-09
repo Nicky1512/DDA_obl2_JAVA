@@ -47,5 +47,9 @@ public class Sistema extends Observable {
     public ArrayList<Juego> getJuegos(){
         return cJuegos.getJuegos();
     }
+    
+    public ArrayList<Sesion> getConexiones(){
+        return cUsuarios.getConexiones();
+    }
 
 }

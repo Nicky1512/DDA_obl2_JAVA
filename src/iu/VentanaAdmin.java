@@ -91,7 +91,7 @@ public class VentanaAdmin extends javax.swing.JDialog implements VistaAdmin {
 
     @Override
     public void mostrarPartidas(ArrayList<Juego> juegos) {
-        controlador.mostrarPartidas();
+        list_juegosEnLinea.setListData(controlador.getSistema().getConexiones().toArray());
     }
 
     @Override
