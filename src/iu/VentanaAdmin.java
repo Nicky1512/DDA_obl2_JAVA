@@ -5,6 +5,7 @@
  */
 package iu;
 
+import controlador.ControladorAdmin;
 import controlador.VistaAdmin;
 
 /**
@@ -16,9 +17,11 @@ public class VentanaAdmin extends javax.swing.JDialog implements VistaAdmin {
     /**
      * Creates new form VentanaAdmin
      */
+    private ControladorAdmin controlador;
     public VentanaAdmin(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        controlador = new ControladorAdmin();
     }
 
     /**
@@ -45,6 +48,16 @@ public class VentanaAdmin extends javax.swing.JDialog implements VistaAdmin {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    @Override
+    public void mostrarPartidas() {
+        controlador.mostrarPartidas();
+    }
+
+    @Override
+    public void salir() {
+        controlador.salir();
+    }
 
     /**
      * @param args the command line arguments
