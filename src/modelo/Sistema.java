@@ -43,5 +43,9 @@ public class Sistema extends Observable {
     public void empezarJuego() {
         cJuegos.empezarJuego();
     }
+    
+    public ArrayList<Juego> getJuegos(){
+        return cJuegos.getJuegos();
+    }
 
 }

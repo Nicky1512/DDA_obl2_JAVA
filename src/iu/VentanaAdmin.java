@@ -7,6 +7,9 @@ package iu;
 
 import controlador.ControladorAdmin;
 import controlador.VistaAdmin;
+import java.util.ArrayList;
+import modelo.Administrador;
+import modelo.Juego;
 
 /**
  *
@@ -18,10 +21,10 @@ public class VentanaAdmin extends javax.swing.JDialog implements VistaAdmin {
      * Creates new form VentanaAdmin
      */
     private ControladorAdmin controlador;
-    public VentanaAdmin(java.awt.Frame parent, boolean modal) {
+    public VentanaAdmin(java.awt.Frame parent, boolean modal, Administrador admin) {
         super(parent, modal);
         initComponents();
-        controlador = new ControladorAdmin();
+        controlador = new ControladorAdmin(this, admin);
     }
 
     /**
@@ -87,7 +90,7 @@ public class VentanaAdmin extends javax.swing.JDialog implements VistaAdmin {
     }// </editor-fold>//GEN-END:initComponents
 
     @Override
-    public void mostrarPartidas() {
+    public void mostrarPartidas(ArrayList<Juego> juegos) {
         controlador.mostrarPartidas();
     }
 

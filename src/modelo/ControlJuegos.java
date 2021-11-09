@@ -17,6 +17,10 @@ public class ControlJuegos {
         figuras = new ArrayList();
     }
 
+    public ArrayList<Juego> getJuegos() {
+        return juegos;
+    }
+
     public ArrayList<Figura> getFiguras() {
         return figuras;
     }
