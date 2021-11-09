@@ -13,7 +13,8 @@ public class Color extends Figura {
         this.palo = palo;
     }
 
-    public Color() {
+    public Color(String nombre) {
+        super(nombre);
     }
 
     public Palo getPalo() {
