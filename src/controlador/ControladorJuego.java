@@ -37,9 +37,9 @@ public class ControladorJuego implements Observador{
         this.participacion = participacion;
     }
     
-//    public void salir(){
-//        participacion.quitar(this);
-//    }
+    public void salir(){
+        participacion.quitar(this);
+    }
     
     public void apostar(double a){
         participacion.setApuesta(a);
@@ -66,6 +66,19 @@ public class ControladorJuego implements Observador{
 
     @Override
     public void actualizar(Object evento, Observable origen) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        switch((modelo.Participacion.Eventos)evento){
+            case salir: vista.terminarJuego();
+                break;
+            case apostar: vista.apostar(0); //VERIFICAR
+                break;
+            case pasar: vista.pasar();
+                break;
+            case observarCartas: vista.observarCartas();
+                break;
+        }
+    }
+
+    public void empezarJuego() {
+        sistema.empezarJuego();
     }
 }

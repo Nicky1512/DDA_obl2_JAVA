@@ -8,6 +8,8 @@ public class Sistema extends Observable {
 
     private ControlUsuarios cUsuarios = ControlUsuarios.getInstancia();
     private ControlJuegos cJuegos = ControlJuegos.getInstancia();
+    
+    public enum Eventos{cambioListaJugadoresEnLinea,nuevoJuego};
 
     private static Sistema instancia = new Sistema();
 
@@ -36,6 +38,10 @@ public class Sistema extends Observable {
 
     public void agregarAdmin(Administrador a) {
         cUsuarios.agregarAdmin(a);
+    }
+
+    public void empezarJuego() {
+        cJuegos.empezarJuego();
     }
 
 }
