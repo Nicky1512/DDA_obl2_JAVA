@@ -19,19 +19,18 @@ public class Mano {
 
     private void iniciarMano(ArrayList<Jugador> jugadores) {
         for (Jugador j : jugadores) {
-            ArrayList<Carta> cartas = new ArrayList<Carta>();
-            cartas.add(this.mazo.robarCarta());
+            ArrayList<Carta> cartas = this.mazo.repartirCartas();
             Participacion newPart = new Participacion(j, cartas);
             this.participantes.add(newPart);
         }
     }
 
-    public double getPozoInicial() {
-        return pozoInicial;
+    public double getTotalApostado() {
+        return totalApostado;
     }
 
-    public void setPozoInicial(int pozoInicial) {
-        this.pozoInicial = pozoInicial;
+    public double getPozoInicial() {
+        return pozoInicial;
     }
 
     public Mazo getMazo() {

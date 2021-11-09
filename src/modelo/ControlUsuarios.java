@@ -1,14 +1,13 @@
-
 package modelo;
 
 import java.util.ArrayList;
 
 public class ControlUsuarios {
-    
+
     private ArrayList<Jugador> jugadores;
     private ArrayList<Administrador> admins;
     private ArrayList<Sesion> conectados;
-    
+
     private static ControlUsuarios instancia;
 
     private ControlUsuarios() {
@@ -24,45 +23,41 @@ public class ControlUsuarios {
         return instancia;
     }
 
-    
-    public Usuario login (String usuario, String password, ArrayList listaUsuarios){
+    public Usuario login(String usuario, String password, ArrayList listaUsuarios) {
         Usuario user;
-        for(Object u:listaUsuarios){
-            user = (Usuario)u;
-            if(user.getNombreUsuario().equals(usuario) && user.getContraseña().equals(password))
+        for (Object u : listaUsuarios) {
+            user = (Usuario) u;
+            if (user.getNombreUsuario().equals(usuario) && user.getContraseña().equals(password)) {
                 return user;
+            }
         }
         return null;
     }
-    
-    public Jugador loginJugador(String usuario, String password){
-        Jugador loginRequest = (Jugador)login(usuario, password, jugadores );
+
+    public Jugador loginJugador(String usuario, String password) {
+        Jugador loginRequest = (Jugador) login(usuario, password, jugadores);
         Sesion s = null;
-        if(loginRequest != null){
+        if (loginRequest != null) {
             s = new Sesion(loginRequest);
             conectados.add(s);
             return loginRequest;
         }
         return null;
     }
-    
-    public Administrador loginAdmin(String usuario, String password){
-        Administrador loginRequest = (Administrador)login(usuario, password, admins );
-        if(loginRequest != null){
+
+    public Administrador loginAdmin(String usuario, String password) {
+        Administrador loginRequest = (Administrador) login(usuario, password, admins);
+        if (loginRequest != null) {
             return loginRequest;
         }
         return null;
     }
-    
-    public void agregarJugador(Jugador j){
+
+    public void agregarJugador(Jugador j) {
         jugadores.add(j);
     }
-    public void agregarAdmin(Administrador a){
+
+    public void agregarAdmin(Administrador a) {
         admins.add(a);
     }
-//    public ArrayList<Usuario> getUsuarios(){
-//        return usuarios;
-//    }
-    
-    
 }

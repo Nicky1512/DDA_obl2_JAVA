@@ -29,10 +29,6 @@ public class ControlJuegos {
         return mazo;
     }
 
-    public void setFiguras(ArrayList<Figura> figuras) {
-        this.figuras = figuras;
-    }
-
     public static ControlJuegos getInstancia() {
         if (instancia == null) {
             instancia = new ControlJuegos();
@@ -61,19 +57,5 @@ public class ControlJuegos {
 
     public void agregarFigura(Figura figura) {
         this.figuras.add(figura);
-    }
-
-    public void barajarMazo() {
-        mazo.barajar();
-    }
-
-    public Carta[] repartirCartas() {
-        Carta[] cartas = null;
-        int contador = 0;
-        do {
-            cartas[contador] = mazo.robarCarta();
-            contador++;
-        } while (contador < 5);
-        return cartas;
-    }
+    } 
 }

@@ -21,4 +21,11 @@ public class Jugador extends Usuario {
         return false;
     }
 
+    public void agregarSaldo(double monto) {
+        this.saldo += saldo;
+    }
+
+    public Boolean puedoApostar(double monto) {
+        return monto < this.saldo;
+    }
 }

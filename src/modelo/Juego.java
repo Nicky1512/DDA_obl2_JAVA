@@ -44,8 +44,17 @@ public class Juego extends Observable {
         return "";
     }
 
+    public Mano getManoActual() {
+        if (manos.size() > 0) {
+            Mano ultima = manos.get(manos.size() - 1);
+            return ultima;
+        } else {
+            return null;
+        }
+    }
+
     private void removerJugadores() {
-        //Hacer copia para que no de error de ejecucion ?
+        //Hacer copia del jugador para que no de error de ejecucion ?
         for (Jugador j : jugadores) {
 
             if (j.getSaldo() == 0) {
@@ -54,11 +63,15 @@ public class Juego extends Observable {
         }
     }
 
-    public void iniciarMano(double pozoAcumulado) {
-        removerJugadores();     //Remueve jugadores con saldo 0
-        if (this.jugadores.size() == 1) {
+    public void iniciarManoSig(double pozoAcumulado) {
+        removerJugadores();
+        if (this.jugadores.size() <= 1) {
             finalizarJuego();
         }
+        iniciarMano(pozoAcumulado);
+    }
+
+    public void iniciarMano(double pozoAcumulado) {
         descontarSaldoTodos();
         Mazo mazo = ControlJuegos.getInstancia().getMazo();
         mazo.barajar();
@@ -67,23 +80,38 @@ public class Juego extends Observable {
     }
 
     private void descontarSaldoTodos() {
+        int cont = 0;
         for (Jugador j : jugadores) {
             Boolean desconto = j.descontarSaldo(Juego.apuestaBase);
             if (!desconto) {
                 retirarJugador(j);
             }
+            cont++;
+        }
+        if (cont == 1) {
+            this.jugadores.get(0).agregarSaldo(apuestaBase); //Le devuelve el saldo al unico jugador que se desconto
+            finalizarJuego();
         }
     }
 
-    public void terminarMano() {
+    public void terminarMano() { //Deberia retornar una participacion
+        Mano actual = this.getManoActual();
+        Jugador ganador = actual.determinarGanador(); //Deberiamos retornar una participacion en lugar de un jugador
+        ganador.agregarSaldo(actual.getPozoInicial() + actual.getTotalApostado());
+        this.iniciarManoSig(0);
+    }
 
+    public void terminaManoSinApuestas() {
+        Mano actual = this.getManoActual();
+        this.iniciarManoSig(actual.getPozoInicial());
     }
 
     public void finalizarJuego() {
-
+        //TODO: Implementar
     }
 
     public void empezarJuego() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.fechaInicio = new Date();
+        iniciarMano(0);
     }
 }
