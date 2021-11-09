@@ -70,7 +70,7 @@ public class Par extends Figura {
             if (((Par) max.getFigura()).getCartaPar().getOrden() < ((Par) p.getFigura()).getCartaPar().getOrden()) {
                 max = p;
             } else if (((Par) max.getFigura()).getCartaPar().getOrden() == ((Par) p.getFigura()).getCartaPar().getOrden()) {
-                if (((Par) max.getFigura()).getCartaMasAlta().getOrden() == ((Par) p.getFigura()).getCartaMasAlta().getOrden()) {
+                if (((Par) max.getFigura()).getCartaMasAlta().getOrden() < ((Par) p.getFigura()).getCartaMasAlta().getOrden()) {
                     max = p;
                 }
             }

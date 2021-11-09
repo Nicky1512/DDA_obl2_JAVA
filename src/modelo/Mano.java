@@ -5,17 +5,28 @@ import modelo.Figuras.Figura;
 
 public class Mano {
 
-    private int pozoInicial;
+    private double pozoInicial;
     private Mazo mazo;
     private ArrayList<Participacion> participantes;
     private double totalApostado;
 
-    public Mano(int pozoInicial, Mazo mazo) {
+    public Mano(double pozoInicial, Mazo mazo, ArrayList<Jugador> jugadores) {
         this.pozoInicial = pozoInicial;
         this.mazo = mazo;
+        this.participantes = new ArrayList<Participacion>();
+        iniciarMano(jugadores);
     }
 
-    public int getPozoInicial() {
+    private void iniciarMano(ArrayList<Jugador> jugadores) {
+        for (Jugador j : jugadores) {
+            ArrayList<Carta> cartas = new ArrayList<Carta>();
+            cartas.add(this.mazo.robarCarta());
+            Participacion newPart = new Participacion(j, cartas);
+            this.participantes.add(newPart);
+        }
+    }
+
+    public double getPozoInicial() {
         return pozoInicial;
     }
 
@@ -47,7 +58,7 @@ public class Mano {
                     participaciones.add(p);
                 }
             }
-            if (participaciones.size() > 1) {          
+            if (participaciones.size() > 1) {
                 Participacion ganador = fig.desempatarFiguras((Participacion[]) participaciones.toArray());
                 return ganador.getJugador();
             } else if (participaciones.size() == 1) {

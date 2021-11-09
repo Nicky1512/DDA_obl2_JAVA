@@ -21,6 +21,10 @@ public class ControlJuegos {
         return figuras;
     }
 
+    public Mazo getMazo() {
+        return mazo;
+    }
+
     public void setFiguras(ArrayList<Figura> figuras) {
         this.figuras = figuras;
     }
@@ -36,6 +40,13 @@ public class ControlJuegos {
         this.mazo = mazo;
     }
 
+    public void empezarJuego() {
+        juegoAIniciar.empezarJuego();
+        Juego nuevo = new Juego();
+        this.juegos.add(nuevo);
+        this.juegoAIniciar = nuevo;
+    }
+
     public void setJuegoAIniciar(Juego juegoAIniciar) {
         this.juegoAIniciar = juegoAIniciar;
     }
@@ -48,17 +59,17 @@ public class ControlJuegos {
         this.figuras.add(figura);
     }
 
-    public void barajarMazo(){
+    public void barajarMazo() {
         mazo.barajar();
     }
 
-    public Carta[] repartirCartas(){
+    public Carta[] repartirCartas() {
         Carta[] cartas = null;
         int contador = 0;
-        do{
+        do {
             cartas[contador] = mazo.robarCarta();
             contador++;
-        }while(contador < 5);
+        } while (contador < 5);
         return cartas;
     }
 }

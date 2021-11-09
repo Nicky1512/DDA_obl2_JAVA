@@ -48,7 +48,7 @@ public class Pierna extends Figura {
     public Participacion desempatarFiguras(Participacion[] participaciones) {
         Participacion max = participaciones[0];
         for (Participacion p : participaciones) {
-            if (((Color) max.getFigura()).getPalo().getOrden() < ((Color) p.getFigura()).getPalo().getOrden()) {
+            if (((Pierna) max.getFigura()).getCartaClave().getOrden() < ((Pierna) p.getFigura()).getCartaClave().getOrden()) {
                 max = p;
             }
         }

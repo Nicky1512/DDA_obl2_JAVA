@@ -35,16 +35,15 @@ public class Juego extends Observable {
     public Juego() {
     }
 
-    public void retirarJugador(Participacion jugador) {
+    public void retirarJugador(Jugador jugador) {
         //TODO: Implementar
     }
 
-    public String agregarJugador(Participacion jugador) {
+    public String agregarJugador(Jugador jugador) {
         //TODO: Implementar
         return "";
     }
 
-    //Remueve jugadores con saldo 0
     private void removerJugadores() {
         //Hacer copia para que no de error de ejecucion ?
         for (Jugador j : jugadores) {
@@ -53,5 +52,38 @@ public class Juego extends Observable {
                 jugadores.remove(j);
             }
         }
+    }
+
+    public void iniciarMano(double pozoAcumulado) {
+        removerJugadores();     //Remueve jugadores con saldo 0
+        if (this.jugadores.size() == 1) {
+            finalizarJuego();
+        }
+        descontarSaldoTodos();
+        Mazo mazo = ControlJuegos.getInstancia().getMazo();
+        mazo.barajar();
+        Mano nuevaMano = new Mano(Juego.apuestaBase * jugadores.size() + pozoAcumulado, mazo, this.jugadores);
+        this.manos.add(nuevaMano);
+    }
+
+    private void descontarSaldoTodos() {
+        for (Jugador j : jugadores) {
+            Boolean desconto = j.descontarSaldo(Juego.apuestaBase);
+            if (!desconto) {
+                retirarJugador(j);
+            }
+        }
+    }
+
+    public void terminarMano() {
+
+    }
+
+    public void finalizarJuego() {
+
+    }
+
+    public void empezarJuego() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

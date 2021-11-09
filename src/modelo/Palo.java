@@ -26,10 +26,10 @@ public class Palo {
         this.orden = orden;
     }
 
-    public static Palo determinarMayor(Palo p1, Palo p2) {
-        if (p1.orden > p2.orden) {
-            return p1;
-        }
-        return p2;
-    }
+//    public static Palo determinarMayor(Palo p1, Palo p2) {
+//        if (p1.orden > p2.orden) {
+//            return p1;
+//        }
+//        return p2;
+//    }
 }
