@@ -60,4 +60,8 @@ public class ControlUsuarios {
     public void agregarAdmin(Administrador a) {
         admins.add(a);
     }
+    
+    public ArrayList<Sesion> getConexiones(){
+        return conectados;
+    }
 }

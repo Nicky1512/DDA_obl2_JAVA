@@ -42,13 +42,11 @@ public class ControladorJuego implements Observador{
     }
     
     public void apostar(double a){
-        participacion.setApuesta(a);
+        participacion.realizarApuesta(a);
     }
     
     public void pasar(){
-        //TOO
-        //Discutir METODO
-        participacion.setApuesta(0);
+        participacion.realizarApuesta(0);
     }
     
     public ArrayList<Carta> ObservarCartas(){

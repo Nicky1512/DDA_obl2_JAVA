@@ -41,7 +41,12 @@ public class ControladorAdmin implements Observador {
 
     @Override
     public void actualizar(Object evento, Observable origen) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        switch((Sistema.Eventos)evento){
+            case nuevoJuego: mostrarJuegos();
+            break;
+            case cambioListaJugadoresEnLinea: //TODO 
+            break;
+        }
     }
 
     public void mostrarPartidas() {
@@ -49,6 +54,7 @@ public class ControladorAdmin implements Observador {
     }
 
     public void salir() {
+        //TODO Admin extends Observable??
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
