@@ -10,6 +10,7 @@ import controlador.VistaAdmin;
 import java.util.ArrayList;
 import modelo.Administrador;
 import modelo.Juego;
+import modelo.Sesion;
 
 /**
  *
@@ -25,6 +26,7 @@ public class VentanaAdmin extends javax.swing.JDialog implements VistaAdmin {
         super(parent, modal);
         initComponents();
         controlador = new ControladorAdmin(this, admin);
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -57,6 +59,16 @@ public class VentanaAdmin extends javax.swing.JDialog implements VistaAdmin {
 
         jLabel7.setText("Jugadores en la partida: ");
 
+        list_juegosEnLinea.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                list_juegosEnLineaMouseClicked(evt);
+            }
+        });
+        list_juegosEnLinea.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                list_juegosEnLineaValueChanged(evt);
+            }
+        });
         jScrollPane2.setViewportView(list_juegosEnLinea);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -89,27 +101,15 @@ public class VentanaAdmin extends javax.swing.JDialog implements VistaAdmin {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    @Override
-    public void mostrarPartidas(ArrayList<Juego> juegos) {
-        list_juegosEnLinea.setListData(controlador.getSistema().getConexiones().toArray());
-    }
+    private void list_juegosEnLineaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_list_juegosEnLineaMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_list_juegosEnLineaMouseClicked
 
-    @Override
-    public void salir() {
-        controlador.salir();
-    }
+    private void list_juegosEnLineaValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_list_juegosEnLineaValueChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_list_juegosEnLineaValueChanged
 
-//    En el listado de juegos se muestra: 
-//    - Fecha/hora de inicio
-//    - Cantidad Jugadores
-//    - Total apostado
-//    - cantidad de manos jugadas
-    
-//    En el listado de jugadores de un juego se muestra: 
-//    - Nombre Completo
-//    - Total Apostado
-//    - Saldo al iniciar la partida
-//    - Total ganado(que puede ser negativo)
+
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -122,4 +122,34 @@ public class VentanaAdmin extends javax.swing.JDialog implements VistaAdmin {
     private javax.swing.JList list_juegosEnLinea;
     private javax.swing.JList list_jugadoresEnPartida;
     // End of variables declaration//GEN-END:variables
+
+
+    @Override
+    public void mostrarPartidas(ArrayList<Juego> juegos) {
+        list_juegosEnLinea.setListData(controlador.getSistema().getConexiones().toArray());
+//        list_juegosEnLinea.setListData(juegos.toArray());
+    }
+
+    @Override
+    public void salir() {
+        controlador.salir();
+    }
+    
+    @Override
+    public void mostrarJugadores() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void detallesPartida(String detalles) {
+        Sesion s = (Sesion) list_juegosEnLinea.getSelectedValue();
+        controlador.detalles(s);
+    }
+
+    @Override
+    public void detallesJugadores(String detalles) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
 }

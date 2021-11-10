@@ -7,6 +7,7 @@ public class ControlUsuarios {
     private ArrayList<Jugador> jugadores;
     private ArrayList<Administrador> admins;
     private ArrayList<Sesion> conectados;
+//    es necesario?
 
     private static ControlUsuarios instancia;
 
@@ -36,10 +37,10 @@ public class ControlUsuarios {
 
     public Jugador loginJugador(String usuario, String password) {
         Jugador loginRequest = (Jugador) login(usuario, password, jugadores);
-        Sesion s = null;
+//        Sesion s = null;
         if (loginRequest != null) {
-            s = new Sesion(loginRequest);
-            conectados.add(s);
+//            s = new Sesion(loginRequest);
+//            conectados.add(s);
             return loginRequest;
         }
         return null;

@@ -4,26 +4,26 @@ import java.util.Date;
 
 public class Sesion {
     private Date fechaSesion;
-    private Jugador jugadorEnLinea;
+    private Juego juegoEnLinea; 
 
-    public Sesion(Jugador jugadorEnLinea) {
+    public Sesion() {
         this.fechaSesion = new Date();
-        this.jugadorEnLinea = jugadorEnLinea;
     }
 
     public void setFechaSesion(Date fechaSesion) {
         this.fechaSesion = fechaSesion;
     }
-
-    public void setJugadorEnLinea(Jugador jugadorEnLinea) {
-        this.jugadorEnLinea = jugadorEnLinea;
-    }
-
     public Date getFechaSesion() {
         return fechaSesion;
     }
 
-    public Jugador getJugadorEnLinea() {
-        return jugadorEnLinea;
+    public Juego getJuegoEnLinea() {
+        return juegoEnLinea;
     }
+
+    public void setJuegoEnLinea(Juego juegoEnLinea) {
+        this.juegoEnLinea = juegoEnLinea;
+    }
+    
+    
 }
