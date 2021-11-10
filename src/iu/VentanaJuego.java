@@ -68,7 +68,7 @@ public class VentanaJuego extends javax.swing.JDialog implements VistaJuego {
     }
 
     @Override
-    public void mostrarCartas(Mazo mazo) {
+    public void mostrarCartas() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

@@ -9,9 +9,37 @@ public class Juego extends Observable {
     private static int cantidadJugadores;
     private static double apuestaBase;
     private Date fechaInicio;
+//    la fecha puede estar solo en sesion
     private ArrayList<Mano> manos;
     private ArrayList<Jugador> jugadores;
 
+    
+    
+    
+    public Date getFechaInicio() {
+        return fechaInicio;
+    }
+
+    public void setFechaInicio(Date fechaInicio) {
+        this.fechaInicio = fechaInicio;
+    }
+
+    public ArrayList<Mano> getManos() {
+        return manos;
+    }
+
+    public void setManos(ArrayList<Mano> manos) {
+        this.manos = manos;
+    }
+
+    public ArrayList<Jugador> getJugadores() {
+        return jugadores;
+    }
+
+    public void setJugadores(ArrayList<Jugador> jugadores) {
+        this.jugadores = jugadores;
+    }
+    
     public static int getCantidadJugadores() {
         return cantidadJugadores;
     }
