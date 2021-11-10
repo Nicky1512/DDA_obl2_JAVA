@@ -7,7 +7,6 @@ package iu;
 import controlador.ControladorJuego;
 import controlador.VistaJuego;
 import java.awt.Frame;
-import modelo.Mazo;
 import modelo.Participacion;
 
 /**
@@ -23,7 +22,7 @@ public class VentanaJuego extends javax.swing.JDialog implements VistaJuego {
     public VentanaJuego(Participacion p) {
         super((Frame)null, false);
         initComponents();
-        controlador = new ControladorJuego();
+        controlador = new ControladorJuego(this, p);
     }
 
     @SuppressWarnings("unchecked")
@@ -62,6 +61,17 @@ public class VentanaJuego extends javax.swing.JDialog implements VistaJuego {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void mostrarNombreJugador(String nombre) {
+        setTitle("Jugador: " + nombre);
+    }
+    
     @Override
     public void mostrarJuego() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -101,12 +111,4 @@ public class VentanaJuego extends javax.swing.JDialog implements VistaJuego {
     public void pasar() {
         controlador.pasar();
     }
-
-
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    // End of variables declaration//GEN-END:variables
 }

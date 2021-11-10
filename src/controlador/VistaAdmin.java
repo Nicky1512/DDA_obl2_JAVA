@@ -14,6 +14,8 @@ public interface VistaAdmin {
     
     public void detallesJugadores(String detalles);
     
+    public void mostrarNombreAdmin(String nombre);
+    
     public void salir();
     
 }

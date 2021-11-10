@@ -107,6 +107,7 @@ public class VentanaAdmin extends javax.swing.JDialog implements VistaAdmin {
 
     private void list_juegosEnLineaValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_list_juegosEnLineaValueChanged
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_list_juegosEnLineaValueChanged
 
 
@@ -126,8 +127,8 @@ public class VentanaAdmin extends javax.swing.JDialog implements VistaAdmin {
 
     @Override
     public void mostrarPartidas(ArrayList<Juego> juegos) {
-        list_juegosEnLinea.setListData(controlador.getSistema().getConexiones().toArray());
-//        list_juegosEnLinea.setListData(juegos.toArray());
+//        list_juegosEnLinea.setListData(controlador.getSistema().getConexiones().toArray());
+        list_juegosEnLinea.setListData(juegos.toArray());
     }
 
     @Override
@@ -137,18 +138,24 @@ public class VentanaAdmin extends javax.swing.JDialog implements VistaAdmin {
     
     @Override
     public void mostrarJugadores() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Sesion s = (Sesion) list_juegosEnLinea.getSelectedValue();
+        controlador.detallesJugadores(s);
     }
 
     @Override
     public void detallesPartida(String detalles) {
-        Sesion s = (Sesion) list_juegosEnLinea.getSelectedValue();
-        controlador.detalles(s);
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
     }
 
     @Override
     public void detallesJugadores(String detalles) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void mostrarNombreAdmin(String nombre) {
+        setTitle("Administrador: " + nombre);
     }
     
     

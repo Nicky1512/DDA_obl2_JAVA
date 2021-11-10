@@ -13,8 +13,8 @@ public class Juego extends Observable {
     private ArrayList<Mano> manos;
     private ArrayList<Jugador> jugadores;
 
-    
-    
+    public Juego() {
+    }
     
     public Date getFechaInicio() {
         return fechaInicio;
@@ -60,8 +60,7 @@ public class Juego extends Observable {
         }
     }
 
-    public Juego() {
-    }
+
 
     public void retirarJugador(Jugador jugador) {
         //TODO: Implementar

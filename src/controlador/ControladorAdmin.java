@@ -18,25 +18,11 @@ public class ControladorAdmin implements Observador {
         this.vista = vista;
         sistema.agregar(this);
         admin = a;
+        vista.mostrarNombreAdmin(a.getNombreCompleto());
         mostrarJuegos();
     }
-
-    public VistaAdmin getVista() {
-        return vista;
-    }
-
-    public Sistema getSistema() {
-        return sistema;
-    }
-
-    public void setVista(VistaAdmin vista) {
-        this.vista = vista;
-    }
-
-    public void setSistema(Sistema sistema) {
-        this.sistema = sistema;
-    }
-
+    
+    
     @Override
     public void actualizar(Object evento, Observable origen) {
         switch ((Sistema.Eventos) evento) {
@@ -61,17 +47,7 @@ public class ControladorAdmin implements Observador {
     public void detalles(Sesion s) {
 //        sesion tiene toda la info del juego en linea
         if (s != null) {
-            SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss dd/MM/yyyy");
-            String fecha = sdf.format(s.getFechaSesion());
-            int cantidadJugadores = s.getJuegoEnLinea().getJugadores().size();
-            int cantidadManos = s.getJuegoEnLinea().getManos().size();
-            double totalApostado = s.getJuegoEnLinea().getManoActual().getTotalApostado();
-            
-            String datos = "Fecha/Hora: " + fecha + 
-                    " | Cantidad Jugadores: " + cantidadJugadores +
-                    " | Cantidad Manos: " + cantidadManos +
-                    " | Total Apostado: " + totalApostado;
-            
+            String datos = s.toString();
             vista.detallesPartida(datos);
         }else vista.detallesPartida("");
     }
@@ -81,8 +57,11 @@ public class ControladorAdmin implements Observador {
 //    - Total apostado
 //    - cantidad de manos jugadas
 
-    public void detallesJugadores(){
-        
+    public void detallesJugadores(Sesion s){
+        if (s != null) {
+            String datos = ""; //TODO
+            vista.detallesJugadores(datos);
+        }else vista.detallesJugadores("");
     }
 //    En el listado de jugadores de un juego se muestra: 
 //    - Nombre Completo

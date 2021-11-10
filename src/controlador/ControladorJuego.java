@@ -13,6 +13,16 @@ public class ControladorJuego implements Observador{
     private Sistema sistema = Sistema.getInstancia();
     private Participacion participacion;
 
+    
+    public ControladorJuego(VistaJuego vista, Participacion participacion) {
+        this.vista = vista;
+        this.participacion = participacion;
+        sistema.agregar(this);
+        vista.mostrarNombreJugador(participacion.getJugador().getNombreCompleto());
+        
+    }
+
+
     public VistaJuego getVista() {
         return vista;
     }
@@ -53,15 +63,8 @@ public class ControladorJuego implements Observador{
         return participacion.getCartas();
     }
 
-    public ControladorJuego(VistaJuego vista, Participacion participacion) {
-        this.vista = vista;
-        this.participacion = participacion;
-    }
-    public ControladorJuego() {
-    }
     
-
-
+    
     @Override
     public void actualizar(Object evento, Observable origen) {
         switch((modelo.Participacion.Eventos)evento){
