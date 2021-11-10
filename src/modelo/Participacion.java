@@ -2,6 +2,7 @@ package modelo;
 
 import modelo.Figuras.Figura;
 import java.util.ArrayList;
+import modelo.excepciones.JuegoException;
 import observador.Observable;
 
 public class Participacion extends Observable {
@@ -40,12 +41,9 @@ public class Participacion extends Observable {
         return cartas;
     }
 
-    public Boolean realizarApuesta(double monto) {
-        if (this.jugador.puedoApostar(monto)) {
-            this.apuesta = monto;
-            return true;
-        }
-        return false;
+    public void realizarApuesta(double monto) throws JuegoException {
+        this.apuesta = monto;
+        this.jugador.descontarSaldo(monto);
     }
 
     public void figurasEnMano() {

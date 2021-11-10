@@ -2,9 +2,9 @@ package modelo;
 
 public abstract class Usuario {
 
-    private String nombreUsuario;
-    private String contraseña;
-    private String nombreCompleto;
+    protected String nombreUsuario;
+    protected String contraseña;
+    protected String nombreCompleto;
 
     public Usuario(String nombreUsuario, String contraseña, String nombreCompleto) {
         this.nombreUsuario = nombreUsuario;

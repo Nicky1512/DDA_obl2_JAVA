@@ -2,6 +2,7 @@ package modelo;
 
 import java.util.ArrayList;
 import modelo.Figuras.Figura;
+import modelo.excepciones.JuegoException;
 
 public class Mano {
 
@@ -9,11 +10,13 @@ public class Mano {
     private Mazo mazo;
     private ArrayList<Participacion> participantes;
     private double totalApostado;
+    private double apuestaFijada;
 
     public Mano(double pozoInicial, Mazo mazo, ArrayList<Jugador> jugadores) {
         this.pozoInicial = pozoInicial;
         this.mazo = mazo;
         this.participantes = new ArrayList<Participacion>();
+        this.apuestaFijada = 0;
         iniciarMano(jugadores);
     }
 
@@ -49,7 +52,29 @@ public class Mano {
         this.participantes = participantes;
     }
 
-    public Jugador determinarGanador() {
+    public void recibirApuesta(double monto, Participacion participacion) throws JuegoException {
+        Boolean puedoApostar = participacion.getJugador().puedoApostar(monto);
+        if (puedoApostar) {
+            if (this.apuestaFijada == 0) {
+                this.apuestaFijada = monto;
+                this.completarApuesta(monto, participacion);
+            }
+            if (this.apuestaFijada == monto) {
+                this.completarApuesta(monto, participacion);
+            } else {
+                throw new JuegoException("La apuesta ingresada es distinta a la apuesta fijada.");
+            }
+        } else {
+            throw new JuegoException("El jugador no dispone del saldo para realizar la apuesta");
+        }
+    }
+
+    public void completarApuesta(double monto, Participacion participacion) throws JuegoException{
+        this.totalApostado += monto;
+        participacion.realizarApuesta(monto);
+    }
+    
+    public Participacion determinarGanador() {
         for (Figura fig : ControlJuegos.getInstancia().getFiguras()) {
             ArrayList<Participacion> participaciones = new ArrayList<Participacion>();
             for (Participacion p : participantes) {
@@ -59,9 +84,9 @@ public class Mano {
             }
             if (participaciones.size() > 1) {
                 Participacion ganador = fig.desempatarFiguras((Participacion[]) participaciones.toArray());
-                return ganador.getJugador();
+                return ganador;
             } else if (participaciones.size() == 1) {
-                return participaciones.get(0).getJugador();
+                return participaciones.get(0);
             }
         }
         return null;

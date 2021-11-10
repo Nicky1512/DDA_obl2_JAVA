@@ -2,20 +2,20 @@ package modelo;
 
 import java.util.ArrayList;
 import java.util.Date;
+import modelo.excepciones.JuegoException;
 import observador.Observable;
 
 public class Juego extends Observable {
 
     private static int cantidadJugadores;
     private static double apuestaBase;
-    private Date fechaInicio;
-//    la fecha puede estar solo en sesion
+    private Date fechaInicio; //la fecha puede estar solo en sesion
     private ArrayList<Mano> manos;
     private ArrayList<Jugador> jugadores;
 
     public Juego() {
     }
-    
+
     public Date getFechaInicio() {
         return fechaInicio;
     }
@@ -39,7 +39,7 @@ public class Juego extends Observable {
     public void setJugadores(ArrayList<Jugador> jugadores) {
         this.jugadores = jugadores;
     }
-    
+
     public static int getCantidadJugadores() {
         return cantidadJugadores;
     }
@@ -60,15 +60,27 @@ public class Juego extends Observable {
         }
     }
 
-
-
-    public void retirarJugador(Jugador jugador) {
-        //TODO: Implementar
+    public void retirarJugador(Jugador jugador) throws JuegoException {
+        if (jugadores.contains(jugador)) {
+            jugadores.remove(jugador);
+        } else {
+            throw new JuegoException("El jugador no fue ingresado previamente.");
+        }
     }
 
-    public String agregarJugador(Jugador jugador) {
-        //TODO: Implementar
-        return "";
+    public void agregarJugador(Jugador jugador) throws JuegoException {
+        if (Juego.cantidadJugadores <= jugadores.size()) {
+            throw new JuegoException("El juego no puede aceptar mas jugadores");
+        }
+        if (jugador.getSaldo() < Juego.cantidadJugadores * Juego.apuestaBase) {
+            if (!jugadores.contains(jugador)) {
+                jugadores.add(jugador);
+            } else {
+                throw new JuegoException("El jugador ya fue ingresado al juego");
+            }
+        } else {
+            throw new JuegoException("El saldo actual es menor a " + Juego.cantidadJugadores + "apuestas base");
+        }
     }
 
     public Mano getManoActual() {
@@ -80,25 +92,35 @@ public class Juego extends Observable {
         }
     }
 
-    private void removerJugadores() {
-        //Hacer copia del jugador para que no de error de ejecucion ?
+    private void removerJugadores() throws JuegoException {
+        int cont = 0;
         for (Jugador j : jugadores) {
-
-            if (j.getSaldo() == 0) {
-                jugadores.remove(j);
+            Jugador copia = j;
+            if (copia.getSaldo() == 0) {
+                retirarJugador(copia);
             }
+            Boolean puedo = copia.puedoApostar(Juego.apuestaBase);
+            if (!puedo) {
+                retirarJugador(copia);
+            } else {
+                cont++;
+            }
+        }
+        if (cont == 1) {
+            finalizarJuego();
         }
     }
 
-    public void iniciarManoSig(double pozoAcumulado) {
+    public void iniciarManoSig(double pozoAcumulado) throws JuegoException {
         removerJugadores();
         if (this.jugadores.size() <= 1) {
             finalizarJuego();
+        } else {
+            iniciarMano(pozoAcumulado);
         }
-        iniciarMano(pozoAcumulado);
     }
 
-    public void iniciarMano(double pozoAcumulado) {
+    public void iniciarMano(double pozoAcumulado) throws JuegoException {
         descontarSaldoTodos();
         Mazo mazo = ControlJuegos.getInstancia().getMazo();
         mazo.barajar();
@@ -106,29 +128,20 @@ public class Juego extends Observable {
         this.manos.add(nuevaMano);
     }
 
-    private void descontarSaldoTodos() {
-        int cont = 0;
+    public void descontarSaldoTodos() throws JuegoException {
         for (Jugador j : jugadores) {
-            Boolean desconto = j.descontarSaldo(Juego.apuestaBase);
-            if (!desconto) {
-                retirarJugador(j);
-            }
-            cont++;
-        }
-        if (cont == 1) {
-            this.jugadores.get(0).agregarSaldo(apuestaBase); //Le devuelve el saldo al unico jugador que se desconto
-            finalizarJuego();
+            j.descontarSaldo(Juego.apuestaBase);
         }
     }
 
-    public void terminarMano() { //Deberia retornar una participacion
+    public void terminarMano() throws JuegoException {
         Mano actual = this.getManoActual();
-        Jugador ganador = actual.determinarGanador(); //Deberiamos retornar una participacion en lugar de un jugador
-        ganador.agregarSaldo(actual.getPozoInicial() + actual.getTotalApostado());
+        Participacion ganador = actual.determinarGanador();
+        ganador.getJugador().agregarSaldo(actual.getPozoInicial() + actual.getTotalApostado());
         this.iniciarManoSig(0);
     }
 
-    public void terminaManoSinApuestas() {
+    public void terminaManoSinApuestas() throws JuegoException {
         Mano actual = this.getManoActual();
         this.iniciarManoSig(actual.getPozoInicial());
     }
@@ -137,8 +150,12 @@ public class Juego extends Observable {
         //TODO: Implementar
     }
 
-    public void empezarJuego() {
+    public void empezarJuego() throws JuegoException {
         this.fechaInicio = new Date();
         iniciarMano(0);
+    }
+
+    public void recibirApuesta(double monto, Participacion participacion) throws JuegoException {
+        this.getManoActual().recibirApuesta(monto, participacion);
     }
 }

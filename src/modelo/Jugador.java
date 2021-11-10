@@ -1,5 +1,7 @@
 package modelo;
 
+import modelo.excepciones.JuegoException;
+
 public class Jugador extends Usuario {
 
     private double saldo;
@@ -13,12 +15,11 @@ public class Jugador extends Usuario {
         return saldo;
     }
 
-    public Boolean descontarSaldo(double desc) {
+    public Boolean descontarSaldo(double desc) throws JuegoException {
         if (desc <= this.saldo) {
-            this.saldo -= desc;
-            return true;
+            this.saldo -= desc;       
         }
-        return false;
+        throw new JuegoException("No se pudo descontar el saldo");
     }
 
     public void agregarSaldo(double monto) {
@@ -28,5 +29,18 @@ public class Jugador extends Usuario {
     public Boolean puedoApostar(double monto) {
         return monto < this.saldo;
     }
-    
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+
+        if (!(o instanceof Jugador)) {
+            return false;
+        }
+        
+        Jugador j = (Jugador) o;
+        return nombreUsuario.equals(j.nombreUsuario);
+    }
 }

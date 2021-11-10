@@ -2,6 +2,7 @@ package modelo;
 
 import java.util.ArrayList;
 import modelo.Figuras.Figura;
+import modelo.excepciones.JuegoException;
 
 public class ControlJuegos {
 
@@ -40,7 +41,7 @@ public class ControlJuegos {
         this.mazo = mazo;
     }
 
-    public void empezarJuego() {
+    public void empezarJuego() throws JuegoException {
         juegoAIniciar.empezarJuego();
         Juego nuevo = new Juego();
         this.juegos.add(nuevo);
@@ -51,11 +52,15 @@ public class ControlJuegos {
         this.juegoAIniciar = juegoAIniciar;
     }
 
-    public void agregarJuego(Juego unJuego) {
-
-    }
-
     public void agregarFigura(Figura figura) {
         this.figuras.add(figura);
-    } 
+    }
+    
+    public void agregarJugador(Jugador jugador) throws JuegoException{
+        this.juegoAIniciar.agregarJugador(jugador);
+    }
+    
+    public void recibirApuesta(double monto, Juego juego, Participacion participacion) throws JuegoException{
+        juego.recibirApuesta(monto, participacion);
+    }
 }
