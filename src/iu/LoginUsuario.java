@@ -7,6 +7,8 @@ package iu;
 
 import java.awt.Frame;
 import java.util.ArrayList;
+import modelo.Jugador;
+import modelo.Participacion;
 import modelo.Sistema;
 import modelo.Usuario;
 
@@ -27,6 +29,8 @@ public class LoginUsuario extends LoginAbstracto {
 
     @Override
     public void ejecutarProximoCasoUso(Object dato) {
+        
+        new VentanaJuego((Jugador)dato).setVisible(true);
     }
     
 }
