@@ -2,6 +2,7 @@ package controlador;
 
 import java.util.ArrayList;
 import modelo.Carta;
+import modelo.Jugador;
 import modelo.Participacion;
 import modelo.Sistema;
 import modelo.excepciones.JuegoException;
@@ -15,12 +16,11 @@ public class ControladorJuego implements Observador{
     private Participacion participacion;
 
     
-    public ControladorJuego(VistaJuego vista, Participacion participacion) {
+    public ControladorJuego(VistaJuego vista, Jugador j) {
         this.vista = vista;
-        this.participacion = participacion;
+        this.participacion = new Participacion();
         sistema.agregar(this);
-        vista.mostrarNombreJugador(participacion.getJugador().getNombreCompleto());
-        
+        vista.mostrarNombreJugador(j.getNombreCompleto());
     }
 
 
@@ -63,9 +63,7 @@ public class ControladorJuego implements Observador{
     public ArrayList<Carta> ObservarCartas(){
         return participacion.getCartas();
     }
-
-    
-    
+   
     @Override
     public void actualizar(Object evento, Observable origen) {
         switch((modelo.Participacion.Eventos)evento){

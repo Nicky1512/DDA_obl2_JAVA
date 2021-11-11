@@ -7,10 +7,8 @@ package iu;
 import controlador.ControladorJuego;
 import controlador.VistaJuego;
 import java.awt.Frame;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import modelo.Participacion;
+import modelo.Jugador;
 import modelo.excepciones.JuegoException;
 
 /**
@@ -23,10 +21,10 @@ public class VentanaJuego extends javax.swing.JDialog implements VistaJuego {
      * Creates new form VentanaJuego
      */
     private ControladorJuego controlador;
-    public VentanaJuego(Participacion p) {
+    public VentanaJuego(Jugador j) {
         super((Frame)null, false);
         initComponents();
-        controlador = new ControladorJuego(this, p);
+        controlador = new ControladorJuego(this, j);
     }
 
     @SuppressWarnings("unchecked")
