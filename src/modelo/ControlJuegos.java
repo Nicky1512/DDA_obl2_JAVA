@@ -55,12 +55,22 @@ public class ControlJuegos {
     public void agregarFigura(Figura figura) {
         this.figuras.add(figura);
     }
-    
-    public void agregarJugador(Jugador jugador) throws JuegoException{
+
+    public void agregarJugador(Jugador jugador) throws JuegoException {
         this.juegoAIniciar.agregarJugador(jugador);
     }
-    
-    public void recibirApuesta(double monto, Juego juego, Participacion participacion) throws JuegoException{
+
+    public void recibirApuesta(double monto, Juego juego, Participacion participacion) throws JuegoException {
         juego.recibirApuesta(monto, participacion);
+    }
+
+    public ArrayList<Juego> getJuegosEnCurso() {
+        ArrayList<Juego> ret = new ArrayList<Juego>();
+        for (Juego j : juegos) {
+            if(j.estaEnCurso()){
+                ret.add(j);
+            }
+        }
+        return ret;
     }
 }

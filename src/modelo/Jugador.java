@@ -15,7 +15,7 @@ public class Jugador extends Usuario {
         return saldo;
     }
 
-    public Boolean descontarSaldo(double desc) throws JuegoException {
+    public void descontarSaldo(double desc) throws JuegoException {
         if (desc <= this.saldo) {
             this.saldo -= desc;       
         }

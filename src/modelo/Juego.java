@@ -1,5 +1,7 @@
 package modelo;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import modelo.excepciones.JuegoException;
@@ -9,9 +11,10 @@ public class Juego extends Observable {
 
     private static int cantidadJugadores;
     private static double apuestaBase;
-    private Date fechaInicio; //la fecha puede estar solo en sesion
+    private Date fechaInicio;
     private ArrayList<Mano> manos;
     private ArrayList<Jugador> jugadores;
+    private Boolean enCurso;
 
     public Juego() {
     }
@@ -20,26 +23,18 @@ public class Juego extends Observable {
         return fechaInicio;
     }
 
-    public void setFechaInicio(Date fechaInicio) {
-        this.fechaInicio = fechaInicio;
-    }
-
     public ArrayList<Mano> getManos() {
         return manos;
-    }
-
-    public void setManos(ArrayList<Mano> manos) {
-        this.manos = manos;
     }
 
     public ArrayList<Jugador> getJugadores() {
         return jugadores;
     }
 
-    public void setJugadores(ArrayList<Jugador> jugadores) {
-        this.jugadores = jugadores;
+    public Boolean estaEnCurso(){
+        return enCurso;
     }
-
+    
     public static int getCantidadJugadores() {
         return cantidadJugadores;
     }
@@ -147,15 +142,31 @@ public class Juego extends Observable {
     }
 
     public void finalizarJuego() {
-        //TODO: Implementar
+        this.enCurso = false;
     }
 
     public void empezarJuego() throws JuegoException {
         this.fechaInicio = new Date();
+        this.enCurso = true;
         iniciarMano(0);
     }
 
     public void recibirApuesta(double monto, Participacion participacion) throws JuegoException {
         this.getManoActual().recibirApuesta(monto, participacion);
+    }
+
+    public double getTotalApostado() {
+        double total = 0;
+        for (Mano m : manos) {
+            total += m.getTotalApostado();
+        }
+        return total;
+    }
+
+    public String getDatosJuego() {
+        String patron = "dd/MM/yyyy HH:mm";
+        DateFormat df = new SimpleDateFormat(patron);
+        double totalApostado = this.getTotalApostado();
+        return "Fecha inicio: " + df.format(this.fechaInicio) + "Cant jugadores: " + this.jugadores.size() + "Total apostado: " + totalApostado + "Cant manos jugadas: " + this.manos.size();
     }
 }
