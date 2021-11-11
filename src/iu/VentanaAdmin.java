@@ -8,6 +8,7 @@ package iu;
 import controlador.ControladorAdmin;
 import controlador.VistaAdmin;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import modelo.Administrador;
 import modelo.Juego;
 import modelo.Sesion;
@@ -126,9 +127,8 @@ public class VentanaAdmin extends javax.swing.JDialog implements VistaAdmin {
 
 
     @Override
-    public void mostrarPartidas(ArrayList<Juego> juegos) {
-//        list_juegosEnLinea.setListData(controlador.getSistema().getConexiones().toArray());
-        list_juegosEnLinea.setListData(juegos.toArray());
+    public void mostrarSesiones(ArrayList<Sesion> sesiones) {
+        list_juegosEnLinea.setListData(sesiones.toArray());
     }
 
     @Override
@@ -156,6 +156,11 @@ public class VentanaAdmin extends javax.swing.JDialog implements VistaAdmin {
     @Override
     public void mostrarNombreAdmin(String nombre) {
         setTitle("Administrador: " + nombre);
+    }
+
+    @Override
+    public void error(String msg) {
+        JOptionPane.showMessageDialog(this, msg);
     }
     
     

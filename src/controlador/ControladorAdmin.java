@@ -41,7 +41,7 @@ public class ControladorAdmin implements Observador {
     }
 
     private void mostrarJuegos() {
-        vista.mostrarPartidas(sistema.getJuegos());
+        vista.mostrarSesiones(sistema.getConexiones());
     }
 
     public void detalles(Sesion s) {

@@ -7,7 +7,11 @@ package iu;
 import controlador.ControladorJuego;
 import controlador.VistaJuego;
 import java.awt.Frame;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import modelo.Participacion;
+import modelo.excepciones.JuegoException;
 
 /**
  *
@@ -37,10 +41,10 @@ public class VentanaJuego extends javax.swing.JDialog implements VistaJuego {
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        salirBtn = new javax.swing.JButton();
+        pasarBtn = new javax.swing.JButton();
+        apostarBtn = new javax.swing.JButton();
+        apuestaText = new javax.swing.JTextField();
 
         jLabel1.setText("jLabel1");
 
@@ -50,23 +54,18 @@ public class VentanaJuego extends javax.swing.JDialog implements VistaJuego {
         setTitle("Juegos en linea");
         setAlwaysOnTop(true);
 
-        jLabel4.setIcon(new javax.swing.ImageIcon("D:\\Nicky\\ORT\\DDA\\Obligatorio 2\\cartas\\Invertida.gif")); // NOI18N
+        salirBtn.setText("Salir");
 
-        jLabel8.setIcon(new javax.swing.ImageIcon("D:\\Nicky\\ORT\\DDA\\Obligatorio 2\\cartas\\Invertida.gif")); // NOI18N
+        pasarBtn.setText("Pasar");
 
-        jLabel9.setIcon(new javax.swing.ImageIcon("D:\\Nicky\\ORT\\DDA\\Obligatorio 2\\cartas\\Invertida.gif")); // NOI18N
+        apostarBtn.setText("Apostar");
+        apostarBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                apostarBtnActionPerformed(evt);
+            }
+        });
 
-        jLabel10.setIcon(new javax.swing.ImageIcon("D:\\Nicky\\ORT\\DDA\\Obligatorio 2\\cartas\\Invertida.gif")); // NOI18N
-
-        jLabel11.setIcon(new javax.swing.ImageIcon("D:\\Nicky\\ORT\\DDA\\Obligatorio 2\\cartas\\Invertida.gif")); // NOI18N
-
-        jButton1.setText("jButton1");
-
-        jButton2.setText("jButton1");
-
-        jButton3.setText("jButton1");
-
-        jTextField1.setText("jTextField1");
+        apuestaText.setText("jTextField1");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -83,10 +82,10 @@ public class VentanaJuego extends javax.swing.JDialog implements VistaJuego {
                                 .addComponent(jLabel11))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTextField1)
-                                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(apuestaText)
+                                    .addComponent(apostarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(pasarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(10, 10, 10)
                         .addComponent(jLabel4)
                         .addGap(10, 10, 10)
@@ -94,7 +93,7 @@ public class VentanaJuego extends javax.swing.JDialog implements VistaJuego {
                         .addGap(10, 10, 10)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel9)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(salirBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(379, 379, 379)
                         .addComponent(jLabel2)))
@@ -113,22 +112,25 @@ public class VentanaJuego extends javax.swing.JDialog implements VistaJuego {
                 .addGap(25, 25, 25)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(apuestaText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(salirBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pasarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(apostarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(25, 25, 25))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void apostarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_apostarBtnActionPerformed
+        apostar();
+    }//GEN-LAST:event_apostarBtnActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton apostarBtn;
+    private javax.swing.JTextField apuestaText;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -137,7 +139,8 @@ public class VentanaJuego extends javax.swing.JDialog implements VistaJuego {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JButton pasarBtn;
+    private javax.swing.JButton salirBtn;
     // End of variables declaration//GEN-END:variables
 
     @Override
@@ -158,6 +161,7 @@ public class VentanaJuego extends javax.swing.JDialog implements VistaJuego {
     @Override
     public void terminarJuego() {
         controlador.salir();
+        
     }
 
     @Override
@@ -167,7 +171,11 @@ public class VentanaJuego extends javax.swing.JDialog implements VistaJuego {
 
     @Override
     public void empezarJuego() {
-        controlador.empezarJuego();
+        try {
+            controlador.empezarJuego();
+        } catch (JuegoException ex) {
+            controlador.getVista();
+        }
     }
 
     @Override
@@ -176,12 +184,27 @@ public class VentanaJuego extends javax.swing.JDialog implements VistaJuego {
     }
 
     @Override
-    public void apostar(double a) {
-        controlador.apostar(a);
+    public void apostar() {
+        double apuesta = Double.parseDouble(apuestaText.getText());
+        try {
+            controlador.apostar(apuesta);
+        } catch (JuegoException ex) {
+            error(ex.getMessage());
+        }
     }
 
     @Override
     public void pasar() {
-        controlador.pasar();
+        try {
+            controlador.pasar();
+        } catch (JuegoException ex) {
+            error(ex.getMessage());
+        }
+    }
+
+    @Override
+    public void error(String msg) {
+        JOptionPane.showMessageDialog(this, msg);
+
     }
 }
