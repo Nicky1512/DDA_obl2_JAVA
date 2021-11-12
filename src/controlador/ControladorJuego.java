@@ -2,7 +2,9 @@ package controlador;
 
 import java.util.ArrayList;
 import modelo.Carta;
+import modelo.Juego;
 import modelo.Jugador;
+import modelo.Mano;
 import modelo.Participacion;
 import modelo.Sistema;
 import modelo.excepciones.JuegoException;
@@ -11,25 +13,34 @@ import observador.Observador;
 
 public class ControladorJuego implements Observador{
 
-    private VistaJuego vista;
+    private VistaJuego vistaJuego;
+    private VistaEspera vistaEspera;
     private Sistema sistema = Sistema.getInstancia();
     private Participacion participacion;
+    private Juego juego;
 
     
-    public ControladorJuego(VistaJuego vista, Jugador j) {
-        this.vista = vista;
-        this.participacion = new Participacion();
+    public ControladorJuego(VistaJuego vista, Jugador jugador) {
+        this.vistaJuego = vista;
+//        this.participacion = new Participacion();
         sistema.agregar(this);
-        vista.mostrarNombreJugador(j.getNombreCompleto());
+        vista.mostrarNombreJugador(jugador.getNombreCompleto());
+        
+    }
+    
+    public ControladorJuego(VistaEspera vista, Jugador jugador) throws JuegoException {
+        this.vistaEspera = vista;
+        sistema.agregar(this);
+        cargarJugador(jugador);
     }
 
 
     public VistaJuego getVista() {
-        return vista;
+        return vistaJuego;
     }
 
     public void setVista(VistaJuego vista) {
-        this.vista = vista;
+        this.vistaJuego = vista;
     }
 
     public Sistema getSistema() {
@@ -63,17 +74,21 @@ public class ControladorJuego implements Observador{
     public ArrayList<Carta> ObservarCartas(){
         return participacion.getCartas();
     }
+    
+//    public void expulsarJugador(Participacion p, Mano m){
+//        sistema.expulsarJugador(p, m);
+//    }
    
     @Override
     public void actualizar(Object evento, Observable origen) {
         switch((modelo.Participacion.Eventos)evento){
-            case salir: vista.terminarJuego();
+            case salir: vistaJuego.terminarJuego();
                 break;
-            case apostar: vista.apostar(); //VERIFICARe SI NO ES NECESARIO RECIBIR PARAMETRO
+            case apostar: vistaJuego.apostar(); //VERIFICARe SI NO ES NECESARIO RECIBIR PARAMETRO
                 break;
-            case pasar: vista.pasar();
+            case pasar: vistaJuego.pasar();
                 break;
-            case observarCartas: vista.observarCartas();
+            case observarCartas: vistaJuego.observarCartas();
                 break;
         }
     }
@@ -81,4 +96,13 @@ public class ControladorJuego implements Observador{
     public void empezarJuego() throws JuegoException {
         sistema.empezarJuego();
     }
+    
+    public void agruparJugadoresProximoJuego(Jugador j){
+        sistema.agruparJugadores(j);
+    }
+
+    private void cargarJugador(Jugador jugador) throws JuegoException {
+        juego.agregarJugador(jugador);
+    }
+
 }

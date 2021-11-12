@@ -7,10 +7,13 @@ package iu;
 
 import java.awt.Frame;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import modelo.Jugador;
 import modelo.Participacion;
 import modelo.Sistema;
 import modelo.Usuario;
+import modelo.excepciones.JuegoException;
 
 /**
  *
@@ -30,7 +33,11 @@ public class LoginUsuario extends LoginAbstracto {
     @Override
     public void ejecutarProximoCasoUso(Object dato) {
         
-        new VentanaJuego((Jugador)dato).setVisible(true);
+        try {
+            new VentanaEspera((Jugador)dato).setVisible(true);
+        } catch (JuegoException ex) {
+            Logger.getLogger(LoginUsuario.class.getName()).log(Level.SEVERE, null, ex); //CAMBIA MENSAJE
+        }
     }
     
 }

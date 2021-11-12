@@ -3,7 +3,7 @@ package main;
 import java.util.ArrayList;
 import modelo.Administrador;
 import modelo.Carta;
-import modelo.ControlJuegos;
+import modelo.SistemaJuegos;
 import modelo.Figuras.Color;
 import modelo.Figuras.Par;
 import modelo.Figuras.Pierna;
@@ -78,9 +78,9 @@ public class DatosPrueba {
         }
 
         Mazo mazo = new Mazo(cartas);
-        ControlJuegos.getInstancia().setMazo(mazo);
+        SistemaJuegos.getInstancia().setMazo(mazo);
         Juego juego = new Juego();
-        ControlJuegos.getInstancia().setJuegoAIniciar(juego);
+        SistemaJuegos.getInstancia().setJuegoAIniciar(juego);
         //TODO setear mazo en juego
 
         Color color = new Color("Color");
