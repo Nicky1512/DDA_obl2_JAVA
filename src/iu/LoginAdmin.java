@@ -25,7 +25,7 @@ public class LoginAdmin extends LoginAbstracto{
 
     @Override
     public void ejecutarProximoCasoUso(Object dato) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        new VentanaAdmin((Administrador)dato).setVisible(true);
     }
     
 }

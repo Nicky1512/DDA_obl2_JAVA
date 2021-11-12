@@ -17,6 +17,7 @@ public abstract class LoginAbstracto extends javax.swing.JFrame {
     public LoginAbstracto() {
         initComponents();
         setLocationRelativeTo(null);
+        setTitle("Login");
     }
 
     /**
@@ -35,6 +36,7 @@ public abstract class LoginAbstracto extends javax.swing.JFrame {
         passwordText = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Login");
 
         jLabel1.setText("Usuario");
 

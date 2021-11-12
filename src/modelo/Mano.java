@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import modelo.Figuras.Figura;
 import modelo.excepciones.JuegoException;
 
-public class Mano {
+public class Mano{
 
     private double pozoInicial;
     private Mazo mazo;
@@ -12,7 +12,7 @@ public class Mano {
     private double apuestaFijada;
 
     private ArrayList<Participacion> participantes;
-
+    
     public Mano(double pozoInicial, Mazo mazo, ArrayList<Jugador> jugadores) {
         this.pozoInicial = pozoInicial;
         this.mazo = mazo;

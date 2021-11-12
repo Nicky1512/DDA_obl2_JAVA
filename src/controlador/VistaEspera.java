@@ -7,6 +7,6 @@ package controlador;
 
 public interface VistaEspera {
     
-    public boolean agruparJugadores();
+    public void agruparJugadores();
     
 }

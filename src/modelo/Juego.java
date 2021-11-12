@@ -18,6 +18,8 @@ public class Juego extends Observable {
     private ArrayList<Mano> manos;
     private ArrayList<Jugador> jugadores = new ArrayList<>();
 
+    public enum Eventos{nuevoJugador, nuevaMano};
+    
     public Juego() {
         setCantidadJugadores(5);
     }
@@ -65,6 +67,8 @@ public class Juego extends Observable {
         if (jugador.getSaldo() > Juego.cantidadJugadores * Juego.apuestaBase) {
             if (!jugadores.contains(jugador)) {
                 jugadores.add(jugador);
+                avisar(Eventos.nuevoJugador);
+                Sistema.getInstancia().avisar(Sistema.Eventos.cambioListaJugadoresEnLinea);
             } else {
                 throw new JuegoException("El jugador ya fue ingresado al juego");
             }
@@ -107,6 +111,7 @@ public class Juego extends Observable {
         mazo.barajar();
         Mano nuevaMano = new Mano(Juego.apuestaBase * jugadores.size() + pozoAcumulado, mazo, this.jugadores);
         this.manos.add(nuevaMano);
+        avisar(Eventos.nuevaMano);
     }
 
     public Mano getManoActual() {
@@ -124,6 +129,7 @@ public class Juego extends Observable {
             finalizarJuego();
         } else {
             iniciarMano(pozoAcumulado);
+            avisar(Eventos.nuevaMano);
         }
     }
 

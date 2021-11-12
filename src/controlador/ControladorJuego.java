@@ -1,6 +1,8 @@
 package controlador;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import modelo.Carta;
 import modelo.Juego;
 import modelo.Jugador;
@@ -10,7 +12,7 @@ import modelo.excepciones.JuegoException;
 import observador.Observable;
 import observador.Observador;
 
-public class ControladorJuego implements Observador{
+public class ControladorJuego implements Observador {
 
     private VistaJuego vistaJuego;
     private VistaEspera vistaEspera;
@@ -18,21 +20,19 @@ public class ControladorJuego implements Observador{
     private Participacion participacion;
     private Juego juego = new Juego();
 
-    
     public ControladorJuego(VistaJuego vista, Jugador jugador) {
         this.vistaJuego = vista;
 //        this.participacion = new Participacion();
         sistema.agregar(this);
         vista.mostrarNombreJugador(jugador.getNombreCompleto());
-        
+
     }
-    
+
     public ControladorJuego(VistaEspera vista, Jugador jugador) throws JuegoException {
         this.vistaEspera = vista;
         sistema.agregar(this);
         cargarJugador(jugador);
     }
-
 
     public VistaJuego getVista() {
         return vistaJuego;
@@ -57,46 +57,53 @@ public class ControladorJuego implements Observador{
     public void setParticipacion(Participacion participacion) {
         this.participacion = participacion;
     }
-    
-    public void salir(){
+
+    public void salir() {
         participacion.quitar(this);
     }
-    
-    public void apostar(double a) throws JuegoException{
+
+    public void apostar(double a) throws JuegoException {
         participacion.realizarApuesta(a);
     }
-    
-    public void pasar() throws JuegoException{
+
+    public void pasar() throws JuegoException {
         participacion.realizarApuesta(0);
     }
-    
-    public ArrayList<Carta> ObservarCartas(){
+
+    public ArrayList<Carta> ObservarCartas() {
         return participacion.getCartas();
     }
-    
+
 //    public void expulsarJugador(Participacion p, Mano m){
 //        sistema.expulsarJugador(p, m);
 //    }
-   
     @Override
     public void actualizar(Object evento, Observable origen) {
-        switch((modelo.Participacion.Eventos)evento){
-            case salir: vistaJuego.terminarJuego();
-                break;
-            case apostar: vistaJuego.apostar(); //VERIFICAR SI NO ES NECESARIO RECIBIR PARAMETRO
-                break;
-            case pasar: vistaJuego.pasar();
-                break;
-            case observarCartas: vistaJuego.observarCartas();
-                break;
+//        switch((modelo.Participacion.Eventos)evento){
+//            
+//            case salir: vistaJuego.terminarJuego();
+//                break;
+//            case apostar: vistaJuego.apostar(); //VERIFICAR SI NO ES NECESARIO RECIBIR PARAMETRO
+//                break;
+//            case pasar: vistaJuego.pasar();
+//                break;
+//            case observarCartas: vistaJuego.observarCartas();
+//                break;
+//        }
+        if (evento.equals(Juego.Eventos.nuevoJugador)) {
+                mostrarVentanaEspera();
         }
+    }
+
+    public void mostrarVentanaEspera() {
+        vistaEspera.agruparJugadores();
     }
 
     public void empezarJuego() throws JuegoException {
         sistema.empezarJuego();
     }
-    
-    public void agruparJugadoresProximoJuego(Jugador j){
+
+    public void agruparJugadoresProximoJuego(Jugador j) {
         sistema.agruparJugadores(j);
     }
 

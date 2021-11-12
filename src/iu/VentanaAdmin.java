@@ -7,10 +7,10 @@ package iu;
 
 import controlador.ControladorAdmin;
 import controlador.VistaAdmin;
+import java.awt.Frame;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import modelo.Administrador;
-import modelo.Juego;
 import modelo.Sesion;
 
 /**
@@ -23,11 +23,13 @@ public class VentanaAdmin extends javax.swing.JDialog implements VistaAdmin {
      * Creates new form VentanaAdmin
      */
     private ControladorAdmin controlador;
-    public VentanaAdmin(java.awt.Frame parent, boolean modal, Administrador admin) {
-        super(parent, modal);
+    
+    public VentanaAdmin(Administrador admin) {
+        super((Frame)null, false);
         initComponents();
         controlador = new ControladorAdmin(this, admin);
         setLocationRelativeTo(null);
+        setTitle("Administrador: " + admin.getNombreCompleto());
     }
 
     /**
@@ -53,6 +55,7 @@ public class VentanaAdmin extends javax.swing.JDialog implements VistaAdmin {
         jLabel2.setText("jLabel2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Juegos en linea");
 
         jLabel3.setText("Juegos en linea: ");
 
@@ -127,8 +130,8 @@ public class VentanaAdmin extends javax.swing.JDialog implements VistaAdmin {
 
 
     @Override
-    public void mostrarSesiones(ArrayList<Sesion> sesiones) {
-        list_juegosEnLinea.setListData(sesiones.toArray());
+    public void mostrarSesiones(ArrayList<Sesion> conexiones) {
+        list_juegosEnLinea.setListData(conexiones.toArray());
     }
 
     @Override
