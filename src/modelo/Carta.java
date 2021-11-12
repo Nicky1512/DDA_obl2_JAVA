@@ -1,7 +1,5 @@
 package modelo;
 
-import java.util.Comparator;
-
 public class Carta implements Comparable<Carta> {
 
     public Carta(String valor, int orden, Palo palo) {
@@ -37,11 +35,6 @@ public class Carta implements Comparable<Carta> {
     public void setOrden(int orden) {
         this.orden = orden;
     }
-
-//    @Override
-//    public int compare(Carta o1, Carta o2) {
-//        return o2.orden - o1.orden;
-//    }
 
     @Override
     public int compareTo(Carta o) {

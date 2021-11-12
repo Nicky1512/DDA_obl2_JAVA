@@ -11,12 +11,15 @@ public class Juego extends Observable {
 
     private static int cantidadJugadores;
     private static double apuestaBase;
-    private Date fechaInicio;
-    private ArrayList<Mano> manos;
-    private ArrayList<Jugador> jugadores;
+
     private Boolean enCurso;
+    private Date fechaInicio;
+
+    private ArrayList<Mano> manos;
+    private ArrayList<Jugador> jugadores = new ArrayList<>();
 
     public Juego() {
+        setCantidadJugadores(5);
     }
 
     public Date getFechaInicio() {
@@ -31,10 +34,10 @@ public class Juego extends Observable {
         return jugadores;
     }
 
-    public Boolean estaEnCurso(){
+    public Boolean estaEnCurso() {
         return enCurso;
     }
-    
+
     public static int getCantidadJugadores() {
         return cantidadJugadores;
     }
@@ -55,19 +58,11 @@ public class Juego extends Observable {
         }
     }
 
-    public void retirarJugador(Jugador jugador) throws JuegoException {
-        if (jugadores.contains(jugador)) {
-            jugadores.remove(jugador);
-        } else {
-            throw new JuegoException("El jugador no fue ingresado previamente.");
-        }
-    }
-
     public void agregarJugador(Jugador jugador) throws JuegoException {
         if (Juego.cantidadJugadores <= jugadores.size()) {
             throw new JuegoException("El juego no puede aceptar mas jugadores");
         }
-        if (jugador.getSaldo() < Juego.cantidadJugadores * Juego.apuestaBase) {
+        if (jugador.getSaldo() > Juego.cantidadJugadores * Juego.apuestaBase) {
             if (!jugadores.contains(jugador)) {
                 jugadores.add(jugador);
             } else {
@@ -78,12 +73,11 @@ public class Juego extends Observable {
         }
     }
 
-    public Mano getManoActual() {
-        if (manos.size() > 0) {
-            Mano ultima = manos.get(manos.size() - 1);
-            return ultima;
+    public void retirarJugador(Jugador jugador) throws JuegoException {
+        if (jugadores.contains(jugador)) {
+            jugadores.remove(jugador);
         } else {
-            return null;
+            throw new JuegoException("El jugador no fue ingresado previamente.");
         }
     }
 
@@ -106,15 +100,7 @@ public class Juego extends Observable {
         }
     }
 
-    public void iniciarManoSig(double pozoAcumulado) throws JuegoException {
-        removerJugadores();
-        if (this.jugadores.size() <= 1) {
-            finalizarJuego();
-        } else {
-            iniciarMano(pozoAcumulado);
-        }
-    }
-
+//    Ojo hay dos iniciarMano, en Mano hay otro
     public void iniciarMano(double pozoAcumulado) throws JuegoException {
         descontarSaldoTodos();
         Mazo mazo = SistemaJuegos.getInstancia().getMazo();
@@ -123,9 +109,21 @@ public class Juego extends Observable {
         this.manos.add(nuevaMano);
     }
 
-    public void descontarSaldoTodos() throws JuegoException {
-        for (Jugador j : jugadores) {
-            j.descontarSaldo(Juego.apuestaBase);
+    public Mano getManoActual() {
+        if (manos.size() > 0) {
+            Mano ultima = manos.get(manos.size() - 1);
+            return ultima;
+        } else {
+            return null;
+        }
+    }
+
+    public void iniciarManoSig(double pozoAcumulado) throws JuegoException {
+        removerJugadores();
+        if (this.jugadores.size() <= 1) {
+            finalizarJuego();
+        } else {
+            iniciarMano(pozoAcumulado);
         }
     }
 
@@ -141,14 +139,20 @@ public class Juego extends Observable {
         this.iniciarManoSig(actual.getPozoInicial());
     }
 
-    public void finalizarJuego() {
-        this.enCurso = false;
+    public void descontarSaldoTodos() throws JuegoException {
+        for (Jugador j : jugadores) {
+            j.descontarSaldo(Juego.apuestaBase);
+        }
     }
 
     public void empezarJuego() throws JuegoException {
         this.fechaInicio = new Date();
         this.enCurso = true;
         iniciarMano(0);
+    }
+
+    public void finalizarJuego() {
+        this.enCurso = false;
     }
 
     public void recibirApuesta(double monto, Participacion participacion) throws JuegoException {

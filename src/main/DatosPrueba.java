@@ -29,8 +29,8 @@ public class DatosPrueba {
         Sistema.getInstancia().agregarAdmin(Nicole);
         Sistema.getInstancia().agregarAdmin(Lucas);
 
-        Jugador j1 = new Jugador(5000, "Luis", "123", "Luis Ramirez");
-        Jugador j2 = new Jugador(2500, "Ana", "7898789Pass", "Ana Pou");
+        Jugador j1 = new Jugador(500000, "Luis", "123", "Luis Ramirez");
+        Jugador j2 = new Jugador(2500, "Ana", "123", "Ana Pou");
         Jugador j3 = new Jugador(1000, "Jessica", "otraPass", "Jessica Suarez");
         Jugador j4 = new Jugador(200, "Pepe", "pass125823", "Pepe Chaplin");
         Jugador j5 = new Jugador(8000, "Rosa", "Ppass123", "Rosa Flores");

@@ -8,25 +8,17 @@ public class Mano {
 
     private double pozoInicial;
     private Mazo mazo;
-    private ArrayList<Participacion> participantes;
     private double totalApostado;
     private double apuestaFijada;
+
+    private ArrayList<Participacion> participantes;
 
     public Mano(double pozoInicial, Mazo mazo, ArrayList<Jugador> jugadores) {
         this.pozoInicial = pozoInicial;
         this.mazo = mazo;
-        this.participantes = new ArrayList<Participacion>();
+        this.participantes = new ArrayList<>();
         this.apuestaFijada = 0;
         iniciarMano(jugadores);
-    }
-
-    private void iniciarMano(ArrayList<Jugador> jugadores) {
-        for (Jugador j : jugadores) {
-            ArrayList<Carta> cartas = this.mazo.repartirCartas();
-            Participacion newPart = new Participacion(j);
-            newPart.setCartas(cartas);
-            this.participantes.add(newPart);
-        }
     }
 
     public double getTotalApostado() {
@@ -53,6 +45,15 @@ public class Mano {
         this.participantes = participantes;
     }
 
+    private void iniciarMano(ArrayList<Jugador> jugadores) {
+        for (Jugador j : jugadores) {
+            ArrayList<Carta> cartas = this.mazo.repartirCartas();
+            Participacion newPart = new Participacion(j);
+            newPart.setCartas(cartas);
+            this.participantes.add(newPart);
+        }
+    }
+
     public void recibirApuesta(double monto, Participacion participacion) throws JuegoException {
         Boolean puedoApostar = participacion.getJugador().puedoApostar(monto);
         if (puedoApostar) {
@@ -70,16 +71,16 @@ public class Mano {
         }
     }
 
-    public void completarApuesta(double monto, Participacion participacion) throws JuegoException{
+    public void completarApuesta(double monto, Participacion participacion) throws JuegoException {
         this.totalApostado += monto;
         participacion.realizarApuesta(monto);
     }
-    
+
     public Participacion determinarGanador() {
         for (Figura fig : SistemaJuegos.getInstancia().getFiguras()) {
-            ArrayList<Participacion> participaciones = new ArrayList<Participacion>();
+            ArrayList<Participacion> participaciones = new ArrayList<>();
             for (Participacion p : participantes) {
-                if (fig.getClass().getName() == p.getFigura().getClass().getName()) {
+                if (fig.getClass().getName() == null ? p.getFigura().getClass().getName() == null : fig.getClass().getName().equals(p.getFigura().getClass().getName())) {
                     participaciones.add(p);
                 }
             }

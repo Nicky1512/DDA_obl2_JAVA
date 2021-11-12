@@ -5,12 +5,10 @@
  */
 package iu;
 
-import java.awt.Frame;
-import java.util.ArrayList;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import modelo.Jugador;
-import modelo.Participacion;
 import modelo.Sistema;
 import modelo.Usuario;
 import modelo.excepciones.JuegoException;
@@ -32,7 +30,6 @@ public class LoginUsuario extends LoginAbstracto {
 
     @Override
     public void ejecutarProximoCasoUso(Object dato) {
-        
         try {
             new VentanaEspera((Jugador)dato).setVisible(true);
         } catch (JuegoException ex) {

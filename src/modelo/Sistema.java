@@ -10,22 +10,16 @@ public class Sistema extends Observable {
     private SistemaUsuarios cUsuarios = SistemaUsuarios.getInstancia();
     private SistemaJuegos cJuegos = SistemaJuegos.getInstancia();
 
-    public void agruparJugadores(Jugador j) {
-        cJuegos.agruparJugadoresAJugar(j);
-    }
-
-
     public enum Eventos {
         cambioListaJugadoresEnLinea, nuevoJuego
     };
 
     private static Sistema instancia = new Sistema();
 
+    private Sistema() {}
+    
     public static Sistema getInstancia() {
         return instancia;
-    }
-
-    private Sistema() {
     }
 
     public Usuario loginJugador(String usuario, String pass) {
@@ -63,12 +57,15 @@ public class Sistema extends Observable {
     public void recibirApuesta(double monto, Juego juego, Participacion participacion) throws JuegoException {
         cJuegos.recibirApuesta(monto, juego, participacion);
     }
-    
-    public ArrayList<Jugador> getJugadores(){
+
+    public ArrayList<Jugador> getJugadores() {
         return cUsuarios.getJugadores();
     }
-    
+
 //    public void expulsarJugador(Participacion p, Mano m){
 //        cJuegos.g
 //    }
+    public void agruparJugadores(Jugador j) {
+        cJuegos.agruparJugadoresAJugar(j);
+    }
 }

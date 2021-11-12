@@ -8,7 +8,6 @@ public class SistemaUsuarios {
     private ArrayList<Administrador> admins;
     private ArrayList<Jugador> conectados;
 //    private ArrayList<Sesion> conectados;
-//    es necesario?
 
     private static SistemaUsuarios instancia;
 
@@ -23,6 +22,10 @@ public class SistemaUsuarios {
             instancia = new SistemaUsuarios();
         }
         return instancia;
+    }
+
+    ArrayList<Jugador> getJugadores() {
+        return conectados;
     }
 
     public Usuario login(String usuario, String password, ArrayList listaUsuarios) {
@@ -40,7 +43,7 @@ public class SistemaUsuarios {
         Jugador loginRequest = (Jugador) login(usuario, password, jugadores);
 //        Sesion s = null;
         if (loginRequest != null) {
-            conectados.add(loginRequest);
+//            conectados.add(loginRequest);
 //            s = new Sesion(loginRequest);
 //            conectados.add(s);
             return loginRequest;
@@ -63,12 +66,8 @@ public class SistemaUsuarios {
     public void agregarAdmin(Administrador a) {
         admins.add(a);
     }
-    
+
 //    public ArrayList<Sesion> getConexiones(){
 //        return conectados;
 //    }
-
-    ArrayList<Jugador> getJugadores() {
-        return conectados;
-    }
 }
