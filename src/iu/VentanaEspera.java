@@ -21,15 +21,16 @@ public class VentanaEspera extends javax.swing.JDialog implements VistaEspera {
     /**
      * Creates new form VentanaEspera
      */
-    public ArrayList<Jugador> jugadoresEnEspera;
+    public ArrayList<Jugador> jugadoresEnEspera = new ArrayList<>();
     private ControladorJuego controlador;
     VentanaEspera(Jugador jugador) throws JuegoException {
-        super((Frame)null, false);
+       super((Frame)null, false);
         initComponents();
         controlador = new ControladorJuego(this, jugador);
         setLocationRelativeTo(null);
         setVisible(true);
         jugadoresEnEspera.add(jugador);
+        agrupar();
     }
 
     /**
@@ -43,17 +44,25 @@ public class VentanaEspera extends javax.swing.JDialog implements VistaEspera {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jEditorPane1 = new javax.swing.JEditorPane();
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 20), new java.awt.Dimension(0, 20), new java.awt.Dimension(32767, 20));
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        labelJugadores = new javax.swing.JLabel();
+        txt_cantJugadores = new javax.swing.JLabel();
 
         jScrollPane1.setViewportView(jEditorPane1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Juego en espera");
 
-        jLabel1.setText("Ventana de espera");
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Esperando jugadores para iniciar el juego");
 
-        jLabel2.setText("Jugadores listos para jugar: ");
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel2.setText("Jugadores en linea: ");
+
+        txt_cantJugadores.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        txt_cantJugadores.setText("5/5");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -62,25 +71,25 @@ public class VentanaEspera extends javax.swing.JDialog implements VistaEspera {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(160, 160, 160)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
+                        .addGap(60, 60, 60)
                         .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(labelJugadores, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(149, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txt_cantJugadores))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jLabel1)))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(30, 30, 30)
                 .addComponent(jLabel1)
-                .addGap(51, 51, 51)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(labelJugadores))
-                .addContainerGap(210, Short.MAX_VALUE))
+                    .addComponent(txt_cantJugadores))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         pack();
@@ -93,15 +102,18 @@ public class VentanaEspera extends javax.swing.JDialog implements VistaEspera {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.Box.Filler filler1;
     private javax.swing.JEditorPane jEditorPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel labelJugadores;
+    private javax.swing.JLabel txt_cantJugadores;
     // End of variables declaration//GEN-END:variables
 
     private boolean agrupar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        txt_cantJugadores.setText(jugadoresEnEspera.size() + "/5");
+        return false;
+        
     }
 
     

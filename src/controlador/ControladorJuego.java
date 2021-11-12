@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import modelo.Carta;
 import modelo.Juego;
 import modelo.Jugador;
-import modelo.Mano;
 import modelo.Participacion;
 import modelo.Sistema;
 import modelo.excepciones.JuegoException;
@@ -17,7 +16,7 @@ public class ControladorJuego implements Observador{
     private VistaEspera vistaEspera;
     private Sistema sistema = Sistema.getInstancia();
     private Participacion participacion;
-    private Juego juego;
+    private Juego juego = new Juego();
 
     
     public ControladorJuego(VistaJuego vista, Jugador jugador) {
@@ -84,7 +83,7 @@ public class ControladorJuego implements Observador{
         switch((modelo.Participacion.Eventos)evento){
             case salir: vistaJuego.terminarJuego();
                 break;
-            case apostar: vistaJuego.apostar(); //VERIFICARe SI NO ES NECESARIO RECIBIR PARAMETRO
+            case apostar: vistaJuego.apostar(); //VERIFICAR SI NO ES NECESARIO RECIBIR PARAMETRO
                 break;
             case pasar: vistaJuego.pasar();
                 break;

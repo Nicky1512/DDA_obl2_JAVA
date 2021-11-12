@@ -6,10 +6,11 @@ import modelo.excepciones.JuegoException;
 
 public class SistemaJuegos {
 
-    private ArrayList<Juego> juegos;
-    private ArrayList<Figura> figuras;
     private Juego juegoAIniciar;
     private Mazo mazo;
+
+    private ArrayList<Juego> juegos;
+    private ArrayList<Figura> figuras;
     private ArrayList<Sesion> conectados;
 
     private static SistemaJuegos instancia;
@@ -42,6 +43,24 @@ public class SistemaJuegos {
         this.mazo = mazo;
     }
 
+    public void setJuegoAIniciar(Juego juegoAIniciar) {
+        this.juegoAIniciar = juegoAIniciar;
+    }
+
+    public ArrayList<Sesion> getConexiones() {
+        return conectados;
+    }
+
+    public ArrayList<Juego> getJuegosEnCurso() {
+        ArrayList<Juego> ret = new ArrayList<Juego>();
+        for (Juego j : juegos) {
+            if (j.estaEnCurso()) {
+                ret.add(j);
+            }
+        }
+        return ret;
+    }
+
     public void empezarJuego() throws JuegoException {
         juegoAIniciar.empezarJuego();
         Juego nuevo = new Juego();
@@ -50,10 +69,6 @@ public class SistemaJuegos {
 //        for(Jugador j:nuevo.getJugadores()){
 //            
 //        }
-    }
-
-    public void setJuegoAIniciar(Juego juegoAIniciar) {
-        this.juegoAIniciar = juegoAIniciar;
     }
 
     public void agregarFigura(Figura figura) {
@@ -68,27 +83,12 @@ public class SistemaJuegos {
         juego.recibirApuesta(monto, participacion);
     }
 
-    public ArrayList<Juego> getJuegosEnCurso() {
-        ArrayList<Juego> ret = new ArrayList<Juego>();
-        for (Juego j : juegos) {
-            if(j.estaEnCurso()){
-                ret.add(j);
-            }
-        }
-        return ret;
-    }
-    
-    public ArrayList<Sesion> getConexiones(){
-        return conectados;
-    }
-    
 //    public void expulsarJugador(Participacion p, Juego j){
 //        for(Mano m:j.getManos()){
 //            
 //        }
 //    }
-
     public void agruparJugadoresAJugar(Jugador j) {
-        
+
     }
 }
