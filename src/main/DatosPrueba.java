@@ -23,7 +23,7 @@ public class DatosPrueba {
 
         Administrador Lucas = new Administrador("Lucas", "123", "Lucas Andueza");
         Administrador Bruno = new Administrador("Bruno", "234", "Bruno Barcelo");
-        Administrador Nicole = new Administrador("Nicole", "852", "Nicole Fabian");
+        Administrador Nicole = new Administrador("Nicole", "789", "Nicole Fabian");
 
         Sistema.getInstancia().agregarAdmin(Lucas);
         Sistema.getInstancia().agregarAdmin(Nicole);

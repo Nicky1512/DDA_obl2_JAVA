@@ -40,7 +40,7 @@ public class ControladorAdmin implements Observador {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    private void mostrarJuegos() {
+    public void mostrarJuegos() {
         vista.mostrarSesiones(sistema.getConexiones());
     }
 

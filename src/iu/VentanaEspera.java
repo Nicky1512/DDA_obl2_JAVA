@@ -24,13 +24,14 @@ public class VentanaEspera extends javax.swing.JDialog implements VistaEspera {
     public ArrayList<Jugador> jugadoresEnEspera = new ArrayList<>();
     private ControladorJuego controlador;
     VentanaEspera(Jugador jugador) throws JuegoException {
-       super((Frame)null, false);
+        super((Frame) null, false);
         initComponents();
         controlador = new ControladorJuego(this, jugador);
         setLocationRelativeTo(null);
         setVisible(true);
+        setTitle("Jugador: " + jugador.getNombreCompleto());
         jugadoresEnEspera.add(jugador);
-        agrupar();
+        cantidadJugadores();
     }
 
     /**
@@ -95,10 +96,9 @@ public class VentanaEspera extends javax.swing.JDialog implements VistaEspera {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-
     @Override
-    public boolean agruparJugadores() {
-        return agrupar();
+    public void agruparJugadores() {
+        cantidadJugadores();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -110,11 +110,17 @@ public class VentanaEspera extends javax.swing.JDialog implements VistaEspera {
     private javax.swing.JLabel txt_cantJugadores;
     // End of variables declaration//GEN-END:variables
 
-    private boolean agrupar() {
-        txt_cantJugadores.setText(jugadoresEnEspera.size() + "/5");
-        return false;
-        
+    private void cantidadJugadores() {
+//        controlador.getCantidadJugadoresEnEspera();
+        int cantJugadores = jugadoresEnEspera.size();   
+        if(cantJugadores < 6){
+            txt_cantJugadores.setText(cantJugadores + "/5");
+        }else{
+            jugadoresEnEspera.forEach(j -> {
+                new VentanaJuego(j).setVisible(true);
+                dispose();
+            });
+        }
     }
 
-    
 }

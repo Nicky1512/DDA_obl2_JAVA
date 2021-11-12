@@ -27,6 +27,7 @@ public class VentanaJuego extends javax.swing.JDialog implements VistaJuego {
         controlador = new ControladorJuego(this, j);
         setLocationRelativeTo(null);
         setVisible(true);
+        setTitle("Jugador: " + j.getNombreCompleto() + " | Juego: ");
     }
 
     @SuppressWarnings("unchecked")
@@ -51,7 +52,6 @@ public class VentanaJuego extends javax.swing.JDialog implements VistaJuego {
         jCheckBox1.setText("jCheckBox1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Juegos en linea");
         setAlwaysOnTop(true);
 
         salirBtn.setText("Salir");

@@ -33,6 +33,7 @@ public class MenuInicio extends javax.swing.JFrame {
         btnLoginAdmin = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Inicio");
 
         btnLoginUser.setText("Login Usuario");
         btnLoginUser.addActionListener(new java.awt.event.ActionListener() {
