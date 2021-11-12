@@ -7,8 +7,13 @@ import observador.Observable;
 
 public class Sistema extends Observable {
 
-    private ControlUsuarios cUsuarios = ControlUsuarios.getInstancia();
-    private ControlJuegos cJuegos = ControlJuegos.getInstancia();
+    private SistemaUsuarios cUsuarios = SistemaUsuarios.getInstancia();
+    private SistemaJuegos cJuegos = SistemaJuegos.getInstancia();
+
+    public void agruparJugadores(Jugador j) {
+        cJuegos.agruparJugadoresAJugar(j);
+    }
+
 
     public enum Eventos {
         cambioListaJugadoresEnLinea, nuevoJuego
@@ -48,7 +53,7 @@ public class Sistema extends Observable {
     }
 
     public ArrayList<Sesion> getConexiones() {
-        return cUsuarios.getConexiones();
+        return cJuegos.getConexiones();
     }
 
     public void ingresarJugador(Jugador jugador) throws JuegoException {
@@ -58,4 +63,12 @@ public class Sistema extends Observable {
     public void recibirApuesta(double monto, Juego juego, Participacion participacion) throws JuegoException {
         cJuegos.recibirApuesta(monto, juego, participacion);
     }
+    
+    public ArrayList<Jugador> getJugadores(){
+        return cUsuarios.getJugadores();
+    }
+    
+//    public void expulsarJugador(Participacion p, Mano m){
+//        cJuegos.g
+//    }
 }

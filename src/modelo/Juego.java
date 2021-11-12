@@ -117,7 +117,7 @@ public class Juego extends Observable {
 
     public void iniciarMano(double pozoAcumulado) throws JuegoException {
         descontarSaldoTodos();
-        Mazo mazo = ControlJuegos.getInstancia().getMazo();
+        Mazo mazo = SistemaJuegos.getInstancia().getMazo();
         mazo.barajar();
         Mano nuevaMano = new Mano(Juego.apuestaBase * jugadores.size() + pozoAcumulado, mazo, this.jugadores);
         this.manos.add(nuevaMano);

@@ -25,6 +25,8 @@ public class VentanaJuego extends javax.swing.JDialog implements VistaJuego {
         super((Frame)null, false);
         initComponents();
         controlador = new ControladorJuego(this, j);
+        setLocationRelativeTo(null);
+        setVisible(true);
     }
 
     @SuppressWarnings("unchecked")
@@ -53,6 +55,11 @@ public class VentanaJuego extends javax.swing.JDialog implements VistaJuego {
         setAlwaysOnTop(true);
 
         salirBtn.setText("Salir");
+        salirBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                salirBtnActionPerformed(evt);
+            }
+        });
 
         pasarBtn.setText("Pasar");
 
@@ -126,6 +133,10 @@ public class VentanaJuego extends javax.swing.JDialog implements VistaJuego {
         apostar();
     }//GEN-LAST:event_apostarBtnActionPerformed
 
+    private void salirBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirBtnActionPerformed
+       explusarJugador();
+    }//GEN-LAST:event_salirBtnActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton apostarBtn;
     private javax.swing.JTextField apuestaText;
@@ -164,7 +175,7 @@ public class VentanaJuego extends javax.swing.JDialog implements VistaJuego {
 
     @Override
     public void explusarJugador() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//        controlador
     }
 
     @Override

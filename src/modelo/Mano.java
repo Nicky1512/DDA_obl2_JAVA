@@ -23,7 +23,8 @@ public class Mano {
     private void iniciarMano(ArrayList<Jugador> jugadores) {
         for (Jugador j : jugadores) {
             ArrayList<Carta> cartas = this.mazo.repartirCartas();
-            Participacion newPart = new Participacion(j, cartas);
+            Participacion newPart = new Participacion(j);
+            newPart.setCartas(cartas);
             this.participantes.add(newPart);
         }
     }
@@ -75,7 +76,7 @@ public class Mano {
     }
     
     public Participacion determinarGanador() {
-        for (Figura fig : ControlJuegos.getInstancia().getFiguras()) {
+        for (Figura fig : SistemaJuegos.getInstancia().getFiguras()) {
             ArrayList<Participacion> participaciones = new ArrayList<Participacion>();
             for (Participacion p : participantes) {
                 if (fig.getClass().getName() == p.getFigura().getClass().getName()) {

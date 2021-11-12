@@ -16,9 +16,9 @@ public class Participacion extends Observable {
         salir, apostar, pasar, observarCartas
     };
 
-    public Participacion(Jugador jugador, ArrayList<Carta> cartas) {
+    public Participacion(Jugador jugador) {
         this.jugador = jugador;
-        this.cartas = cartas;
+        this.cartas = new ArrayList();
     }
 
     public Figura getFigura() {
@@ -41,13 +41,17 @@ public class Participacion extends Observable {
         return cartas;
     }
 
+    public void setCartas(ArrayList<Carta> cartas) {
+        this.cartas = cartas;
+    }
+
     public void realizarApuesta(double monto) throws JuegoException {
         this.apuesta = monto;
         this.jugador.descontarSaldo(monto);
     }
 
     public void figurasEnMano() {
-        for (Figura fig : ControlJuegos.getInstancia().getFiguras()) {
+        for (Figura fig : SistemaJuegos.getInstancia().getFiguras()) {
             Figura miFigura = fig.determinarFigura((Carta[]) this.cartas.toArray());
             if (miFigura != null) {
                 this.figura = miFigura;
