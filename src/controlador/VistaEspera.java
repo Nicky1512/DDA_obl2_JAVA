@@ -9,4 +9,7 @@ public interface VistaEspera {
     
     public void agruparJugadores();
     
+    public void mostrarFaltan(int n);
+    
+    public void empezarJuego();
 }

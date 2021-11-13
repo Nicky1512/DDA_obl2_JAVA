@@ -67,7 +67,7 @@ public class Juego extends Observable {
         if (jugador.getSaldo() > Juego.cantidadJugadores * Juego.apuestaBase) {
             if (!jugadores.contains(jugador)) {
                 jugadores.add(jugador);
-                avisar(Eventos.nuevoJugador);
+                this.avisar(Eventos.nuevoJugador);
                 Sistema.getInstancia().avisar(Sistema.Eventos.cambioListaJugadoresEnLinea);
             } else {
                 throw new JuegoException("El jugador ya fue ingresado al juego");
@@ -178,5 +178,9 @@ public class Juego extends Observable {
         DateFormat df = new SimpleDateFormat(patron);
         double totalApostado = this.getTotalApostado();
         return "Fecha inicio: " + df.format(this.fechaInicio) + "Cant jugadores: " + this.jugadores.size() + "Total apostado: " + totalApostado + "Cant manos jugadas: " + this.manos.size();
+    }
+    
+    public int cantidadJugadoresFaltan(){
+        return cantidadJugadores - jugadores.size();
     }
 }

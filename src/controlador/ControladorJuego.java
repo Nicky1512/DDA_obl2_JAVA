@@ -90,8 +90,10 @@ public class ControladorJuego implements Observador {
 //            case observarCartas: vistaJuego.observarCartas();
 //                break;
 //        }
-        if (evento.equals(Juego.Eventos.nuevoJugador)) {
-                mostrarVentanaEspera();
+        if (evento.equals(Juego.Eventos.nuevoJugador)) { //TODO, evento llega cambioListaJugadoresEnLinea en vez de nuevoJugador
+                mostrarFaltan();
+                //mostrarVentanaEspera();
+                
         }
     }
 
@@ -109,6 +111,10 @@ public class ControladorJuego implements Observador {
 
     private void cargarJugador(Jugador jugador) throws JuegoException {
         juego.agregarJugador(jugador);
+    }
+
+    private void mostrarFaltan() {
+        vistaEspera.mostrarFaltan(juego.cantidadJugadoresFaltan());
     }
 
 }

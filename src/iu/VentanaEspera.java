@@ -31,7 +31,9 @@ public class VentanaEspera extends javax.swing.JDialog implements VistaEspera {
         setVisible(true);
         setTitle("Jugador: " + jugador.getNombreCompleto());
         jugadoresEnEspera.add(jugador);
-        cantidadJugadores();
+        
+//        cantidadJugadores();
+        
     }
 
     /**
@@ -122,5 +124,16 @@ public class VentanaEspera extends javax.swing.JDialog implements VistaEspera {
             });
         }
     }
+
+    @Override
+    public void mostrarFaltan(int n) {
+        txt_cantJugadores.setText(n + "/5");
+    }
+
+    @Override
+    public void empezarJuego() {
+//        new VentanaJuego().setVisible(true);
+    }
+
 
 }
