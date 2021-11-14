@@ -20,10 +20,6 @@ public class SistemaJuegos {
         figuras = new ArrayList();
     }
 
-    public ArrayList<Juego> getJuegos() {
-        return juegos;
-    }
-
     public ArrayList<Figura> getFiguras() {
         return figuras;
     }
@@ -83,12 +79,16 @@ public class SistemaJuegos {
         juego.recibirApuesta(monto, participacion);
     }
 
-//    public void expulsarJugador(Participacion p, Juego j){
-//        for(Mano m:j.getManos()){
-//            
-//        }
-//    }
-    public void agruparJugadoresAJugar(Jugador j) {
-        
+    public void expulsarJugador(Participacion p, Juego j) {
+
     }
+
+    public void agruparJugadoresAJugar(Jugador j) {
+
+    }
+
+    public String getDatosJugadores(Juego juego) {
+        return juego.getDatosJugadores();
+    }
+
 }

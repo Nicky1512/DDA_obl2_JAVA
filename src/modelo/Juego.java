@@ -18,8 +18,10 @@ public class Juego extends Observable {
     private ArrayList<Mano> manos;
     private ArrayList<Jugador> jugadores = new ArrayList<>();
 
-    public enum Eventos{nuevoJugador, nuevaMano};
-    
+    public enum Eventos {
+        nuevoJugador, nuevaMano
+    };
+
     public Juego() {
         setCantidadJugadores(5);
     }
@@ -104,7 +106,6 @@ public class Juego extends Observable {
         }
     }
 
-//    Ojo hay dos iniciarMano, en Mano hay otro
     public void iniciarMano(double pozoAcumulado) throws JuegoException {
         descontarSaldoTodos();
         Mazo mazo = SistemaJuegos.getInstancia().getMazo();
@@ -179,8 +180,22 @@ public class Juego extends Observable {
         double totalApostado = this.getTotalApostado();
         return "Fecha inicio: " + df.format(this.fechaInicio) + "Cant jugadores: " + this.jugadores.size() + "Total apostado: " + totalApostado + "Cant manos jugadas: " + this.manos.size();
     }
-    
-    public int cantidadJugadoresFaltan(){
+
+    public int cantidadJugadoresFaltan() {
         return cantidadJugadores - jugadores.size();
+    }
+
+    public String getDatosJugadores() {
+
+        String nombre = ""; //Solo tenemos los jugadores actuales, no estan TODOS los que participaron
+        double saldoInicial = 0; //No lo tenemos guardado en ningun lado
+        double totalApostado = 0; //Se puede calcular, incluimos la apuesta base ?
+        double totalGanado = 0;  //No lo tenemos guardado en ningun lado
+
+        return "Nombre: " + nombre  //Retorna datos de todos los jugadores, no solo de uno
+                + " | Total Apostado" + totalApostado
+                + " | Saldo Incial: " + saldoInicial
+                + " | Total Ganado: " + totalGanado;
+
     }
 }
