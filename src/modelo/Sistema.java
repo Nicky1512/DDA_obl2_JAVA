@@ -10,7 +10,7 @@ public class Sistema extends Observable {
     private SistemaUsuarios cUsuarios = SistemaUsuarios.getInstancia();
     private SistemaJuegos cJuegos = SistemaJuegos.getInstancia();
 
-    public enum Eventos {nuevoJugador, nuevoJuego, nuevaMano};
+    public enum Eventos {nuevoJugador, nuevoJuego, nuevaMano, quitarJugador};
 
     private static Sistema instancia = new Sistema();
 
@@ -52,7 +52,7 @@ public class Sistema extends Observable {
         return cJuegos.getConexiones();
     }
 
-    public void ingresarJugador(Jugador jugador) throws JuegoException {
+    public void ingresarJugador(HistoricoJugador jugador) throws JuegoException {
         cJuegos.agregarJugador(jugador);
     }
 
@@ -64,13 +64,13 @@ public class Sistema extends Observable {
         return cUsuarios.getJugadores();
     }
 
-//    public void expulsarJugador(Participacion p, Mano m){
-//        cJuegos.g
-//    }
+    public void expulsarJugador(HistoricoJugador j) throws JuegoException{
+        cJuegos.quitarJugador(j);
+    }
     
     public Juego getJuegoAIniciar(){
         return cJuegos.getJuegoAIniciar();
     }
-    
+
     
 }

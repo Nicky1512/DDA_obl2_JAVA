@@ -71,13 +71,13 @@ public class Juego extends Observable {
         }
     }
 
-    public void agregarJugador(Jugador jugador) throws JuegoException {
+    public void agregarJugador(HistoricoJugador jugador) throws JuegoException {
         if (Juego.cantidadJugadores == jugadores.size()) {
             throw new JuegoException("El juego no puede aceptar mas jugadores");
         }
-        if (jugador.getSaldo() > (Juego.cantidadJugadores * Juego.apuestaBase)) {
+        if (jugador.getJugador().getSaldo() > (Juego.cantidadJugadores * Juego.apuestaBase)) {
             if (!jugadores.contains(jugador)) {
-                HistoricoJugador j = new HistoricoJugador(jugador);
+                HistoricoJugador j = new HistoricoJugador(jugador.getJugador());
                 jugadores.add(j);
                 Sistema.getInstancia().avisar(Sistema.Eventos.nuevoJugador);
             } else {
@@ -97,6 +97,7 @@ public class Juego extends Observable {
     public void retirarJugador(HistoricoJugador jugador) throws JuegoException {
         if (jugadores.contains(jugador)) {
             jugadores.remove(jugador);
+            Sistema.getInstancia().avisar(Sistema.Eventos.quitarJugador);
         } else {
             throw new JuegoException("El jugador no fue ingresado previamente.");
         }

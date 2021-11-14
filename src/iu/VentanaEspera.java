@@ -50,6 +50,14 @@ public class VentanaEspera extends javax.swing.JDialog implements VistaEspera {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Juego en espera");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -92,6 +100,15 @@ public class VentanaEspera extends javax.swing.JDialog implements VistaEspera {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+       
+        
+    }//GEN-LAST:event_formWindowClosed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        retirarDeLaVentana();
+    }//GEN-LAST:event_formWindowClosing
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.Box.Filler filler1;
@@ -110,6 +127,11 @@ public class VentanaEspera extends javax.swing.JDialog implements VistaEspera {
     @Override
     public void salir() {
         this.dispose();
+    }
+
+    private void retirarDeLaVentana() {
+        controlador.quitarJugador();
+        controlador.mostrarFaltan();
     }
 
 }

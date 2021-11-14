@@ -1,5 +1,6 @@
 package controlador;
 
+import modelo.HistoricoJugador;
 import modelo.Juego;
 import modelo.Jugador;
 import modelo.Sistema;
@@ -58,7 +59,7 @@ public class ControladorJuego implements Observador {
 
     }
 
-    private void cargarJugador(Jugador jugador) throws JuegoException {
+    private void cargarJugador(HistoricoJugador jugador) throws JuegoException {
         SistemaJuegos.getInstancia().agregarJugador(jugador);
     }
 

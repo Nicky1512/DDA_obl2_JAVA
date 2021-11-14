@@ -77,5 +77,19 @@ public class HistoricoJugador {
 
     }
     
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+
+        if (!(o instanceof HistoricoJugador)) {
+            return false;
+        }
+
+        HistoricoJugador j = (HistoricoJugador) o;
+        return this.jugador.nombreUsuario.equals(j.getJugador().nombreUsuario);
+    }
+    
     
 }
