@@ -16,7 +16,7 @@ public class Juego extends Observable {
     private Date fechaInicio;
 
     private ArrayList<Mano> manos = new ArrayList<>();
-    private ArrayList<Jugador> jugadores = new ArrayList<>();
+    private ArrayList<HistoricoJugador> jugadores = new ArrayList<>();
 
     public enum Eventos {
         nuevoJugador, nuevaMano
@@ -33,8 +33,18 @@ public class Juego extends Observable {
         return manos;
     }
 
-    public ArrayList<Jugador> getJugadores() {
+    public ArrayList<HistoricoJugador> getJugadores() {
         return jugadores;
+    }
+    
+    public ArrayList<HistoricoJugador> getJugadoresActivos(){
+        ArrayList<HistoricoJugador> aux = new ArrayList();
+        for(HistoricoJugador j:jugadores){
+            if(j.isActivo()){
+                aux.add(j);
+            }
+        }
+        return aux;
     }
 
     public Boolean estaEnCurso() {
@@ -67,7 +77,8 @@ public class Juego extends Observable {
         }
         if (jugador.getSaldo() > (Juego.cantidadJugadores * Juego.apuestaBase)) {
             if (!jugadores.contains(jugador)) {
-                jugadores.add(jugador);
+                HistoricoJugador j = new HistoricoJugador(jugador);
+                jugadores.add(j);
                 Sistema.getInstancia().avisar(Sistema.Eventos.nuevoJugador);
             } else {
                 throw new JuegoException("El jugador ya fue ingresado al juego");
@@ -83,7 +94,7 @@ public class Juego extends Observable {
         }
     }
 
-    public void retirarJugador(Jugador jugador) throws JuegoException {
+    public void retirarJugador(HistoricoJugador jugador) throws JuegoException {
         if (jugadores.contains(jugador)) {
             jugadores.remove(jugador);
         } else {
@@ -93,12 +104,12 @@ public class Juego extends Observable {
 
     private void removerJugadores() throws JuegoException {
         int cont = 0;
-        for (Jugador j : jugadores) {
-            Jugador copia = j;
-            if (copia.getSaldo() == 0) {
+        for (HistoricoJugador j : jugadores) {
+            HistoricoJugador copia = j;
+            if (j.isActivo()) {
                 retirarJugador(copia);
             }
-            Boolean puedo = copia.puedoApostar(Juego.apuestaBase);
+            Boolean puedo = copia.getJugador().puedoApostar(Juego.apuestaBase);
             if (!puedo) {
                 retirarJugador(copia);
             } else {
@@ -109,12 +120,20 @@ public class Juego extends Observable {
             finalizarJuego();
         }
     }
+    
+    public ArrayList<Jugador> getListaJugadores(){
+        ArrayList<Jugador> aux = new ArrayList();
+        for(HistoricoJugador j:jugadores){
+            aux.add(j.getJugador());
+        }
+        return aux;
+    }
 
     public void iniciarMano(double pozoAcumulado) throws JuegoException {
         descontarSaldoTodos();
         Mazo mazo = SistemaJuegos.getInstancia().getMazo();
         mazo.barajar();
-        Mano nuevaMano = new Mano((Juego.apuestaBase * jugadores.size()) + pozoAcumulado, mazo, this.jugadores);
+        Mano nuevaMano = new Mano((Juego.apuestaBase * jugadores.size()) + pozoAcumulado, mazo, getListaJugadores());
         this.manos.add(nuevaMano);
         avisar(Eventos.nuevaMano);
     }
@@ -151,8 +170,8 @@ public class Juego extends Observable {
     }
 
     public void descontarSaldoTodos() throws JuegoException {
-        for (Jugador j : jugadores) {
-            j.descontarSaldo(Juego.apuestaBase);
+        for (HistoricoJugador j : jugadores) {
+            j.getJugador().descontarSaldo(Juego.apuestaBase);
         }
     }
 
@@ -191,17 +210,22 @@ public class Juego extends Observable {
         return jugadores.size();
     }
 
-    public String getDatosJugadores() {
+    public ArrayList<String> getDatosJugadores() {
 
-        String nombre = ""; //Solo tenemos los jugadores actuales, no estan TODOS los que participaron
-        double saldoInicial = 0; //No lo tenemos guardado en ningun lado
-        double totalApostado = 0; //Se puede calcular, incluimos la apuesta base ?
-        double totalGanado = 0;  //No lo tenemos guardado en ningun lado
-
-        return "Nombre: " + nombre //Retorna datos de todos los jugadores, no solo de uno
-                + " | Total Apostado" + totalApostado
-                + " | Saldo Incial: " + saldoInicial
-                + " | Total Ganado: " + totalGanado;
+//        String nombre = ""; //Solo tenemos los jugadores actuales, no estan TODOS los que participaron
+//        double saldoInicial = 0; //No lo tenemos guardado en ningun lado
+//        double totalApostado = 0; //Se puede calcular, incluimos la apuesta base ?
+//        double totalGanado = 0;  //No lo tenemos guardado en ningun lado
+//
+//        return "Nombre: " + nombre //Retorna datos de todos los jugadores, no solo de uno
+//                + " | Total Apostado" + totalApostado
+//                + " | Saldo Incial: " + saldoInicial
+//                + " | Total Ganado: " + totalGanado;
+        ArrayList<String> lista = new ArrayList();
+        for(HistoricoJugador j:jugadores){
+            lista.add(j.toString());
+        }
+        return lista;
 
     }
 }
