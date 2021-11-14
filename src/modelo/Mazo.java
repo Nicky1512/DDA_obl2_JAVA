@@ -26,7 +26,7 @@ public class Mazo {
     }
 
     public ArrayList<Carta> repartirCartas() {
-        ArrayList<Carta> cartas = null;
+        ArrayList<Carta> cartas = new ArrayList<>();
         int contador = 0;
         do {
             cartas.add(this.robarCarta());

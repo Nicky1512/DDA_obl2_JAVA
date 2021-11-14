@@ -15,7 +15,7 @@ public class Juego extends Observable {
     private Boolean enCurso;
     private Date fechaInicio;
 
-    private ArrayList<Mano> manos;
+    private ArrayList<Mano> manos = new ArrayList<>();
     private ArrayList<Jugador> jugadores = new ArrayList<>();
 
     public enum Eventos {
@@ -65,11 +65,12 @@ public class Juego extends Observable {
         if (Juego.cantidadJugadores == jugadores.size()) {
             throw new JuegoException("El juego no puede aceptar mas jugadores");
         }
-        if (jugador.getSaldo() > Juego.cantidadJugadores * Juego.apuestaBase) {
+        if (jugador.getSaldo() > (Juego.cantidadJugadores * Juego.apuestaBase)) {
             if (!jugadores.contains(jugador)) {
                 jugadores.add(jugador);
                 if (Juego.cantidadJugadores == jugadores.size()) {
                     Sistema.getInstancia().empezarJuego();
+                    Sistema.getInstancia().avisar(Sistema.Eventos.nuevoJuego);
                 }
                 this.avisar(Eventos.nuevoJugador);
             } else {
@@ -111,7 +112,7 @@ public class Juego extends Observable {
         descontarSaldoTodos();
         Mazo mazo = SistemaJuegos.getInstancia().getMazo();
         mazo.barajar();
-        Mano nuevaMano = new Mano(Juego.apuestaBase * jugadores.size() + pozoAcumulado, mazo, this.jugadores);
+        Mano nuevaMano = new Mano((Juego.apuestaBase * jugadores.size()) + pozoAcumulado, mazo, this.jugadores);
         this.manos.add(nuevaMano);
         avisar(Eventos.nuevaMano);
     }
@@ -154,6 +155,7 @@ public class Juego extends Observable {
     }
 
     public void empezarJuego() throws JuegoException {
+        Sistema.getInstancia().avisar(Sistema.Eventos.nuevoJuego);
         this.fechaInicio = new Date();
         this.enCurso = true;
         iniciarMano(0);

@@ -6,10 +6,9 @@
 package controlador;
 
 public interface VistaEspera {
-    
-//    public void agruparJugadores();
-    
+        
     public void mostrarFaltan(String dato);
+        
+    public void salir();
     
-    public void empezarJuego();
 }

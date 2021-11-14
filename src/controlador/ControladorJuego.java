@@ -1,5 +1,6 @@
 package controlador;
 
+import iu.VentanaJuego;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,18 +19,18 @@ public class ControladorJuego implements Observador {
     private VistaJuego vistaJuego;
     private VistaEspera vistaEspera;
     private Sistema sistema = Sistema.getInstancia();
-    private Participacion participacion;  
+    private Jugador jugador;  
 
     public ControladorJuego(VistaJuego vista, Jugador jugador) {
         this.vistaJuego = vista;
-//        this.participacion = new Participacion();
+        this.jugador = jugador;
         sistema.agregar(this);
         vista.mostrarNombreJugador(jugador.getNombreCompleto());
-
     }
 
     public ControladorJuego(VistaEspera vista, Jugador jugador) throws JuegoException {
         this.vistaEspera = vista;
+        this.jugador = jugador;
         sistema.agregar(this);
     }
 
@@ -49,29 +50,29 @@ public class ControladorJuego implements Observador {
         this.sistema = sistema;
     }
 
-    public Participacion getParticipacion() {
-        return participacion;
-    }
-
-    public void setParticipacion(Participacion participacion) {
-        this.participacion = participacion;
-    }
-
-    public void salir() {
-        participacion.quitar(this);
-    }
-
-    public void apostar(double a) throws JuegoException {
-        participacion.realizarApuesta(a);
-    }
-
-    public void pasar() throws JuegoException {
-        participacion.realizarApuesta(0);
-    }
-
-    public ArrayList<Carta> ObservarCartas() {
-        return participacion.getCartas();
-    }
+//    public Participacion getParticipacion() {
+//        return participacion;
+//    }
+//
+//    public void setParticipacion(Participacion participacion) {
+//        this.participacion = participacion;
+//    }
+//
+//    public void salir() {
+//        participacion.quitar(this);
+//    }
+//
+//    public void apostar(double a) throws JuegoException {
+//        participacion.realizarApuesta(a);
+//    }
+//
+//    public void pasar() throws JuegoException {
+//        participacion.realizarApuesta(0);
+//    }
+//
+//    public ArrayList<Carta> ObservarCartas() {
+//        return participacion.getCartas();
+//    }
 
 //    public void expulsarJugador(Participacion p, Mano m){
 //        sistema.expulsarJugador(p, m);
@@ -96,14 +97,18 @@ public class ControladorJuego implements Observador {
         if (evento.equals(Sistema.Eventos.cambioListaJugadoresEnLinea)) {
             mostrarFaltan();
         }
+        if(evento.equals(Sistema.Eventos.nuevoJuego)){
+            empezarJuego();
+        }
     }
 
 //    public void mostrarVentanaEspera() {
 //        vistaEspera.mostrarFaltan();
 //    }
 
-    public void empezarJuego() throws JuegoException {
-        sistema.empezarJuego();
+    public void empezarJuego() {      
+        vistaEspera.salir();
+        new VentanaJuego(jugador).setVisible(true);
     }
 
 
