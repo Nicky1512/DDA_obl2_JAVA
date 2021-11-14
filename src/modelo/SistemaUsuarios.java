@@ -42,8 +42,6 @@ public class SistemaUsuarios {
 
     public Jugador loginJugador(String usuario, String password) throws JuegoException {
         Jugador loginRequest = (Jugador) login(usuario, password, jugadores);
-        Sistema.getInstancia().ingresarJugador(loginRequest);
-        Sistema.getInstancia().avisar(Sistema.Eventos.cambioListaJugadoresEnLinea);
         if (loginRequest != null) {
             return loginRequest;
         }

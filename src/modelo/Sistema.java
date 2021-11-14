@@ -10,7 +10,7 @@ public class Sistema extends Observable {
     private SistemaUsuarios cUsuarios = SistemaUsuarios.getInstancia();
     private SistemaJuegos cJuegos = SistemaJuegos.getInstancia();
 
-    public enum Eventos {cambioListaJugadoresEnLinea, nuevoJuego, nuevaMano};
+    public enum Eventos {nuevoJugador, nuevoJuego, nuevaMano};
 
     private static Sistema instancia = new Sistema();
 
@@ -44,6 +44,10 @@ public class Sistema extends Observable {
         cJuegos.empezarJuego();
     }
 
+    public void vericarInicioJuego() throws JuegoException{
+        cJuegos.verificarInicioJuego();
+    }
+    
     public ArrayList<Sesion> getConexiones() {
         return cJuegos.getConexiones();
     }
