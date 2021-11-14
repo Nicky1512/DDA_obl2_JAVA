@@ -75,7 +75,7 @@ public class SistemaJuegos {
         this.figuras.add(figura);
     }
 
-    public void agregarJugador(Jugador jugador) throws JuegoException {
+    public void agregarJugador(HistoricoJugador jugador) throws JuegoException {
         this.juegoAIniciar.agregarJugador(jugador);
     }
 
@@ -83,8 +83,8 @@ public class SistemaJuegos {
         juego.recibirApuesta(monto, participacion);
     }
 
-    public void expulsarJugador(Participacion p, Juego j) {
-
+    public void quitarJugador(HistoricoJugador jugador) throws JuegoException {
+        juegoAIniciar.retirarJugador(jugador);
     }
 
     public ArrayList<String> getDatosJugadores(Juego juego) {

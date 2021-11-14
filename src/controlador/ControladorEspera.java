@@ -8,6 +8,7 @@ package controlador;
 import iu.VentanaJuego;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import modelo.HistoricoJugador;
 import modelo.Juego;
 import modelo.Jugador;
 import modelo.Sistema;
@@ -20,6 +21,7 @@ public class ControladorEspera implements Observador {
     private VistaEspera vistaEspera;
     private Sistema sistema = Sistema.getInstancia();
     private Jugador jugador;
+    
 
     public ControladorEspera(VistaEspera vista, Jugador jugador) {
         this.vistaEspera = vista;
@@ -30,7 +32,7 @@ public class ControladorEspera implements Observador {
 
     public void ingresarJugadorJuego() {
         try {
-            Sistema.getInstancia().ingresarJugador(this.jugador);
+            Sistema.getInstancia().ingresarJugador(new HistoricoJugador(jugador));
         } catch (JuegoException ex) {
             Logger.getLogger(ControladorEspera.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -38,12 +40,17 @@ public class ControladorEspera implements Observador {
 
     @Override
     public void actualizar(Object evento, Observable origen) {
+        
         if (evento.equals(Sistema.Eventos.nuevoJugador)) {
             mostrarFaltan();
             verificarInicio();
         }
         if (evento.equals(Sistema.Eventos.nuevoJuego)) {
             empezarJuego();
+        }
+        if (evento.equals(Sistema.Eventos.quitarJugador)) {
+            quitarJugador();
+            mostrarFaltan();
         }
     }
 
@@ -65,5 +72,14 @@ public class ControladorEspera implements Observador {
     public void empezarJuego() {
         vistaEspera.salir();
         new VentanaJuego(jugador).setVisible(true);
+    }
+    
+    public void quitarJugador() {
+        HistoricoJugador j = new HistoricoJugador(jugador);
+        try {
+            sistema.expulsarJugador(j);
+        } catch (JuegoException ex) {
+            Logger.getLogger(ControladorEspera.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
