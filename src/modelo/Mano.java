@@ -47,8 +47,8 @@ public class Mano{
 
     private void iniciarMano(ArrayList<Jugador> jugadores) {
         for (Jugador j : jugadores) {
-            ArrayList<Carta> cartas = this.mazo.repartirCartas();
             Participacion newPart = new Participacion(j);
+            ArrayList<Carta> cartas = this.mazo.repartirCartas();
             newPart.setCartas(cartas);
             this.participantes.add(newPart);
         }

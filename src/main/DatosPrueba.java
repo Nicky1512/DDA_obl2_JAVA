@@ -19,7 +19,7 @@ public class DatosPrueba {
     public static void cargar() {
 
         Juego.setApuestaBase(10); //Mayor a 0
-        Juego.setCantidadJugadores(4); //Mayor a 1 y menor que 6
+        Juego.setCantidadJugadores(2); //Mayor a 1 y menor que 6
 
         Administrador Lucas = new Administrador("Lucas", "123", "Lucas Andueza");
         Administrador Bruno = new Administrador("Bruno", "234", "Bruno Barcelo");
@@ -30,7 +30,7 @@ public class DatosPrueba {
         Sistema.getInstancia().agregarAdmin(Lucas);
 
         Jugador j1 = new Jugador(500000, "Luis", "123", "Luis Ramirez");
-        Jugador j2 = new Jugador(2500, "Ana", "123", "Ana Pou");
+        Jugador j2 = new Jugador(250000, "Ana", "123", "Ana Pou");
         Jugador j3 = new Jugador(1000, "Jessica", "otraPass", "Jessica Suarez");
         Jugador j4 = new Jugador(200, "Pepe", "pass125823", "Pepe Chaplin");
         Jugador j5 = new Jugador(8000, "Rosa", "Ppass123", "Rosa Flores");

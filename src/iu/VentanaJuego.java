@@ -21,8 +21,9 @@ public class VentanaJuego extends javax.swing.JDialog implements VistaJuego {
      * Creates new form VentanaJuego
      */
     private ControladorJuego controlador;
+
     public VentanaJuego(Jugador j) {
-        super((Frame)null, false);
+        super((Frame) null, false);
         initComponents();
         controlador = new ControladorJuego(this, j);
         setLocationRelativeTo(null);
@@ -134,7 +135,7 @@ public class VentanaJuego extends javax.swing.JDialog implements VistaJuego {
     }//GEN-LAST:event_apostarBtnActionPerformed
 
     private void salirBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirBtnActionPerformed
-       explusarJugador();
+        explusarJugador();
     }//GEN-LAST:event_salirBtnActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -156,7 +157,7 @@ public class VentanaJuego extends javax.swing.JDialog implements VistaJuego {
     public void mostrarNombreJugador(String nombre) {
         setTitle("Jugador: " + nombre);
     }
-    
+
     @Override
     public void mostrarJuego() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -164,8 +165,7 @@ public class VentanaJuego extends javax.swing.JDialog implements VistaJuego {
 
     @Override
     public void terminarJuego() {
-        controlador.salir();
-        
+
     }
 
     @Override
@@ -175,40 +175,28 @@ public class VentanaJuego extends javax.swing.JDialog implements VistaJuego {
 
     @Override
     public void empezarJuego() {
-        try {
-            controlador.empezarJuego();
-        } catch (JuegoException ex) {
-            controlador.getVista();
-        }
+//        controlador.empezarJuego();
+//        controlador.getVista();
     }
 
     @Override
     public void observarCartas() {
-        controlador.ObservarCartas();
+//        controlador.ObservarCartas();
     }
 
     @Override
     public void apostar() {
-        double apuesta = Double.parseDouble(apuestaText.getText());
-        try {
-            controlador.apostar(apuesta);
-        } catch (JuegoException ex) {
-            error(ex.getMessage());
-        }
+//        double apuesta = Double.parseDouble(apuestaText.getText());
+//        controlador.apostar(apuesta);
     }
 
     @Override
     public void pasar() {
-        try {
-            controlador.pasar();
-        } catch (JuegoException ex) {
-            error(ex.getMessage());
-        }
+//        controlador.pasar();
     }
 
     @Override
     public void error(String msg) {
         JOptionPane.showMessageDialog(this, msg);
-
     }
 }

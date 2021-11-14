@@ -9,9 +9,7 @@ import controlador.ControladorJuego;
 import controlador.VistaEspera;
 import java.awt.Frame;
 import java.util.ArrayList;
-import modelo.Juego;
 import modelo.Jugador;
-import modelo.Sistema;
 import modelo.excepciones.JuegoException;
 
 /**
@@ -25,7 +23,7 @@ public class VentanaEspera extends javax.swing.JDialog implements VistaEspera {
      */
     public ArrayList<Jugador> jugadoresEnEspera = new ArrayList<>();
     private ControladorJuego controlador;
-    
+
     VentanaEspera(Jugador jugador) throws JuegoException {
         super((Frame) null, false);
         initComponents();
@@ -33,7 +31,7 @@ public class VentanaEspera extends javax.swing.JDialog implements VistaEspera {
         setLocationRelativeTo(null);
         setVisible(true);
         setTitle("Jugador: " + jugador.getNombreCompleto());
-        jugadoresEnEspera.add(jugador);       
+        jugadoresEnEspera.add(jugador);
         controlador.mostrarFaltan();
     }
 
@@ -113,16 +111,14 @@ public class VentanaEspera extends javax.swing.JDialog implements VistaEspera {
     private javax.swing.JLabel txt_cantJugadores;
     // End of variables declaration//GEN-END:variables
 
-
     @Override
     public void mostrarFaltan(String datos) {
         txt_cantJugadores.setText(datos);
     }
 
     @Override
-    public void empezarJuego() {
-//        new VentanaJuego().setVisible(true);
+    public void salir() {
+        this.dispose();
     }
-
 
 }
