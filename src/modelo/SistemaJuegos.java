@@ -91,4 +91,8 @@ public class SistemaJuegos {
         return juego.getDatosJugadores();
     }
 
+    public void verificarInicioJuego() throws JuegoException {
+        juegoAIniciar.verificarInicioJuego();
+    }
+
 }

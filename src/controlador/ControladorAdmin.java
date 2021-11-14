@@ -29,7 +29,7 @@ public class ControladorAdmin implements Observador {
             case nuevoJuego:
                 mostrarJuegos();
                 break;
-            case cambioListaJugadoresEnLinea:
+            case nuevoJugador:
                 mostrarJuegos();//TODO 
                 break;
         }

@@ -68,16 +68,18 @@ public class Juego extends Observable {
         if (jugador.getSaldo() > (Juego.cantidadJugadores * Juego.apuestaBase)) {
             if (!jugadores.contains(jugador)) {
                 jugadores.add(jugador);
-                if (Juego.cantidadJugadores == jugadores.size()) {
-                    Sistema.getInstancia().empezarJuego();
-                    Sistema.getInstancia().avisar(Sistema.Eventos.nuevoJuego);
-                }
-                this.avisar(Eventos.nuevoJugador);
+                Sistema.getInstancia().avisar(Sistema.Eventos.nuevoJugador);
             } else {
                 throw new JuegoException("El jugador ya fue ingresado al juego");
             }
         } else {
             throw new JuegoException("El saldo actual es menor a " + Juego.cantidadJugadores + " apuestas base");
+        }
+    }
+
+    public void verificarInicioJuego() throws JuegoException {
+        if (Juego.cantidadJugadores == jugadores.size()) {
+            Sistema.getInstancia().empezarJuego();
         }
     }
 
@@ -154,11 +156,11 @@ public class Juego extends Observable {
         }
     }
 
-    public void empezarJuego() throws JuegoException {
-        Sistema.getInstancia().avisar(Sistema.Eventos.nuevoJuego);
+    public void empezarJuego() throws JuegoException {     
         this.fechaInicio = new Date();
         this.enCurso = true;
         iniciarMano(0);
+        Sistema.getInstancia().avisar(Sistema.Eventos.nuevoJuego);
     }
 
     public void finalizarJuego() {

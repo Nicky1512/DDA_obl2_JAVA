@@ -5,7 +5,7 @@
  */
 package iu;
 
-import controlador.ControladorJuego;
+import controlador.ControladorEspera;
 import controlador.VistaEspera;
 import java.awt.Frame;
 import java.util.ArrayList;
@@ -18,20 +18,15 @@ import modelo.excepciones.JuegoException;
  */
 public class VentanaEspera extends javax.swing.JDialog implements VistaEspera {
 
-    /**
-     * Creates new form VentanaEspera
-     */
-    public ArrayList<Jugador> jugadoresEnEspera = new ArrayList<>();
-    private ControladorJuego controlador;
+    private ControladorEspera controlador;
 
     VentanaEspera(Jugador jugador) throws JuegoException {
         super((Frame) null, false);
-        initComponents();
-        controlador = new ControladorJuego(this, jugador);
+        initComponents();        
         setLocationRelativeTo(null);
         setVisible(true);
         setTitle("Jugador: " + jugador.getNombreCompleto());
-        jugadoresEnEspera.add(jugador);
+        controlador = new ControladorEspera(this, jugador);
         controlador.mostrarFaltan();
     }
 
@@ -97,10 +92,6 @@ public class VentanaEspera extends javax.swing.JDialog implements VistaEspera {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-//    @Override
-//    public void agruparJugadores() {
-//        cantidadJugadores();
-//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.Box.Filler filler1;

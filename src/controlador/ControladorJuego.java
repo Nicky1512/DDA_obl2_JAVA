@@ -1,13 +1,7 @@
 package controlador;
 
-import iu.VentanaJuego;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import modelo.Carta;
 import modelo.Juego;
 import modelo.Jugador;
-import modelo.Participacion;
 import modelo.Sistema;
 import modelo.SistemaJuegos;
 import modelo.excepciones.JuegoException;
@@ -17,21 +11,16 @@ import observador.Observador;
 public class ControladorJuego implements Observador {
 
     private VistaJuego vistaJuego;
-    private VistaEspera vistaEspera;
     private Sistema sistema = Sistema.getInstancia();
-    private Jugador jugador;  
+    private Jugador jugador;
+    private Juego juego;
 
     public ControladorJuego(VistaJuego vista, Jugador jugador) {
         this.vistaJuego = vista;
         this.jugador = jugador;
+        this.juego = sistema.getJuegoAIniciar();
         sistema.agregar(this);
         vista.mostrarNombreJugador(jugador.getNombreCompleto());
-    }
-
-    public ControladorJuego(VistaEspera vista, Jugador jugador) throws JuegoException {
-        this.vistaEspera = vista;
-        this.jugador = jugador;
-        sistema.agregar(this);
     }
 
     public VistaJuego getVista() {
@@ -50,33 +39,6 @@ public class ControladorJuego implements Observador {
         this.sistema = sistema;
     }
 
-//    public Participacion getParticipacion() {
-//        return participacion;
-//    }
-//
-//    public void setParticipacion(Participacion participacion) {
-//        this.participacion = participacion;
-//    }
-//
-//    public void salir() {
-//        participacion.quitar(this);
-//    }
-//
-//    public void apostar(double a) throws JuegoException {
-//        participacion.realizarApuesta(a);
-//    }
-//
-//    public void pasar() throws JuegoException {
-//        participacion.realizarApuesta(0);
-//    }
-//
-//    public ArrayList<Carta> ObservarCartas() {
-//        return participacion.getCartas();
-//    }
-
-//    public void expulsarJugador(Participacion p, Mano m){
-//        sistema.expulsarJugador(p, m);
-//    }
     @Override
     public void actualizar(Object evento, Observable origen) {
 //        switch((modelo.Participacion.Eventos)evento){
@@ -90,37 +52,15 @@ public class ControladorJuego implements Observador {
 //            case observarCartas: vistaJuego.observarCartas();
 //                break;
 //        }
-        if (evento.equals(Juego.Eventos.nuevoJugador)) { //TODO, evento llega cambioListaJugadoresEnLinea en vez de nuevoJugador
-            mostrarFaltan();
+//        if (evento.equals(Juego.Eventos.nuevoJugador)) { //TODO, evento llega nuevoJugador en vez de nuevoJugador
+//            mostrarFaltan();
+//        }
 
-        }
-        if (evento.equals(Sistema.Eventos.cambioListaJugadoresEnLinea)) {
-            mostrarFaltan();
-        }
-        if(evento.equals(Sistema.Eventos.nuevoJuego)){
-            empezarJuego();
-        }
     }
-
-//    public void mostrarVentanaEspera() {
-//        vistaEspera.mostrarFaltan();
-//    }
-
-    public void empezarJuego() {      
-        vistaEspera.salir();
-        new VentanaJuego(jugador).setVisible(true);
-    }
-
 
     private void cargarJugador(Jugador jugador) throws JuegoException {
         SistemaJuegos.getInstancia().agregarJugador(jugador);
     }
 
-    public void mostrarFaltan() {
-        Juego j = sistema.getJuegoAIniciar();
-        int cantJugadoresConectados = j.getJugadores().size();
-        String datos = cantJugadoresConectados + "/" + Juego.getCantidadJugadores();
-        vistaEspera.mostrarFaltan(datos);
-    }
 
 }

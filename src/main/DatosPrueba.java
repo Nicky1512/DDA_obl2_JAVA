@@ -32,7 +32,7 @@ public class DatosPrueba {
         Jugador j1 = new Jugador(500000, "Luis", "123", "Luis Ramirez");
         Jugador j2 = new Jugador(250000, "Ana", "123", "Ana Pou");
         Jugador j3 = new Jugador(1000, "Jessica", "otraPass", "Jessica Suarez");
-        Jugador j4 = new Jugador(200, "Pepe", "pass125823", "Pepe Chaplin");
+        Jugador j4 = new Jugador(200, "Pepe", "1", "Pepe Chaplin");
         Jugador j5 = new Jugador(8000, "Rosa", "Ppass123", "Rosa Flores");
         Jugador j6 = new Jugador(900, "Juan", "pass3", "Juan Juanes");
         Jugador j7 = new Jugador(0, "Silvina", "258pass", "Silvina Fuentes");
