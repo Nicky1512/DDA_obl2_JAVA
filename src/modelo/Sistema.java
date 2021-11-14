@@ -20,7 +20,7 @@ public class Sistema extends Observable {
         return instancia;
     }
 
-    public Usuario loginJugador(String usuario, String pass) {
+    public Usuario loginJugador(String usuario, String pass) throws JuegoException {
         return cUsuarios.loginJugador(usuario, pass);
     }
 
@@ -63,7 +63,10 @@ public class Sistema extends Observable {
 //    public void expulsarJugador(Participacion p, Mano m){
 //        cJuegos.g
 //    }
-    public void agruparJugadores(Jugador j) {
-        cJuegos.agruparJugadoresAJugar(j);
+    
+    public Juego getJuegoAIniciar(){
+        return cJuegos.getJuegoAIniciar();
     }
+    
+    
 }

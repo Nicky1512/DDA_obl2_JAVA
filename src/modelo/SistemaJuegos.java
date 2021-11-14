@@ -57,6 +57,10 @@ public class SistemaJuegos {
         return ret;
     }
 
+    public Juego getJuegoAIniciar() {
+        return juegoAIniciar;
+    }
+    
     public void empezarJuego() throws JuegoException {
         juegoAIniciar.empezarJuego();
         Juego nuevo = new Juego();
@@ -80,10 +84,6 @@ public class SistemaJuegos {
     }
 
     public void expulsarJugador(Participacion p, Juego j) {
-
-    }
-
-    public void agruparJugadoresAJugar(Jugador j) {
 
     }
 
