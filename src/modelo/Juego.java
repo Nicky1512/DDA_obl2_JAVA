@@ -23,7 +23,6 @@ public class Juego extends Observable {
     };
 
     public Juego() {
-        setCantidadJugadores(5);
     }
 
     public Date getFechaInicio() {
@@ -63,19 +62,21 @@ public class Juego extends Observable {
     }
 
     public void agregarJugador(Jugador jugador) throws JuegoException {
-        if (Juego.cantidadJugadores <= jugadores.size()) {
+        if (Juego.cantidadJugadores == jugadores.size()) {
             throw new JuegoException("El juego no puede aceptar mas jugadores");
         }
         if (jugador.getSaldo() > Juego.cantidadJugadores * Juego.apuestaBase) {
             if (!jugadores.contains(jugador)) {
                 jugadores.add(jugador);
+                if (Juego.cantidadJugadores == jugadores.size()) {
+                    Sistema.getInstancia().empezarJuego();
+                }
                 this.avisar(Eventos.nuevoJugador);
-                Sistema.getInstancia().avisar(Sistema.Eventos.cambioListaJugadoresEnLinea);
             } else {
                 throw new JuegoException("El jugador ya fue ingresado al juego");
             }
         } else {
-            throw new JuegoException("El saldo actual es menor a " + Juego.cantidadJugadores + "apuestas base");
+            throw new JuegoException("El saldo actual es menor a " + Juego.cantidadJugadores + " apuestas base");
         }
     }
 
@@ -182,7 +183,8 @@ public class Juego extends Observable {
     }
 
     public int cantidadJugadoresFaltan() {
-        return cantidadJugadores - jugadores.size();
+//        return cantidadJugadores - jugadores.size();
+        return jugadores.size();
     }
 
     public String getDatosJugadores() {
@@ -192,7 +194,7 @@ public class Juego extends Observable {
         double totalApostado = 0; //Se puede calcular, incluimos la apuesta base ?
         double totalGanado = 0;  //No lo tenemos guardado en ningun lado
 
-        return "Nombre: " + nombre  //Retorna datos de todos los jugadores, no solo de uno
+        return "Nombre: " + nombre //Retorna datos de todos los jugadores, no solo de uno
                 + " | Total Apostado" + totalApostado
                 + " | Saldo Incial: " + saldoInicial
                 + " | Total Ganado: " + totalGanado;

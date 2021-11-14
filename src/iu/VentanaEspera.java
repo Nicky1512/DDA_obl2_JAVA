@@ -9,7 +9,9 @@ import controlador.ControladorJuego;
 import controlador.VistaEspera;
 import java.awt.Frame;
 import java.util.ArrayList;
+import modelo.Juego;
 import modelo.Jugador;
+import modelo.Sistema;
 import modelo.excepciones.JuegoException;
 
 /**
@@ -23,6 +25,7 @@ public class VentanaEspera extends javax.swing.JDialog implements VistaEspera {
      */
     public ArrayList<Jugador> jugadoresEnEspera = new ArrayList<>();
     private ControladorJuego controlador;
+    
     VentanaEspera(Jugador jugador) throws JuegoException {
         super((Frame) null, false);
         initComponents();
@@ -30,10 +33,8 @@ public class VentanaEspera extends javax.swing.JDialog implements VistaEspera {
         setLocationRelativeTo(null);
         setVisible(true);
         setTitle("Jugador: " + jugador.getNombreCompleto());
-        jugadoresEnEspera.add(jugador);
-        
-//        cantidadJugadores();
-        
+        jugadoresEnEspera.add(jugador);       
+        controlador.mostrarFaltan();
     }
 
     /**
@@ -98,10 +99,10 @@ public class VentanaEspera extends javax.swing.JDialog implements VistaEspera {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    @Override
-    public void agruparJugadores() {
-        cantidadJugadores();
-    }
+//    @Override
+//    public void agruparJugadores() {
+//        cantidadJugadores();
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.Box.Filler filler1;
@@ -112,22 +113,10 @@ public class VentanaEspera extends javax.swing.JDialog implements VistaEspera {
     private javax.swing.JLabel txt_cantJugadores;
     // End of variables declaration//GEN-END:variables
 
-    private void cantidadJugadores() {
-//        controlador.getCantidadJugadoresEnEspera();
-        int cantJugadores = jugadoresEnEspera.size();   
-        if(cantJugadores < 6){
-            txt_cantJugadores.setText(cantJugadores + "/5");
-        }else{
-            jugadoresEnEspera.forEach(j -> {
-                new VentanaJuego(j).setVisible(true);
-                dispose();
-            });
-        }
-    }
 
     @Override
-    public void mostrarFaltan(int n) {
-        txt_cantJugadores.setText(n + "/5");
+    public void mostrarFaltan(String datos) {
+        txt_cantJugadores.setText(datos);
     }
 
     @Override

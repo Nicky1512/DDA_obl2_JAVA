@@ -77,12 +77,6 @@ public class DatosPrueba {
             cartas.add(q);
         }
 
-        Mazo mazo = new Mazo(cartas);
-        SistemaJuegos.getInstancia().setMazo(mazo);
-        Juego juego = new Juego();
-        SistemaJuegos.getInstancia().setJuegoAIniciar(juego);
-        //TODO setear mazo en juego
-
         Color color = new Color("Color");
         Pierna pierna = new Pierna("Pierna");
         Par par = new Par("Par");
@@ -92,6 +86,13 @@ public class DatosPrueba {
         Sistema.getInstancia().agregarFigura(pierna);
         Sistema.getInstancia().agregarFigura(par);
         Sistema.getInstancia().agregarFigura(sinFigura);
+        
+        
+        Mazo mazo = new Mazo(cartas);
+        SistemaJuegos.getInstancia().setMazo(mazo);
+        Juego juego = new Juego();
+        SistemaJuegos.getInstancia().setJuegoAIniciar(juego);
+        //TODO setear mazo en juego
 
     }
 }

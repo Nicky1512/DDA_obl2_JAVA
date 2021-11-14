@@ -1,6 +1,7 @@
 package modelo;
 
 import java.util.ArrayList;
+import modelo.excepciones.JuegoException;
 
 public class SistemaUsuarios {
 
@@ -39,13 +40,11 @@ public class SistemaUsuarios {
         return null;
     }
 
-    public Jugador loginJugador(String usuario, String password) {
+    public Jugador loginJugador(String usuario, String password) throws JuegoException {
         Jugador loginRequest = (Jugador) login(usuario, password, jugadores);
-//        Sesion s = null;
+        Sistema.getInstancia().ingresarJugador(loginRequest);
+        Sistema.getInstancia().avisar(Sistema.Eventos.cambioListaJugadoresEnLinea);
         if (loginRequest != null) {
-//            conectados.add(loginRequest);
-//            s = new Sesion(loginRequest);
-//            conectados.add(s);
             return loginRequest;
         }
         return null;

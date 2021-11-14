@@ -8,6 +8,7 @@ import modelo.Juego;
 import modelo.Jugador;
 import modelo.Participacion;
 import modelo.Sistema;
+import modelo.SistemaJuegos;
 import modelo.excepciones.JuegoException;
 import observador.Observable;
 import observador.Observador;
@@ -17,8 +18,7 @@ public class ControladorJuego implements Observador {
     private VistaJuego vistaJuego;
     private VistaEspera vistaEspera;
     private Sistema sistema = Sistema.getInstancia();
-    private Participacion participacion;
-    private Juego juego = new Juego();
+    private Participacion participacion;  
 
     public ControladorJuego(VistaJuego vista, Jugador jugador) {
         this.vistaJuego = vista;
@@ -31,7 +31,6 @@ public class ControladorJuego implements Observador {
     public ControladorJuego(VistaEspera vista, Jugador jugador) throws JuegoException {
         this.vistaEspera = vista;
         sistema.agregar(this);
-        cargarJugador(jugador);
     }
 
     public VistaJuego getVista() {
@@ -91,30 +90,32 @@ public class ControladorJuego implements Observador {
 //                break;
 //        }
         if (evento.equals(Juego.Eventos.nuevoJugador)) { //TODO, evento llega cambioListaJugadoresEnLinea en vez de nuevoJugador
-                mostrarFaltan();
-                //mostrarVentanaEspera();
-                
+            mostrarFaltan();
+
+        }
+        if (evento.equals(Sistema.Eventos.cambioListaJugadoresEnLinea)) {
+            mostrarFaltan();
         }
     }
 
-    public void mostrarVentanaEspera() {
-        vistaEspera.agruparJugadores();
-    }
+//    public void mostrarVentanaEspera() {
+//        vistaEspera.mostrarFaltan();
+//    }
 
     public void empezarJuego() throws JuegoException {
         sistema.empezarJuego();
     }
 
-    public void agruparJugadoresProximoJuego(Jugador j) {
-        sistema.agruparJugadores(j);
-    }
 
     private void cargarJugador(Jugador jugador) throws JuegoException {
-        juego.agregarJugador(jugador);
+        SistemaJuegos.getInstancia().agregarJugador(jugador);
     }
 
-    private void mostrarFaltan() {
-        vistaEspera.mostrarFaltan(juego.cantidadJugadoresFaltan());
+    public void mostrarFaltan() {
+        Juego j = sistema.getJuegoAIniciar();
+        int cantJugadoresConectados = j.getJugadores().size();
+        String datos = cantJugadoresConectados + "/" + Juego.getCantidadJugadores();
+        vistaEspera.mostrarFaltan(datos);
     }
 
 }

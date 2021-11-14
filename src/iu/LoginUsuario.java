@@ -24,8 +24,13 @@ public class LoginUsuario extends LoginAbstracto {
     
     @Override
     public Object invocarLoginLogicaNegocio(String nom, String pwd) {
-        Usuario u = Sistema.getInstancia().loginJugador(nom, pwd);
-        return u;
+        try {
+            Usuario u = Sistema.getInstancia().loginJugador(nom, pwd);
+            return u;
+        } catch (JuegoException ex) {
+            Logger.getLogger(LoginUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
     @Override
