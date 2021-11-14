@@ -87,7 +87,7 @@ public class SistemaJuegos {
 
     }
 
-    public String getDatosJugadores(Juego juego) {
+    public ArrayList<String> getDatosJugadores(Juego juego) {
         return juego.getDatosJugadores();
     }
 
