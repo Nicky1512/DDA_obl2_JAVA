@@ -88,7 +88,7 @@ public class HistoricoJugador {
         }
 
         HistoricoJugador j = (HistoricoJugador) o;
-        return this.jugador.nombreUsuario.equals(j.getJugador().nombreUsuario);
+        return this.jugador.nombreCompleto.equals(j.getJugador().getNombreCompleto());
     }
     
     
