@@ -77,8 +77,7 @@ public class Juego extends Observable {
         }
         if (jugador.getJugador().getSaldo() > (Juego.cantidadJugadores * Juego.apuestaBase)) {
             if (!jugadores.contains(jugador)) {
-                HistoricoJugador j = new HistoricoJugador(jugador.getJugador());
-                jugadores.add(j);
+                jugadores.add(jugador);
                 Sistema.getInstancia().avisar(Sistema.Eventos.nuevoJugador);
             } else {
                 throw new JuegoException("El jugador ya fue ingresado al juego");
@@ -95,19 +94,45 @@ public class Juego extends Observable {
     }
 
     public void retirarJugador(HistoricoJugador jugador) throws JuegoException {
-        if (jugadores.contains(jugador)) {
-            jugadores.remove(jugador);
-            Sistema.getInstancia().avisar(Sistema.Eventos.quitarJugador);
-        } else {
+        Boolean aux = false;
+        for (HistoricoJugador j : jugadores) {
+            if (j.equals(jugador)) {
+                jugadores.remove(j);
+                aux = true;
+                Sistema.getInstancia().avisar(Sistema.Eventos.quitarJugador);
+                break;
+            }
+        }
+
+        if (!aux) {
+            throw new JuegoException("El jugador no fue ingresado previamente.");
+        }
+
+    }
+
+    public void finalizarParticipacion(Jugador jugador) throws JuegoException {
+        ArrayList<HistoricoJugador> jugadoresActivos = getJugadoresActivos();
+        Boolean aux = false;
+        for (HistoricoJugador j : jugadoresActivos) {
+            if (j.getJugador().equals(jugador)) {
+                j.setActivo(false);
+                aux = true;
+                Sistema.getInstancia().avisar(Sistema.Eventos.quitarJugador);
+            }
+        }
+
+        if (!aux) {
             throw new JuegoException("El jugador no fue ingresado previamente.");
         }
     }
 
-    private void removerJugadores() throws JuegoException {
+    
+private void removerJugadores() throws JuegoException {
         int cont = 0;
-        for (HistoricoJugador j : jugadores) {
+        ArrayList<HistoricoJugador> jugadoresActivos = getJugadoresActivos();
+        for (HistoricoJugador j : jugadoresActivos) {
             HistoricoJugador copia = j;
-            if (j.isActivo()) {
+            if (copia.getJugador().getSaldo() == 0) {
                 retirarJugador(copia);
             }
             Boolean puedo = copia.getJugador().puedoApostar(Juego.apuestaBase);

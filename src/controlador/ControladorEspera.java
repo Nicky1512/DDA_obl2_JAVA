@@ -49,7 +49,6 @@ public class ControladorEspera implements Observador {
             empezarJuego();
         }
         if (evento.equals(Sistema.Eventos.quitarJugador)) {
-            quitarJugador();
             mostrarFaltan();
         }
     }

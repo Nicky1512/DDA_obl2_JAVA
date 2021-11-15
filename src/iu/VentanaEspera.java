@@ -24,7 +24,6 @@ public class VentanaEspera extends javax.swing.JDialog implements VistaEspera {
         super((Frame) null, false);
         initComponents();        
         setLocationRelativeTo(null);
-        setVisible(true);
         setTitle("Jugador: " + jugador.getNombreCompleto());
         controlador = new ControladorEspera(this, jugador);
         controlador.mostrarFaltan();
@@ -131,7 +130,6 @@ public class VentanaEspera extends javax.swing.JDialog implements VistaEspera {
 
     private void retirarDeLaVentana() {
         controlador.quitarJugador();
-        controlador.mostrarFaltan();
     }
 
 }
