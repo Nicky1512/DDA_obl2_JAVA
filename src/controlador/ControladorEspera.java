@@ -32,15 +32,15 @@ public class ControladorEspera implements Observador {
 
     public void ingresarJugadorJuego() {
         try {
-            Sistema.getInstancia().ingresarJugador(new HistoricoJugador(jugador));
-        } catch (JuegoException ex) {
-            Logger.getLogger(ControladorEspera.class.getName()).log(Level.SEVERE, null, ex);
+            sistema.ingresarJugadorJuego(jugador);
+        } catch (JuegoException ex) {           
+            vistaEspera.error(ex.getMessage()); 
+            vistaEspera.salir();
         }
     }
 
     @Override
-    public void actualizar(Object evento, Observable origen) {
-        
+    public void actualizar(Object evento, Observable origen) { 
         if (evento.equals(Sistema.Eventos.nuevoJugador)) {
             mostrarFaltan();
             verificarInicio();

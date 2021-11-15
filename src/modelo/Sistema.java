@@ -52,7 +52,7 @@ public class Sistema extends Observable {
         cJuegos.verificarInicioJuego();
     }
     
-    public void ingresarJugador(HistoricoJugador jugador) throws JuegoException {
+    public void ingresarJugadorJuego(Jugador jugador) throws JuegoException {
         cJuegos.agregarJugador(jugador);
     }
 
@@ -75,4 +75,9 @@ public class Sistema extends Observable {
     public void terminarParticipacion(Jugador jugador, Juego juego) throws JuegoException {
         cJuegos.terminarParticipacion(jugador, juego);
     }
+
+    public void verificarIngresoJugador(Jugador j) throws JuegoException {
+        cJuegos.verificarIngresoJugador(j);
+    }
+       
 }

@@ -11,4 +11,6 @@ public interface VistaEspera {
         
     public void salir();
     
+    public void error(String msg);
+    
 }

@@ -59,8 +59,8 @@ public class ControladorJuego implements Observador {
 
     }
 
-    private void cargarJugador(HistoricoJugador jugador) throws JuegoException {
-        sistema.ingresarJugador(jugador);
+    private void cargarJugador(Jugador jugador) throws JuegoException {
+        sistema.ingresarJugadorJuego(jugador);
     }
 
     public void terminarParticipacion(){
