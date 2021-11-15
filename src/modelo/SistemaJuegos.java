@@ -66,9 +66,6 @@ public class SistemaJuegos {
         Juego nuevo = new Juego();
         this.juegos.add(nuevo);
         this.juegoAIniciar = nuevo;
-//        for(Jugador j:nuevo.getJugadores()){
-//            
-//        }
     }
 
     public void agregarFigura(Figura figura) {
@@ -79,20 +76,20 @@ public class SistemaJuegos {
         this.juegoAIniciar.agregarJugador(jugador);
     }
 
-    public void recibirApuesta(double monto, Juego juego, Participacion participacion) throws JuegoException {
-        juego.recibirApuesta(monto, participacion);
+    public void recibirApuesta(double monto, Juego juego, Jugador jugador) throws JuegoException {
+        juego.recibirApuesta(monto, jugador);
     }
 
     public void quitarJugador(HistoricoJugador jugador) throws JuegoException {
         juegoAIniciar.retirarJugador(jugador);
     }
 
-    public ArrayList<String> getDatosJugadores(Juego juego) {
-        return juego.getDatosJugadores();
-    }
-
     public void verificarInicioJuego() throws JuegoException {
         juegoAIniciar.verificarInicioJuego();
+    }
+    
+    public void terminarParticipacion(Jugador jugador, Juego juego) throws JuegoException{
+        juego.finalizarParticipacion(jugador);
     }
 
 }

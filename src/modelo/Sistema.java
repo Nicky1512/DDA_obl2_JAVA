@@ -36,6 +36,10 @@ public class Sistema extends Observable {
         cUsuarios.agregarJugador(j);
     }
 
+    public ArrayList<Juego> getJuegosEnCurso() {
+        return cJuegos.getJuegosEnCurso();
+    }
+
     public void agregarAdmin(Administrador a) {
         cUsuarios.agregarAdmin(a);
     }
@@ -48,16 +52,12 @@ public class Sistema extends Observable {
         cJuegos.verificarInicioJuego();
     }
     
-    public ArrayList<Sesion> getConexiones() {
-        return cJuegos.getConexiones();
-    }
-
     public void ingresarJugador(HistoricoJugador jugador) throws JuegoException {
         cJuegos.agregarJugador(jugador);
     }
 
-    public void recibirApuesta(double monto, Juego juego, Participacion participacion) throws JuegoException {
-        cJuegos.recibirApuesta(monto, juego, participacion);
+    public void recibirApuesta(double monto, Juego juego, Jugador jugador) throws JuegoException {
+        cJuegos.recibirApuesta(monto, juego, jugador);
     }
 
     public ArrayList<Jugador> getJugadores() {
@@ -72,5 +72,7 @@ public class Sistema extends Observable {
         return cJuegos.getJuegoAIniciar();
     }
 
-    
+    public void terminarParticipacion(Jugador jugador, Juego juego) throws JuegoException {
+        cJuegos.terminarParticipacion(jugador, juego);
+    }
 }

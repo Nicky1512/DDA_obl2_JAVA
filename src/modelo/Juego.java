@@ -36,11 +36,11 @@ public class Juego extends Observable {
     public ArrayList<HistoricoJugador> getJugadores() {
         return jugadores;
     }
-    
-    public ArrayList<HistoricoJugador> getJugadoresActivos(){
+
+    public ArrayList<HistoricoJugador> getJugadoresActivos() {
         ArrayList<HistoricoJugador> aux = new ArrayList();
-        for(HistoricoJugador j:jugadores){
-            if(j.isActivo()){
+        for (HistoricoJugador j : jugadores) {
+            if (j.isActivo()) {
                 aux.add(j);
             }
         }
@@ -126,8 +126,7 @@ public class Juego extends Observable {
         }
     }
 
-    
-private void removerJugadores() throws JuegoException {
+    private void removerJugadores() throws JuegoException {
         int cont = 0;
         ArrayList<HistoricoJugador> jugadoresActivos = getJugadoresActivos();
         for (HistoricoJugador j : jugadoresActivos) {
@@ -146,10 +145,10 @@ private void removerJugadores() throws JuegoException {
             finalizarJuego();
         }
     }
-    
-    public ArrayList<Jugador> getListaJugadores(){
+
+    public ArrayList<Jugador> getListaJugadores() {
         ArrayList<Jugador> aux = new ArrayList();
-        for(HistoricoJugador j:jugadores){
+        for (HistoricoJugador j : jugadores) {
             aux.add(j.getJugador());
         }
         return aux;
@@ -201,7 +200,7 @@ private void removerJugadores() throws JuegoException {
         }
     }
 
-    public void empezarJuego() throws JuegoException {     
+    public void empezarJuego() throws JuegoException {
         this.fechaInicio = new Date();
         this.enCurso = true;
         iniciarMano(0);
@@ -212,11 +211,11 @@ private void removerJugadores() throws JuegoException {
         this.enCurso = false;
     }
 
-    public void recibirApuesta(double monto, Participacion participacion) throws JuegoException {
-        this.getManoActual().recibirApuesta(monto, participacion);
+    public void recibirApuesta(double monto, Jugador jugador) throws JuegoException {
+        this.getManoActual().recibirApuesta(monto, jugador);
     }
 
-    public double getTotalApostado() {
+    public double getTotalApostadoJuego() {
         double total = 0;
         for (Mano m : manos) {
             total += m.getTotalApostado();
@@ -227,31 +226,16 @@ private void removerJugadores() throws JuegoException {
     public String getDatosJuego() {
         String patron = "dd/MM/yyyy HH:mm";
         DateFormat df = new SimpleDateFormat(patron);
-        double totalApostado = this.getTotalApostado();
-        return "Fecha inicio: " + df.format(this.fechaInicio) + "Cant jugadores: " + this.jugadores.size() + "Total apostado: " + totalApostado + "Cant manos jugadas: " + this.manos.size();
+        double totalApostado = this.getTotalApostadoJuego();
+        return "Fecha inicio: " + df.format(this.fechaInicio) + "Cant jugadores: " + this.getJugadoresActivos().size() + "Total apostado: " + totalApostado + "Cant manos jugadas: " + this.manos.size();
     }
 
-    public int cantidadJugadoresFaltan() {
-//        return cantidadJugadores - jugadores.size();
-        return jugadores.size();
-    }
-
-    public ArrayList<String> getDatosJugadores() {
-
-//        String nombre = ""; //Solo tenemos los jugadores actuales, no estan TODOS los que participaron
-//        double saldoInicial = 0; //No lo tenemos guardado en ningun lado
-//        double totalApostado = 0; //Se puede calcular, incluimos la apuesta base ?
-//        double totalGanado = 0;  //No lo tenemos guardado en ningun lado
-//
-//        return "Nombre: " + nombre //Retorna datos de todos los jugadores, no solo de uno
-//                + " | Total Apostado" + totalApostado
-//                + " | Saldo Incial: " + saldoInicial
-//                + " | Total Ganado: " + totalGanado;
-        ArrayList<String> lista = new ArrayList();
-        for(HistoricoJugador j:jugadores){
-            lista.add(j.toString());
+    public ArrayList<HistoricoJugador> getDetallesJugadores() {
+        for (HistoricoJugador j : jugadores) {
+            //TODO:
+            //Calcular total apostado
+            //Calcular total ganado
         }
-        return lista;
-
+        return jugadores;
     }
 }

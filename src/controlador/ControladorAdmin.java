@@ -1,7 +1,5 @@
 package controlador;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import modelo.Administrador;
 import modelo.Sesion;
 import modelo.Sistema;
@@ -41,21 +39,13 @@ public class ControladorAdmin implements Observador {
     }
 
     public void mostrarJuegos() {
-        vista.mostrarSesiones(sistema.getConexiones());
+        vista.mostrarJuegos(sistema.getJuegosEnCurso());
     }
 
-    public void detalles(Sesion s) {
-//        sesion tiene toda la info del juego en linea
-        if (s != null) {
-            String datos = s.toString();
-            vista.detallesPartida(datos);
-        }else vista.detallesPartida("");
+    public void detalles() {
+
     }
-//    En el listado de juegos se muestra: 
-//    - Fecha/hora de inicio
-//    - Cantidad Jugadores
-//    - Total apostado
-//    - cantidad de manos jugadas
+
 
     public void detallesJugadores(Sesion s){
         if (s != null) {
@@ -63,9 +53,5 @@ public class ControladorAdmin implements Observador {
             vista.detallesJugadores(datos);
         }else vista.detallesJugadores("");
     }
-//    En el listado de jugadores de un juego se muestra: 
-//    - Nombre Completo
-//    - Total Apostado
-//    - Saldo al iniciar la partida
-//    - Total ganado(que puede ser negativo)
+
 }

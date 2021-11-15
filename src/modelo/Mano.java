@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import modelo.Figuras.Figura;
 import modelo.excepciones.JuegoException;
 
-public class Mano{
+public class Mano {
 
     private double pozoInicial;
     private Mazo mazo;
@@ -12,7 +12,7 @@ public class Mano{
     private double apuestaFijada;
 
     private ArrayList<Participacion> participantes;
-    
+
     public Mano(double pozoInicial, Mazo mazo, ArrayList<Jugador> jugadores) {
         this.pozoInicial = pozoInicial;
         this.mazo = mazo;
@@ -54,15 +54,15 @@ public class Mano{
         }
     }
 
-    public void recibirApuesta(double monto, Participacion participacion) throws JuegoException {
-        Boolean puedoApostar = participacion.getJugador().puedoApostar(monto);
+    public void recibirApuesta(double monto, Jugador jugador) throws JuegoException {
+        Boolean puedoApostar = jugador.puedoApostar(monto);
         if (puedoApostar) {
             if (this.apuestaFijada == 0) {
                 this.apuestaFijada = monto;
-                this.completarApuesta(monto, participacion);
+                this.completarApuesta(monto, jugador);
             }
             if (this.apuestaFijada == monto) {
-                this.completarApuesta(monto, participacion);
+                this.completarApuesta(monto, jugador);
             } else {
                 throw new JuegoException("La apuesta ingresada es distinta a la apuesta fijada.");
             }
@@ -71,26 +71,35 @@ public class Mano{
         }
     }
 
-    public void completarApuesta(double monto, Participacion participacion) throws JuegoException {
+    public void completarApuesta(double monto, Jugador jugador) throws JuegoException {
         this.totalApostado += monto;
-        participacion.realizarApuesta(monto);
+        for (Participacion p : participantes) {
+            if (p.getJugador().equals(jugador)) {
+                p.realizarApuesta(monto);
+                break;
+            }
+        }
+
     }
 
     public Participacion determinarGanador() {
+        Participacion ganador = null;
+        ArrayList<Participacion> participaciones = new ArrayList<>();
         for (Figura fig : SistemaJuegos.getInstancia().getFiguras()) {
-            ArrayList<Participacion> participaciones = new ArrayList<>();
             for (Participacion p : participantes) {
                 if (fig.getClass().getName() == null ? p.getFigura().getClass().getName() == null : fig.getClass().getName().equals(p.getFigura().getClass().getName())) {
                     participaciones.add(p);
                 }
             }
             if (participaciones.size() > 1) {
-                Participacion ganador = fig.desempatarFiguras((Participacion[]) participaciones.toArray());
-                return ganador;
+                ganador = fig.desempatarFiguras((Participacion[]) participaciones.toArray());
+                break;
             } else if (participaciones.size() == 1) {
-                return participaciones.get(0);
+                ganador = participaciones.get(0);
+                break;
             }
         }
-        return null;
+        ganador.setMontoGanado(totalApostado);
+        return ganador;
     }
 }

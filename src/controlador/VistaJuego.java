@@ -8,7 +8,7 @@ public interface VistaJuego {
 
     public void terminarJuego();
 
-    public void explusarJugador();
+    public void terminarParticipacion();
 
     public void empezarJuego();
 

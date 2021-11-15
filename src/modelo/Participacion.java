@@ -10,8 +10,16 @@ public class Participacion extends Observable {
     private double apuesta;
     private Jugador jugador;
     private Figura figura;
-
     private ArrayList<Carta> cartas;
+    private double montoGanado;
+
+    public double getMontoGanado() {
+        return montoGanado;
+    }
+
+    public void setMontoGanado(double montoGanado) {
+        this.montoGanado = montoGanado;
+    }
 
     public enum Eventos {
         salir, apostar, pasar, observarCartas

@@ -1,15 +1,12 @@
 package controlador;
 
 import java.util.ArrayList;
-import modelo.Sesion;
+import modelo.Juego;
 
 public interface VistaAdmin {
     
-    public void mostrarSesiones(ArrayList<Sesion> juegos);
-    //Sesiones de los juegos que estan empezados?
-    
-    public void mostrarJugadores();
-    
+    public void mostrarJuegos(ArrayList<Juego> juegos);
+        
     public void detallesPartida(String detalles);
     
     public void detallesJugadores(String detalles);
@@ -18,6 +15,5 @@ public interface VistaAdmin {
     
     public void salir();
     
-    public void error(String m);
-    
+    public void error(String m);   
 }

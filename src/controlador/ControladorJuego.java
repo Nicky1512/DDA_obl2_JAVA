@@ -1,5 +1,7 @@
 package controlador;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import modelo.HistoricoJugador;
 import modelo.Juego;
 import modelo.Jugador;
@@ -53,9 +55,7 @@ public class ControladorJuego implements Observador {
 //            case observarCartas: vistaJuego.observarCartas();
 //                break;
 //        }
-//        if (evento.equals(Juego.Eventos.nuevoJugador)) { //TODO, evento llega nuevoJugador en vez de nuevoJugador
-//            mostrarFaltan();
-//        }
+    
 
     }
 
@@ -63,5 +63,11 @@ public class ControladorJuego implements Observador {
         SistemaJuegos.getInstancia().agregarJugador(jugador);
     }
 
-
+    public void terminarParticipacion(){
+        try {
+            SistemaJuegos.getInstancia().terminarParticipacion(jugador, juego);
+        } catch (JuegoException ex) {
+            vistaJuego.error(ex.getMessage());
+        }
+    }
 }

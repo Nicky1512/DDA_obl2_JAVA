@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package iu;
 
 import controlador.ControladorAdmin;
@@ -11,25 +6,20 @@ import java.awt.Frame;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import modelo.Administrador;
-import modelo.Sesion;
+import modelo.Juego;
 
-/**
- *
- * @author Bruno
- */
 public class VentanaAdmin extends javax.swing.JDialog implements VistaAdmin {
 
-    /**
-     * Creates new form VentanaAdmin
-     */
     private ControladorAdmin controlador;
-    
+    private ArrayList<Juego> juegos;
+        
     public VentanaAdmin(Administrador admin) {
         super((Frame)null, false);
         initComponents();
         controlador = new ControladorAdmin(this, admin);
         setLocationRelativeTo(null);
         setTitle("Administrador: " + admin.getNombreCompleto());
+        controlador.mostrarJuegos();
     }
 
     /**
@@ -45,10 +35,10 @@ public class VentanaAdmin extends javax.swing.JDialog implements VistaAdmin {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        list_jugadoresEnPartida = new javax.swing.JList();
+        listaJugadores = new javax.swing.JList();
         jLabel7 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        list_juegosEnLinea = new javax.swing.JList();
+        listaJuegosActivos = new javax.swing.JList();
 
         jLabel1.setText("jLabel1");
 
@@ -59,21 +49,26 @@ public class VentanaAdmin extends javax.swing.JDialog implements VistaAdmin {
 
         jLabel3.setText("Juegos en linea: ");
 
-        jScrollPane1.setViewportView(list_jugadoresEnPartida);
+        listaJugadores.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                listaJugadoresValueChanged(evt);
+            }
+        });
+        jScrollPane1.setViewportView(listaJugadores);
 
         jLabel7.setText("Jugadores en la partida: ");
 
-        list_juegosEnLinea.addMouseListener(new java.awt.event.MouseAdapter() {
+        listaJuegosActivos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                list_juegosEnLineaMouseClicked(evt);
+                listaJuegosActivosMouseClicked(evt);
             }
         });
-        list_juegosEnLinea.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+        listaJuegosActivos.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                list_juegosEnLineaValueChanged(evt);
+                listaJuegosActivosValueChanged(evt);
             }
         });
-        jScrollPane2.setViewportView(list_juegosEnLinea);
+        jScrollPane2.setViewportView(listaJuegosActivos);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -105,17 +100,24 @@ public class VentanaAdmin extends javax.swing.JDialog implements VistaAdmin {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void list_juegosEnLineaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_list_juegosEnLineaMouseClicked
+    private void listaJuegosActivosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaJuegosActivosMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_list_juegosEnLineaMouseClicked
+    }//GEN-LAST:event_listaJuegosActivosMouseClicked
 
-    private void list_juegosEnLineaValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_list_juegosEnLineaValueChanged
-        // TODO add your handling code here:
+    private void listaJuegosActivosValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listaJuegosActivosValueChanged
+        int selection = listaJuegosActivos.getSelectedIndex();
+        Juego juegoSelected = juegos.get(selection);
+        //jugadores = juegoSelected.getJugadores();
         
-    }//GEN-LAST:event_list_juegosEnLineaValueChanged
+        listaJugadores.clearSelection();
+        
+        listaJugadores.setListData(juegoSelected.getDetallesJugadores().toArray());
+        
+    }//GEN-LAST:event_listaJuegosActivosValueChanged
 
-
-
+    private void listaJugadoresValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listaJugadoresValueChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_listaJugadoresValueChanged
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
@@ -124,27 +126,15 @@ public class VentanaAdmin extends javax.swing.JDialog implements VistaAdmin {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JList list_juegosEnLinea;
-    private javax.swing.JList list_jugadoresEnPartida;
+    private javax.swing.JList listaJuegosActivos;
+    private javax.swing.JList listaJugadores;
     // End of variables declaration//GEN-END:variables
-
-
-    @Override
-    public void mostrarSesiones(ArrayList<Sesion> conexiones) {
-        list_juegosEnLinea.setListData(conexiones.toArray());
-    }
 
     @Override
     public void salir() {
         controlador.salir();
     }
     
-    @Override
-    public void mostrarJugadores() {
-        Sesion s = (Sesion) list_juegosEnLinea.getSelectedValue();
-        controlador.detallesJugadores(s);
-    }
-
     @Override
     public void detallesPartida(String detalles) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -165,6 +155,14 @@ public class VentanaAdmin extends javax.swing.JDialog implements VistaAdmin {
     public void error(String msg) {
         JOptionPane.showMessageDialog(this, msg);
     }
-    
-    
+
+    @Override
+    public void mostrarJuegos(ArrayList<Juego> juegos) {
+        ArrayList<String> lista = new ArrayList();
+        for (Juego j : juegos) {
+            lista.add(j.toString());
+        }
+        listaJuegosActivos.setListData(lista.toArray());
+    }
+     
 }

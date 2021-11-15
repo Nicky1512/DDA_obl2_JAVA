@@ -53,6 +53,11 @@ public class VentanaJuego extends javax.swing.JDialog implements VistaJuego {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setAlwaysOnTop(true);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         salirBtn.setText("Salir");
         salirBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -131,8 +136,12 @@ public class VentanaJuego extends javax.swing.JDialog implements VistaJuego {
     }//GEN-LAST:event_apostarBtnActionPerformed
 
     private void salirBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirBtnActionPerformed
-        explusarJugador();
+        terminarParticipacion();
     }//GEN-LAST:event_salirBtnActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        controlador.terminarParticipacion();
+    }//GEN-LAST:event_formWindowClosing
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton apostarBtn;
@@ -165,8 +174,9 @@ public class VentanaJuego extends javax.swing.JDialog implements VistaJuego {
     }
 
     @Override
-    public void explusarJugador() {
-//        controlador
+    public void terminarParticipacion() {
+        controlador.terminarParticipacion();
+        this.dispose();
     }
 
     @Override
