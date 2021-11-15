@@ -72,7 +72,7 @@ public class SistemaJuegos {
         this.figuras.add(figura);
     }
 
-    public void agregarJugador(HistoricoJugador jugador) throws JuegoException {
+    public void agregarJugador(Jugador jugador) throws JuegoException {
         this.juegoAIniciar.agregarJugador(jugador);
     }
 
@@ -92,4 +92,7 @@ public class SistemaJuegos {
         juego.finalizarParticipacion(jugador);
     }
 
+    public void verificarIngresoJugador(Jugador j) throws JuegoException{
+        juegoAIniciar.verificarIngresoJugador(j);
+    }
 }

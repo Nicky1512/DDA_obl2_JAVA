@@ -8,6 +8,7 @@ package iu;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import modelo.Jugador;
 import modelo.Sistema;
 import modelo.Usuario;
@@ -36,9 +37,10 @@ public class LoginUsuario extends LoginAbstracto {
     @Override
     public void ejecutarProximoCasoUso(Object dato) {
         try {
+            Sistema.getInstancia().verificarIngresoJugador((Jugador)dato);
             new VentanaEspera((Jugador)dato).setVisible(true);
         } catch (JuegoException ex) {
-            Logger.getLogger(LoginUsuario.class.getName()).log(Level.SEVERE, null, ex); //CAMBIA MENSAJE
+            JOptionPane.showMessageDialog(this, ex.getMessage());
         }
     }
     

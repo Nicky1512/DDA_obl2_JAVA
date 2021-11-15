@@ -71,20 +71,25 @@ public class Juego extends Observable {
         }
     }
 
-    public void agregarJugador(HistoricoJugador jugador) throws JuegoException {
+    public void verificarIngresoJugador(Jugador jugador) throws JuegoException {
         if (Juego.cantidadJugadores == jugadores.size()) {
             throw new JuegoException("El juego no puede aceptar mas jugadores");
         }
-        if (jugador.getJugador().getSaldo() > (Juego.cantidadJugadores * Juego.apuestaBase)) {
-            if (!jugadores.contains(jugador)) {
-                jugadores.add(jugador);
-                Sistema.getInstancia().avisar(Sistema.Eventos.nuevoJugador);
-            } else {
+        if (jugador.getSaldo() > (Juego.cantidadJugadores * Juego.apuestaBase)) {
+            HistoricoJugador j = new HistoricoJugador(jugador);
+            if (jugadores.contains(j)) {              
                 throw new JuegoException("El jugador ya fue ingresado al juego");
             }
         } else {
             throw new JuegoException("El saldo actual es menor a " + Juego.cantidadJugadores + " apuestas base");
         }
+    }
+
+    public void agregarJugador(Jugador jugador) throws JuegoException {
+        verificarIngresoJugador(jugador);
+        HistoricoJugador j = new HistoricoJugador(jugador);
+        jugadores.add(j);
+        Sistema.getInstancia().avisar(Sistema.Eventos.nuevoJugador);
     }
 
     public void verificarInicioJuego() throws JuegoException {
