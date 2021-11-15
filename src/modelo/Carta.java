@@ -2,15 +2,17 @@ package modelo;
 
 public class Carta implements Comparable<Carta> {
 
-    public Carta(String valor, int orden, Palo palo) {
+    private String valor;
+    private Palo palo;
+    private int orden;
+    private String imgPath;
+
+    public Carta(String valor, int orden, Palo palo, String imgPath) {
         this.valor = valor;
         this.orden = orden;
         this.palo = palo;
+        this.imgPath = imgPath;
     }
-
-    private String valor;
-    private int orden;
-    private Palo palo;
 
     public String getValor() {
         return valor;
@@ -36,9 +38,16 @@ public class Carta implements Comparable<Carta> {
         this.orden = orden;
     }
 
-    @Override
-    public int compareTo(Carta o) {
-        return o.orden - this.orden;    
+    public String getImgPath() {
+        return imgPath;
     }
 
+    public void setUrlImg(String imgPath) {
+        this.imgPath = imgPath;
+    }
+
+    @Override
+    public int compareTo(Carta o) {
+        return o.orden - this.orden;
+    }
 }

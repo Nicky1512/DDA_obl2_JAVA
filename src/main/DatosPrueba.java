@@ -50,10 +50,10 @@ public class DatosPrueba {
         Sistema.getInstancia().agregarJugador(j9);
 
         ArrayList<Palo> palos = new ArrayList();
-        Palo p1 = new Palo("Corazon", 4);
-        Palo p2 = new Palo("Diamante", 3);
-        Palo p3 = new Palo("Trebol", 2);
-        Palo p4 = new Palo("Pique", 1);
+        Palo p1 = new Palo("c", 4);
+        Palo p2 = new Palo("d", 3);
+        Palo p3 = new Palo("t", 2);
+        Palo p4 = new Palo("p", 1);
 
         palos.add(p4);
         palos.add(p3);
@@ -61,22 +61,24 @@ public class DatosPrueba {
         palos.add(p1);
 
         ArrayList<Carta> cartas = new ArrayList();
+        String imgPath = "..\\DDA_obl2_JAVA\\src\\modelo\\cartas\\"; 
         for (Palo p : palos) {
             for (int i = 2; i < 11; i++) {
-                Carta nueva = new Carta(String.valueOf(i), (i - 1), p);
+                imgPath = imgPath.concat(String.format("{0}{1}.gif", i, p));
+                Carta nueva = new Carta(String.valueOf(i), (i - 1), p, imgPath);
                 cartas.add(nueva);
             }
-            Carta a = new Carta("A", 13, p);
-            Carta k = new Carta("K", 12, p);
-            Carta q = new Carta("Q", 11, p);
-            Carta j = new Carta("J", 10, p);
+            Carta a = new Carta("A", 13, p, imgPath.concat(String.format("A{0}.gif", p)));
+            Carta k = new Carta("K", 12, p, imgPath.concat(String.format("K{0}.gif", p)));
+            Carta q = new Carta("Q", 11, p, imgPath.concat(String.format("Q{0}.gif", p)));
+            Carta j = new Carta("J", 10, p, imgPath.concat(String.format("J{0}.gif", p)));
 
             cartas.add(k);
             cartas.add(a);
             cartas.add(j);
             cartas.add(q);
-        }
-
+        }    
+        
         Color color = new Color("Color");
         Pierna pierna = new Pierna("Pierna");
         Par par = new Par("Par");

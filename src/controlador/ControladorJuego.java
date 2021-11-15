@@ -1,12 +1,12 @@
 package controlador;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.ArrayList;
+import modelo.Carta;
 import modelo.HistoricoJugador;
 import modelo.Juego;
 import modelo.Jugador;
+import modelo.Participacion;
 import modelo.Sistema;
-import modelo.SistemaJuegos;
 import modelo.excepciones.JuegoException;
 import observador.Observable;
 import observador.Observador;
@@ -60,14 +60,24 @@ public class ControladorJuego implements Observador {
     }
 
     private void cargarJugador(HistoricoJugador jugador) throws JuegoException {
-        SistemaJuegos.getInstancia().agregarJugador(jugador);
+        sistema.ingresarJugador(jugador);
     }
 
     public void terminarParticipacion(){
         try {
-            SistemaJuegos.getInstancia().terminarParticipacion(jugador, juego);
+            sistema.terminarParticipacion(jugador, juego);
         } catch (JuegoException ex) {
             vistaJuego.error(ex.getMessage());
+        }
+    }
+    
+    public void mostrarCartas(){
+        ArrayList<Participacion> copia = juego.getManoActual().getParticipantes();
+        for (Participacion p : copia) {
+            if(p.getJugador().equals(jugador)){
+                Carta[] cartas = (Carta[]) p.getCartas().toArray();
+                vistaJuego.observarCartas(cartas);
+            }
         }
     }
 }
