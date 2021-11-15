@@ -8,7 +8,12 @@ package iu;
 import controlador.ControladorJuego;
 import controlador.VistaJuego;
 import java.awt.Frame;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import modelo.Carta;
 import modelo.Jugador;
 
 /**
@@ -260,12 +265,13 @@ public class VentanaJuego extends javax.swing.JDialog implements VistaJuego {
                                 .addGap(20, 20, 20))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(btn_pasar)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(txt_montoApostado, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
                                         .addComponent(btn_apostar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(btn_salir, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(btn_pasar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE)
+                                        .addComponent(btn_salir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                 .addGap(50, 50, 50))))))
         );
         layout.setVerticalGroup(
@@ -286,7 +292,7 @@ public class VentanaJuego extends javax.swing.JDialog implements VistaJuego {
                         .addGap(30, 30, 30)
                         .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txt_montoApostado, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btn_apostar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -330,7 +336,7 @@ public class VentanaJuego extends javax.swing.JDialog implements VistaJuego {
 
     @Override
     public void mostrarNombreJugador(String nombre) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        setTitle("Jugador: " + nombre);
     }
 
     @Override
@@ -350,8 +356,12 @@ public class VentanaJuego extends javax.swing.JDialog implements VistaJuego {
     }
 
     @Override
-    public void observarCartas() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void observarCartas(Carta[] cartas) {       
+        lbl_card1 = new JLabel(new ImageIcon(cartas[0].getImgPath()));
+        lbl_card2 = new JLabel(new ImageIcon(cartas[1].getImgPath()));
+        lbl_card3 = new JLabel(new ImageIcon(cartas[2].getImgPath()));
+        lbl_card4 = new JLabel(new ImageIcon(cartas[3].getImgPath()));
+        lbl_card5 = new JLabel(new ImageIcon(cartas[4].getImgPath()));
     }
 
     @Override

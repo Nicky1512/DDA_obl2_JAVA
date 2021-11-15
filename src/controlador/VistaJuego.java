@@ -1,5 +1,8 @@
 package controlador;
 
+import java.lang.reflect.Array;
+import modelo.Carta;
+
 public interface VistaJuego {
 
     public void mostrarJuego();
@@ -12,7 +15,7 @@ public interface VistaJuego {
 
     public void empezarJuego();
 
-    public void observarCartas();
+    public void observarCartas(Carta[] cartas);
 
     public void apostar();
 
