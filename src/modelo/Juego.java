@@ -17,9 +17,8 @@ public class Juego extends Observable {
 
     private ArrayList<Mano> manos = new ArrayList<>();
     private ArrayList<Participacion> participaciones = new ArrayList<>();
-
     public enum Eventos {
-        nuevoJugador, nuevaMano, nuevoJuego, quitarJugador, terminarParticipacion, apuestaFijada, actualizacionPozo, terminarJuego
+        nuevoJugador, nuevaMano, nuevoJuego, quitarJugador, terminarParticipacion, apuestaFijada, actualizacionPozo, terminarJuego, mostrarGanador
     };
 
     public Juego() {
@@ -31,6 +30,10 @@ public class Juego extends Observable {
 
     public ArrayList<Mano> getManos() {
         return manos;
+    }
+    
+    public Participacion getGanador() {
+        return this.getManoActual().determinarGanador();
     }
 
     public ArrayList<Participacion> getParticipaciones() {
@@ -159,6 +162,7 @@ public class Juego extends Observable {
         }
         verificarFinalJuego();
     }
+    
 
     public void verificarFinalJuego() {
         ArrayList<Participacion> jugadoresActivos = getJugadoresActivos();
@@ -195,10 +199,16 @@ public class Juego extends Observable {
         }
     }
 
-    public void terminarMano() throws JuegoException {
+    public Participacion terminarMano() throws JuegoException {
+        determinarGanador();
         Mano actual = this.getManoActual();
         Participacion ganador = actual.determinarGanador();
         this.iniciarManoSig(0);
+        return ganador;
+    }
+    
+    private void determinarGanador() {
+        avisar(Juego.Eventos.mostrarGanador);
     }
 
     public void terminaManoSinApuestas() throws JuegoException {
@@ -223,6 +233,18 @@ public class Juego extends Observable {
         this.getManoActual().recibirApuesta(monto, participacion);
         avisar(Juego.Eventos.apuestaFijada);
         avisar(Juego.Eventos.actualizacionPozo);
+    }
+    
+    public void pagarApuestaFijada(Participacion p) throws JuegoException{
+        this.getManoActual().pagarApuesta(p);
+        avisar(Juego.Eventos.actualizacionPozo);
+        verificarFinalMano();
+    }
+    
+    public void verificarFinalMano() throws JuegoException{
+        if(this.getManoActual().verificarEstadoParticipantes()){
+            terminarMano();
+        }
     }
 
     public double getTotalApostadoJuego() {

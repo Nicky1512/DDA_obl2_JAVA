@@ -20,6 +20,7 @@ public class Mano {
         this.participantes = new ArrayList<>();
         this.apuestaFijada = 0;
         this.totalApostado = jugadores.size() * Juego.apuestaBase;
+        this.nombreApostador = "";
         iniciarMano(jugadores);
         descontarSaldoTodos();
     }
@@ -64,6 +65,8 @@ public class Mano {
         for (Participacion p : jugadores) {
             ArrayList<Carta> cartas = this.mazo.repartirCartas();
             p.setCartas(cartas);
+            p.setPasar(false);
+            p.setApuestaActual(0);
             this.participantes.add(p);
         }
     }
@@ -72,16 +75,27 @@ public class Mano {
         participacion.puedoApostar(monto);
         if (this.apuestaFijada == 0) {
             this.apuestaFijada = monto;
+            resetearPasar();
             this.nombreApostador = participacion.getNombreJugador();
             this.completarApuesta(monto, participacion);
         } else {
             throw new JuegoException("Ya hay una apuesta fijada");
         }
-//            if (this.apuestaFijada == monto) {
-//                this.completarApuesta(monto, participacion);
-//            } else {
-//                throw new JuegoException("La apuesta ingresada es distinta a la apuesta fijada.");
-//            }
+    }
+    
+    public void resetearPasar(){
+        for(Participacion p:participantes){
+            p.setPasar(false);
+        }
+    }
+    
+    public void pagarApuesta(Participacion p) throws JuegoException{
+        p.puedoApostar(this.apuestaFijada);
+        if (this.apuestaFijada != 0) {
+            this.completarApuesta(this.apuestaFijada, p);
+        } else {
+            throw new JuegoException("Ya hay una apuesta fijada");
+        } 
     }
 
     public void completarApuesta(double monto, Participacion p) throws JuegoException {
@@ -94,12 +108,17 @@ public class Mano {
         ArrayList<Participacion> participaciones = new ArrayList<>();
         for (Figura fig : SistemaJuegos.getInstancia().getFiguras()) {
             for (Participacion p : participantes) {
-                if (fig.getClass().getName() == null ? p.getFigura().getClass().getName() == null : fig.getClass().getName().equals(p.getFigura().getClass().getName())) {
-                    participaciones.add(p);
+                if(p.getApuesta() > 0 ){
+                    p.figurasEnMano();
+                    if (fig.getClass().getName() == null ? p.getFigura().getClass().getName() == null : fig.getClass().getName().equals(p.getFigura().getClass().getName())) {
+                        participaciones.add(p);
+                    }
                 }
             }
             if (participaciones.size() > 1) {
-                ganador = fig.desempatarFiguras((Participacion[]) participaciones.toArray());
+                Participacion[] array = new Participacion[participaciones.size()];
+                array = participaciones.toArray(array);
+                ganador = fig.desempatarFiguras(array);
                 break;
             } else if (participaciones.size() == 1) {
                 ganador = participaciones.get(0);
@@ -123,5 +142,13 @@ public class Mano {
         for (Participacion p : participantes) {
             p.descontarSaldo(Juego.getApuestaBase());
         }
+    }
+    
+    public boolean verificarEstadoParticipantes(){
+        for(Participacion p: participantes){
+            if(!p.debeJugar())
+                return false;
+        }
+        return true;
     }
 }

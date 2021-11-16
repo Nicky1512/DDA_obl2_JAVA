@@ -1,5 +1,7 @@
 package controlador;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import modelo.Juego;
 import modelo.Jugador;
 import modelo.Participacion;
@@ -51,9 +53,13 @@ public class ControladorJuego implements Observador {
                 case saldoModificado:
                     this.setearSaldoJugador();
                     break;
-            case juegoTerminado: 
-                this.juegoTerminado();
-                break;
+                case juegoTerminado: 
+                    this.juegoTerminado();
+                    break;
+                case modificarEstado: 
+                    this.modificarEstado();
+                    break;   
+                
             }
         } else {
 
@@ -68,9 +74,12 @@ public class ControladorJuego implements Observador {
                 this.mostrarApuestaActual();
                 this.mostrarPozoActual();
             }
-//            if (Juego.Eventos.terminarJuego.equals(evento)) {
-//               this.juegoTerminado();
-//            }
+            if (Juego.Eventos.nuevaMano.equals(evento)) {
+               this.IniciarVentana();
+            }
+            if (Juego.Eventos.mostrarGanador.equals(evento)) {
+               this.mostrarGanador();
+            }
         }
     }
 
@@ -96,6 +105,7 @@ public class ControladorJuego implements Observador {
                 double m = Double.parseDouble(monto);
                 if (m > 0) {
                     sistema.recibirApuesta(m, juego, participacion);
+                    modificarEstado();
                 } else {
                     vistaJuego.error("Monto apostado tiene que ser mayor a 0");
                 }
@@ -120,19 +130,15 @@ public class ControladorJuego implements Observador {
     }
 
     public void mostrarNombreJugadorApostador() {
-        vistaJuego.mostrarNombreJugadorApostador(juego.getNombreJugadorApostador());
+        String nombre = juego.getNombreJugadorApostador();
+        if(nombre.length() == 0 || nombre == null){
+            nombre = "Aun no hay apuestas";
+        }
+        vistaJuego.mostrarNombreJugadorApostador(nombre);
     }
 
     public void mostrarPozoActual() {
         vistaJuego.mostrarMontoPozoActual(String.valueOf(juego.getMontoPozoActual()));
-    }
-
-    public void IniciarVentana() {
-        this.setearSaldoJugador();
-        this.mostrarCartas();
-        this.mostrarJugadoresActivos();
-        this.mostrarApuestaActual();
-        this.mostrarPozoActual();
     }
 
     public static boolean isNumeric(String str) {
@@ -143,4 +149,45 @@ public class ControladorJuego implements Observador {
             return false;
         }
     }
+    public void pagarApuestaFijada() {
+        try {
+            juego.pagarApuestaFijada(participacion);
+            modificarEstado();
+        } catch (JuegoException ex) {
+            vistaJuego.error(ex.getMessage());
+        }
+    }
+
+    public void pasar() {
+        participacion.pasar();
+        modificarEstado();
+        try {
+            juego.verificarFinalMano();
+        } catch (JuegoException ex) {
+            vistaJuego.error(ex.getMessage());
+        }
+    }
+
+    private void modificarEstado() {
+        if(participacion.debeJugar()){
+            vistaJuego.modificarEstado("En espera!");
+        }else{
+            vistaJuego.modificarEstado("Es tu turno!");
+        }
+    }
+    
+    public void IniciarVentana() {
+        this.setearSaldoJugador();
+        this.mostrarCartas();
+        this.mostrarJugadoresActivos();
+        this.mostrarApuestaActual();
+        this.mostrarPozoActual();
+        this.modificarEstado();
+        this.mostrarNombreJugadorApostador();
+    }
+
+    private void mostrarGanador() {
+        vistaJuego.mostarGanador(juego.getGanador().getNombreJugador());
+    }
+
 }
