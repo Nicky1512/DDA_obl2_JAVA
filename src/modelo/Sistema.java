@@ -64,7 +64,7 @@ public class Sistema extends Observable {
         return cUsuarios.getJugadores();
     }
 
-    public void expulsarJugador(HistoricoJugador j) throws JuegoException{
+    public void expulsarJugador(Participacion j) throws JuegoException{
         cJuegos.quitarJugador(j);
     }
     

@@ -44,4 +44,5 @@ public class Jugador extends Usuario {
         Jugador j = (Jugador) o;
         return nombreUsuario.equals(j.nombreUsuario);
     }
+    
 }

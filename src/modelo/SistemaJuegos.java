@@ -80,7 +80,7 @@ public class SistemaJuegos {
         juego.recibirApuesta(monto, jugador);
     }
 
-    public void quitarJugador(HistoricoJugador jugador) throws JuegoException {
+    public void quitarJugador(Participacion jugador) throws JuegoException {
         juegoAIniciar.retirarJugador(jugador);
     }
 

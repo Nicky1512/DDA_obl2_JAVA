@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import modelo.Carta;
-import modelo.HistoricoJugador;
+import modelo.Participacion;
 import modelo.Juego;
 import modelo.Jugador;
 import modelo.Participacion;

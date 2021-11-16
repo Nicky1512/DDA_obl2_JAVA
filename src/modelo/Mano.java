@@ -13,7 +13,7 @@ public class Mano {
 
     private ArrayList<Participacion> participantes;
 
-    public Mano(double pozoInicial, Mazo mazo, ArrayList<Jugador> jugadores) throws JuegoException {
+    public Mano(double pozoInicial, Mazo mazo, ArrayList<Participacion> jugadores) throws JuegoException {
         this.pozoInicial = pozoInicial;
         this.mazo = mazo;
         this.participantes = new ArrayList<>();
@@ -46,12 +46,12 @@ public class Mano {
         this.participantes = participantes;
     }
 
-    private void iniciarMano(ArrayList<Jugador> jugadores) {
-        for (Jugador j : jugadores) {
-            Participacion newPart = new Participacion(j);
+    private void iniciarMano(ArrayList<Participacion> jugadores) {
+        for (Participacion j : jugadores) {
+//            Participacion newPart = new Participacion(j);
             ArrayList<Carta> cartas = this.mazo.repartirCartas();
-            newPart.setCartas(cartas);
-            this.participantes.add(newPart);
+            j.setCartas(cartas);
+            this.participantes.add(j);
         }
     }
 

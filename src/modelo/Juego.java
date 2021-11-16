@@ -16,7 +16,7 @@ public class Juego extends Observable {
     private Date fechaInicio;
 
     private ArrayList<Mano> manos = new ArrayList<>();
-    private ArrayList<HistoricoJugador> jugadores = new ArrayList<>();
+    private ArrayList<Participacion> jugadores = new ArrayList<>();
 
     public enum Eventos {
         nuevoJugador, nuevaMano, nuevoJuego, quitarJugador
@@ -33,13 +33,13 @@ public class Juego extends Observable {
         return manos;
     }
 
-    public ArrayList<HistoricoJugador> getJugadores() {
+    public ArrayList<Participacion> getJugadores() {
         return jugadores;
     }
 
-    public ArrayList<HistoricoJugador> getJugadoresActivos() {
-        ArrayList<HistoricoJugador> aux = new ArrayList();
-        for (HistoricoJugador j : jugadores) {
+    public ArrayList<Participacion> getJugadoresActivos() {
+        ArrayList<Participacion> aux = new ArrayList();
+        for (Participacion j : jugadores) {
             if (j.isActivo()) {
                 aux.add(j);
             }
@@ -76,7 +76,7 @@ public class Juego extends Observable {
             throw new JuegoException("El juego no puede aceptar mas jugadores");
         }
         if (jugador.getSaldo() > (Juego.cantidadJugadores * Juego.apuestaBase)) {
-            HistoricoJugador j = new HistoricoJugador(jugador);
+            Participacion j = new Participacion(jugador);
             if (jugadores.contains(j)) {              
                 throw new JuegoException("El jugador ya fue ingresado al juego");
             }
@@ -87,7 +87,7 @@ public class Juego extends Observable {
 
     public void agregarJugador(Jugador jugador) throws JuegoException {
         verificarIngresoJugador(jugador);
-        HistoricoJugador j = new HistoricoJugador(jugador);
+        Participacion j = new Participacion(jugador);
         jugadores.add(j);
         avisar(Juego.Eventos.nuevoJugador);
     }
@@ -98,9 +98,9 @@ public class Juego extends Observable {
         }
     }
 
-    public void retirarJugador(HistoricoJugador jugador) throws JuegoException {
+    public void retirarJugador(Participacion jugador) throws JuegoException {
         Boolean aux = false;
-        for (HistoricoJugador j : jugadores) {
+        for (Participacion j : jugadores) {
             if (j.equals(jugador)) {
                 jugadores.remove(j);
                 aux = true;
@@ -116,9 +116,9 @@ public class Juego extends Observable {
     }
 
     public void finalizarParticipacion(Jugador jugador) throws JuegoException {
-        ArrayList<HistoricoJugador> jugadoresActivos = getJugadoresActivos();
+        ArrayList<Participacion> jugadoresActivos = getJugadoresActivos();
         Boolean aux = false;
-        for (HistoricoJugador j : jugadoresActivos) {
+        for (Participacion j : jugadoresActivos) {
             if (j.getJugador().equals(jugador)) {
                 j.setActivo(false);
                 aux = true;
@@ -133,9 +133,9 @@ public class Juego extends Observable {
 
     private void removerJugadores() throws JuegoException {
         int cont = 0;
-        ArrayList<HistoricoJugador> jugadoresActivos = getJugadoresActivos();
-        for (HistoricoJugador j : jugadoresActivos) {
-            HistoricoJugador copia = j;
+        ArrayList<Participacion> jugadoresActivos = getJugadoresActivos();
+        for (Participacion j : jugadoresActivos) {
+            Participacion copia = j;
             if (copia.getJugador().getSaldo() == 0) {
                 retirarJugador(copia);
             }
@@ -151,18 +151,14 @@ public class Juego extends Observable {
         }
     }
 
-    public ArrayList<Jugador> getListaJugadores() {
-        ArrayList<Jugador> aux = new ArrayList();
-        for (HistoricoJugador j : jugadores) {
-            aux.add(j.getJugador());
-        }
-        return aux;
+    public ArrayList<Participacion> getListaJugadores() {
+        return jugadores;
     }
 
     public void iniciarMano(double pozoAcumulado) throws JuegoException {
         Mazo mazo = SistemaJuegos.getInstancia().getMazo();
         mazo.barajar();
-        Mano nuevaMano = new Mano((Juego.apuestaBase * jugadores.size()) + pozoAcumulado, mazo, getListaJugadores());
+        Mano nuevaMano = new Mano((Juego.apuestaBase * jugadores.size()) + pozoAcumulado, mazo, getJugadoresActivos());
         this.manos.add(nuevaMano);
     }
 
@@ -227,8 +223,8 @@ public class Juego extends Observable {
         return "Fecha inicio: " + df.format(this.fechaInicio) + "Cant jugadores: " + this.getJugadoresActivos().size() + "Total apostado: " + totalApostado + "Cant manos jugadas: " + this.manos.size();
     }
 
-    public ArrayList<HistoricoJugador> getDetallesJugadores() {
-        for (HistoricoJugador j : jugadores) {
+    public ArrayList<Participacion> getDetallesJugadores() {
+        for (Participacion j : jugadores) {
             double totalApostado = 0;
             double totalGanado = 0;
             for(Mano m: manos){
