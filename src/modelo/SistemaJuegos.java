@@ -48,7 +48,7 @@ public class SistemaJuegos {
     }
 
     public ArrayList<Juego> getJuegosEnCurso() {
-        ArrayList<Juego> ret = new ArrayList<Juego>();
+        ArrayList<Juego> ret = new ArrayList<>();
         for (Juego j : juegos) {
             if (j.estaEnCurso()) {
                 ret.add(j);

@@ -61,24 +61,24 @@ public class DatosPrueba {
         palos.add(p1);
 
         ArrayList<Carta> cartas = new ArrayList();
-        String imgPath = "..\\DDA_obl2_JAVA\\src\\modelo\\cartas\\"; 
+        String imgPath = "..\\DDA_obl2_JAVA\\src\\modelo\\cartas\\";
         for (Palo p : palos) {
             for (int i = 2; i < 11; i++) {
-                imgPath = imgPath.concat(String.format("{0}{1}.gif", i, p));
-                Carta nueva = new Carta(String.valueOf(i), (i - 1), p, imgPath);
+//                imgPath = imgPath.concat(String.format("#{0}#{1}.gif", i, p));
+                Carta nueva = new Carta(String.valueOf(i), (i - 1), p, (imgPath + String.valueOf(i) + p.getNombre() + ".gif"));
                 cartas.add(nueva);
             }
-            Carta a = new Carta("A", 13, p, imgPath.concat(String.format("A{0}.gif", p)));
-            Carta k = new Carta("K", 12, p, imgPath.concat(String.format("K{0}.gif", p)));
-            Carta q = new Carta("Q", 11, p, imgPath.concat(String.format("Q{0}.gif", p)));
-            Carta j = new Carta("J", 10, p, imgPath.concat(String.format("J{0}.gif", p)));
+            Carta a = new Carta("A", 13, p, (imgPath + "A" + p.getNombre() + ".gif"));
+            Carta k = new Carta("K", 12, p, (imgPath + "K" + p.getNombre() + ".gif"));
+            Carta q = new Carta("Q", 11, p, (imgPath + "Q" + p.getNombre() + ".gif"));
+            Carta j = new Carta("J", 10, p, (imgPath + "J" + p.getNombre() + ".gif"));
 
             cartas.add(k);
             cartas.add(a);
             cartas.add(j);
             cartas.add(q);
-        }    
-        
+        }
+
         Color color = new Color("Color");
         Pierna pierna = new Pierna("Pierna");
         Par par = new Par("Par");
@@ -88,8 +88,7 @@ public class DatosPrueba {
         Sistema.getInstancia().agregarFigura(pierna);
         Sistema.getInstancia().agregarFigura(par);
         Sistema.getInstancia().agregarFigura(sinFigura);
-        
-        
+
         Mazo mazo = new Mazo(cartas);
         SistemaJuegos.getInstancia().setMazo(mazo);
         Juego juego = new Juego();

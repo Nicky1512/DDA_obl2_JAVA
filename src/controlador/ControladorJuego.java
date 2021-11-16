@@ -54,8 +54,6 @@ public class ControladorJuego implements Observador {
                 break;
 //            case pasar: vistaJuego.pasar();
 //                break;
-//            case observarCartas: vistaJuego.observarCartas();
-//                break;
         }
     
 
@@ -77,8 +75,7 @@ public class ControladorJuego implements Observador {
         ArrayList<Participacion> copia = juego.getManoActual().getParticipantes();
         for (Participacion p : copia) {
             if(p.getJugador().equals(jugador)){
-                Carta[] cartas = (Carta[]) p.getCartas().toArray();
-                vistaJuego.observarCartas(cartas);
+                vistaJuego.observarCartas(p.getCartas());
             }
         }
     }

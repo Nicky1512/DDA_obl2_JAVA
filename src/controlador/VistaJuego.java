@@ -1,6 +1,6 @@
 package controlador;
 
-import java.lang.reflect.Array;
+import java.util.ArrayList;
 import modelo.Carta;
 
 public interface VistaJuego {
@@ -15,7 +15,7 @@ public interface VistaJuego {
 
     public void empezarJuego();
 
-    public void observarCartas(Carta[] cartas);
+    public void observarCartas(ArrayList<Carta> cartas);
 
     public void apostar(String m);
 

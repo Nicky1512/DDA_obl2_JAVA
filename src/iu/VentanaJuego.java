@@ -29,7 +29,8 @@ public class VentanaJuego extends javax.swing.JDialog implements VistaJuego {
         initComponents();
         controlador = new ControladorJuego(this, j);
         setTitle("Jugador: " + j.getNombreCompleto() + " | Juego: ");
-        controlador.setearSaldoJugador();
+        controlador.setearSaldoJugador(); 
+        controlador.mostrarCartas();
     }
 
     /**
@@ -172,12 +173,6 @@ public class VentanaJuego extends javax.swing.JDialog implements VistaJuego {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lbl_apuestaRealizada)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btn_pagar, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -186,8 +181,13 @@ public class VentanaJuego extends javax.swing.JDialog implements VistaJuego {
                                 .addComponent(jLabel8)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lbl_nombreJugadorApuesta)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lbl_apuestaRealizada)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btn_pagar, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -357,12 +357,12 @@ public class VentanaJuego extends javax.swing.JDialog implements VistaJuego {
     }
 
     @Override
-    public void observarCartas(Carta[] cartas) {       
-        lbl_card1 = new JLabel(new ImageIcon(cartas[0].getImgPath()));
-        lbl_card2 = new JLabel(new ImageIcon(cartas[1].getImgPath()));
-        lbl_card3 = new JLabel(new ImageIcon(cartas[2].getImgPath()));
-        lbl_card4 = new JLabel(new ImageIcon(cartas[3].getImgPath()));
-        lbl_card5 = new JLabel(new ImageIcon(cartas[4].getImgPath()));
+    public void observarCartas(ArrayList<Carta> cartas) {      
+        lbl_card1.setIcon(new ImageIcon(cartas.get(0).getImgPath()));
+        lbl_card2.setIcon(new ImageIcon(cartas.get(1).getImgPath()));
+        lbl_card3.setIcon(new ImageIcon(cartas.get(2).getImgPath()));
+        lbl_card4.setIcon(new ImageIcon(cartas.get(3).getImgPath()));
+        lbl_card5.setIcon(new ImageIcon(cartas.get(4).getImgPath()));
     }
 
     @Override
