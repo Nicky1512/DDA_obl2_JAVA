@@ -1,6 +1,7 @@
 package modelo;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import modelo.Figuras.Figura;
 import modelo.excepciones.JuegoException;
 import observador.Observable;
@@ -12,13 +13,14 @@ public class Participacion extends Observable {
     private double saldoInicial;
     private double totalGanado;
     private double totalApostado;
-
+    private boolean pasar;
     private double apuestaActual;
     private Figura figura;
     private ArrayList<Carta> cartas;
 
+
     public enum Eventos {
-        salir, apostar, pasar, saldoModificado, juegoTerminado
+        salir, apostar, pasar, saldoModificado, juegoTerminado, modificarEstado
     };
 
     public Participacion() {
@@ -31,6 +33,7 @@ public class Participacion extends Observable {
         this.activo = true;
         this.totalApostado = 0;
         this.totalGanado = 0;
+        this.pasar = false;
     }
 
     public Figura getFigura() {
@@ -39,6 +42,10 @@ public class Participacion extends Observable {
 
     public Jugador getJugador() {
         return jugador;
+    }
+
+    public void setApuestaActual(double apuestaActual) {
+        this.apuestaActual = apuestaActual;
     }
 
     public double getApuesta() {
@@ -52,10 +59,29 @@ public class Participacion extends Observable {
     public void setCartas(ArrayList<Carta> cartas) {
         this.cartas = cartas;
     }
+    
+    public boolean isPasar() {
+        return pasar;
+    }
+
+    public void setPasar(boolean pasar) {
+        this.pasar = pasar;
+    }
+    
+    public void pasar() {
+        this.pasar = true;
+    }
+    
+    public boolean debeJugar(){
+        return pasar || apuestaActual > 0;
+    }
+
 
     public void figurasEnMano() {
         for (Figura fig : SistemaJuegos.getInstancia().getFiguras()) {
-            Figura miFigura = fig.determinarFigura((Carta[]) this.cartas.toArray());
+            Carta[] array = new Carta[this.cartas.size()];
+            array = this.cartas.toArray(array);
+            Figura miFigura = fig.determinarFigura (array);
             if (miFigura != null) {
                 this.figura = miFigura;
                 break;

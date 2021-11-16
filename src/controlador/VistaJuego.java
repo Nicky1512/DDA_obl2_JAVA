@@ -34,5 +34,11 @@ public interface VistaJuego {
     
     public void mostrarMontoPozoActual(String monto);
     
+    public void pagarApuestaFijada();
+    
+    public void modificarEstado(String estado);
+    
+    public void mostarGanador(String s);
+   
 
 }
