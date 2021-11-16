@@ -10,7 +10,7 @@ public class Sistema extends Observable {
     private SistemaUsuarios cUsuarios = SistemaUsuarios.getInstancia();
     private SistemaJuegos cJuegos = SistemaJuegos.getInstancia();
 
-    public enum Eventos {nuevoJugador, nuevoJuego, nuevaMano, quitarJugador};
+    public enum Eventos {nuevoJuego};
 
     private static Sistema instancia = new Sistema();
 

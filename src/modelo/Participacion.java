@@ -12,6 +12,10 @@ public class Participacion extends Observable {
     private Figura figura;
     private ArrayList<Carta> cartas;
     private double montoGanado;
+    
+    public enum Eventos {
+        salir, apostar, pasar, observarCartas, saldoModificado
+    };
 
     public double getMontoGanado() {
         return montoGanado;
@@ -20,10 +24,6 @@ public class Participacion extends Observable {
     public void setMontoGanado(double montoGanado) {
         this.montoGanado = montoGanado;
     }
-
-    public enum Eventos {
-        salir, apostar, pasar, observarCartas
-    };
 
     public Participacion() {}
 
@@ -56,6 +56,7 @@ public class Participacion extends Observable {
     public void realizarApuesta(double monto) throws JuegoException {
         this.apuesta = monto;
         this.jugador.descontarSaldo(monto);
+        avisar(Eventos.saldoModificado);
     }
 
     public void figurasEnMano() {

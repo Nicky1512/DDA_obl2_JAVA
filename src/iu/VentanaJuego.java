@@ -29,6 +29,7 @@ public class VentanaJuego extends javax.swing.JDialog implements VistaJuego {
         initComponents();
         controlador = new ControladorJuego(this, j);
         setTitle("Jugador: " + j.getNombreCompleto() + " | Juego: ");
+        controlador.setearSaldoJugador();
     }
 
     /**
@@ -310,7 +311,7 @@ public class VentanaJuego extends javax.swing.JDialog implements VistaJuego {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_apostarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_apostarActionPerformed
-        // TODO add your handling code here:
+        apostar(txt_montoApostado.getText());
     }//GEN-LAST:event_btn_apostarActionPerformed
 
     private void txt_montoApostadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_montoApostadoActionPerformed
@@ -318,11 +319,11 @@ public class VentanaJuego extends javax.swing.JDialog implements VistaJuego {
     }//GEN-LAST:event_txt_montoApostadoActionPerformed
 
     private void btn_pasarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_pasarActionPerformed
-        // TODO add your handling code here:
+        pasar();
     }//GEN-LAST:event_btn_pasarActionPerformed
 
     private void btn_salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_salirActionPerformed
-        // TODO add your handling code here:
+        terminarParticipacion();
     }//GEN-LAST:event_btn_salirActionPerformed
 
     private void btn_pagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_pagarActionPerformed
@@ -365,8 +366,8 @@ public class VentanaJuego extends javax.swing.JDialog implements VistaJuego {
     }
 
     @Override
-    public void apostar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void apostar(String t) {
+        controlador.apostar(t);
     }
 
     @Override
@@ -408,4 +409,12 @@ public class VentanaJuego extends javax.swing.JDialog implements VistaJuego {
     private javax.swing.JList list_jugadores;
     private javax.swing.JTextField txt_montoApostado;
     // End of variables declaration//GEN-END:variables
+
+
+
+    @Override
+    public void mostrarSaldoJugador(String d) {
+        lbl_saldoJugador.setText(d);
+    }
+
 }

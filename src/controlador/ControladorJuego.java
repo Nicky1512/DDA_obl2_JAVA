@@ -1,6 +1,8 @@
 package controlador;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import modelo.Carta;
 import modelo.HistoricoJugador;
 import modelo.Juego;
@@ -22,7 +24,7 @@ public class ControladorJuego implements Observador {
         this.vistaJuego = vista;
         this.jugador = jugador;
         this.juego = sistema.getJuegoAIniciar();
-        sistema.agregar(this);
+        juego.agregar(this);
         vista.mostrarNombreJugador(jugador.getNombreCompleto());
     }
 
@@ -44,17 +46,17 @@ public class ControladorJuego implements Observador {
 
     @Override
     public void actualizar(Object evento, Observable origen) {
-//        switch((modelo.Participacion.Eventos)evento){
-//            
-//            case salir: vistaJuego.terminarJuego();
-//                break;
-//            case apostar: vistaJuego.apostar(); //VERIFICAR SI NO ES NECESARIO RECIBIR PARAMETRO
-//                break;
+        switch((modelo.Participacion.Eventos)evento){
+            
+            case salir: this.terminarParticipacion();
+                break;
+            case saldoModificado: this.setearSaldoJugador();
+                break;
 //            case pasar: vistaJuego.pasar();
 //                break;
 //            case observarCartas: vistaJuego.observarCartas();
 //                break;
-//        }
+        }
     
 
     }
@@ -79,5 +81,21 @@ public class ControladorJuego implements Observador {
                 vistaJuego.observarCartas(cartas);
             }
         }
+    }
+    
+    public void apostar(String monto){
+        try {
+            double m = Double.parseDouble(monto);
+            if(m > 0)
+                sistema.recibirApuesta(m, juego, jugador);
+            else
+                vistaJuego.error("Monto apostado tiene que ser mayor a 0");
+        } catch (JuegoException ex) {
+            vistaJuego.error(ex.getMessage());
+        }
+    }
+
+    public void setearSaldoJugador() {
+        vistaJuego.mostrarSaldoJugador(String.valueOf(jugador.getSaldo()));
     }
 }

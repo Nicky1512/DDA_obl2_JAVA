@@ -17,10 +17,13 @@ public interface VistaJuego {
 
     public void observarCartas(Carta[] cartas);
 
-    public void apostar();
+    public void apostar(String m);
 
     public void pasar();
 
     public void error(String m);
+    
+    public void mostrarSaldoJugador(String d);
+    
 
 }
