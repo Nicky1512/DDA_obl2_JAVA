@@ -13,12 +13,12 @@ public class Participacion extends Observable {
     private double totalGanado;
     private double totalApostado;
 
-    private double apuesta;
+    private double apuestaActual;
     private Figura figura;
     private ArrayList<Carta> cartas;
 
     public enum Eventos {
-        salir, apostar, pasar, saldoModificado
+        salir, apostar, pasar, saldoModificado, juegoTerminado
     };
 
     public Participacion() {
@@ -42,7 +42,7 @@ public class Participacion extends Observable {
     }
 
     public double getApuesta() {
-        return apuesta;
+        return apuestaActual;
     }
 
     public ArrayList<Carta> getCartas() {
@@ -138,9 +138,28 @@ public class Participacion extends Observable {
     }
 
     public void realizarApuesta(double monto) throws JuegoException {
-        this.apuesta = monto;
+        this.apuestaActual = monto;
         this.jugador.descontarSaldo(monto);
         this.totalApostado += monto;
         avisar(Eventos.saldoModificado);
     }
+
+    public void terminarParticipacion(Participacion p) {
+        if (p.equals(this)) {
+            p.setActivo(false);
+            avisar(Participacion.Eventos.salir);
+        }
+
+    }
+
+    public void puedoApostar(double monto) throws JuegoException {
+        if (apuestaActual == 0) {
+            if (!jugador.puedoApostar(monto)) {
+                throw new JuegoException("El jugador no dispone del saldo suficiente para realizar la apuesta");
+            }
+        } else {
+            throw new JuegoException("El jugador ya realizo una apuesta en esta mano");
+        }
+    }
+
 }

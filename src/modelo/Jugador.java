@@ -27,7 +27,7 @@ public class Jugador extends Usuario {
         this.saldo += saldo;
     }
 
-    public Boolean puedoApostar(double monto) {
+    public boolean puedoApostar(double monto) {
         return monto < this.saldo;
     }
 

@@ -19,7 +19,7 @@ public class DatosPrueba {
     public static void cargar() {
 
         Juego.setApuestaBase(10); //Mayor a 0
-        Juego.setCantidadJugadores(2); //Mayor a 1 y menor que 6
+        Juego.setCantidadJugadores(3); //Mayor a 1 y menor que 6
 
         Administrador Lucas = new Administrador("Lucas", "123", "Lucas Andueza");
         Administrador Bruno = new Administrador("Bruno", "234", "Bruno Barcelo");
@@ -29,8 +29,8 @@ public class DatosPrueba {
         Sistema.getInstancia().agregarAdmin(Nicole);
         Sistema.getInstancia().agregarAdmin(Lucas);
 
-        Jugador j1 = new Jugador(500000, "Luis", "123", "Luis Ramirez");
-        Jugador j2 = new Jugador(250000, "Ana", "123", "Ana Pou");
+        Jugador j1 = new Jugador(500, "Luis", "123", "Luis Ramirez");
+        Jugador j2 = new Jugador(250, "Ana", "123", "Ana Pou");
         Jugador j3 = new Jugador(1000, "Jessica", "otraPass", "Jessica Suarez");
         Jugador j4 = new Jugador(200, "Pepe", "1", "Pepe Chaplin");
         Jugador j5 = new Jugador(8000, "Rosa", "Ppass123", "Rosa Flores");
@@ -64,7 +64,6 @@ public class DatosPrueba {
         String imgPath = "..\\DDA_obl2_JAVA\\src\\modelo\\cartas\\";
         for (Palo p : palos) {
             for (int i = 2; i < 11; i++) {
-//                imgPath = imgPath.concat(String.format("#{0}#{1}.gif", i, p));
                 Carta nueva = new Carta(String.valueOf(i), (i - 1), p, (imgPath + String.valueOf(i) + p.getNombre() + ".gif"));
                 cartas.add(nueva);
             }

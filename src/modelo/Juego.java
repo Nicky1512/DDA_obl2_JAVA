@@ -19,7 +19,7 @@ public class Juego extends Observable {
     private ArrayList<Participacion> participaciones = new ArrayList<>();
 
     public enum Eventos {
-        nuevoJugador, nuevaMano, nuevoJuego, quitarJugador
+        nuevoJugador, nuevaMano, nuevoJuego, quitarJugador, terminarParticipacion, apuestaFijada, actualizacionPozo, terminarJuego
     };
 
     public Juego() {
@@ -127,16 +127,21 @@ public class Juego extends Observable {
     public void finalizarParticipacion(Participacion participacion) throws JuegoException {
         ArrayList<Participacion> jugadoresActivos = getJugadoresActivos();
         Boolean aux = false;
-        for (Participacion p : jugadoresActivos) {
-            if (p.equals(participacion)) {
-                p.setActivo(false);
-                aux = true;
-                avisar(Juego.Eventos.quitarJugador);
+        if (jugadoresActivos.size() > 0) {
+            for (Participacion p : jugadoresActivos) {
+                if (p.equals(participacion)) {
+                    p.setActivo(false);
+                    aux = true;
+                    avisar(Juego.Eventos.terminarParticipacion);
+                    jugadoresActivos = getJugadoresActivos();
+                    if(jugadoresActivos.size() == 1){
+                        
+                    }
+                }
             }
-        }
-
-        if (!aux) {
-            throw new JuegoException("El jugador no fue ingresado previamente.");
+            if (!aux) {
+                throw new JuegoException("El jugador no fue ingresado previamente.");
+            }
         }
     }
 
@@ -210,10 +215,14 @@ public class Juego extends Observable {
 
     public void finalizarJuego() {
         this.enCurso = false;
+//        agregar saldo al jugador
+//        avisar(Juego.Eventos.terminarJuego);
     }
 
     public void recibirApuesta(double monto, Participacion participacion) throws JuegoException {
         this.getManoActual().recibirApuesta(monto, participacion);
+        avisar(Juego.Eventos.apuestaFijada);
+        avisar(Juego.Eventos.actualizacionPozo);
     }
 
     public double getTotalApostadoJuego() {
@@ -222,6 +231,18 @@ public class Juego extends Observable {
             total += m.getTotalApostado();
         }
         return total;
+    }
+
+    public double getApuetaActual() {
+        return this.getManoActual().getApuestaFijada();
+    }
+
+    public String getNombreJugadorApostador() {
+        return this.getManoActual().getNombreApostador();
+    }
+
+    public double getMontoPozoActual() {
+        return this.getManoActual().getTotalApostado();
     }
 
     public String getDatosJuego() {
