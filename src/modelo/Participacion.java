@@ -6,32 +6,24 @@ import modelo.excepciones.JuegoException;
 import observador.Observable;
 
 public class Participacion extends Observable {
-    
+
     private Jugador jugador;
     private boolean activo;
     private double saldoInicial;
     private double totalGanado;
     private double totalApostado;
-    
-    
+
     private double apuesta;
     private Figura figura;
     private ArrayList<Carta> cartas;
     private double montoGanado;
-    
+
     public enum Eventos {
-        salir, apostar, pasar, observarCartas, saldoModificado
+        salir, apostar, pasar, saldoModificado
     };
 
-    public double getMontoGanado() {
-        return montoGanado;
+    public Participacion() {
     }
-
-    public void setMontoGanado(double montoGanado) {
-        this.montoGanado = montoGanado;
-    }
-
-    public Participacion() {}
 
     public Participacion(Jugador jugador) {
         this.jugador = jugador;
@@ -40,6 +32,14 @@ public class Participacion extends Observable {
         this.activo = true;
         this.totalApostado = 0;
         this.totalGanado = 0;
+    }
+
+    public double getMontoGanado() {
+        return montoGanado;
+    }
+
+    public void setMontoGanado(double montoGanado) {
+        this.montoGanado = montoGanado;
     }
 
     public Figura getFigura() {
@@ -62,7 +62,6 @@ public class Participacion extends Observable {
         this.cartas = cartas;
     }
 
-    
     public void realizarApuesta(double monto) throws JuegoException {
         this.apuesta = monto;
         this.jugador.descontarSaldo(monto);
@@ -86,6 +85,7 @@ public class Participacion extends Observable {
     public boolean isActivo() {
         return activo;
     }
+
     public void setActivo(boolean activo) {
         this.activo = activo;
     }
@@ -113,16 +113,16 @@ public class Participacion extends Observable {
     public void setTotalApostado(double totalApostado) {
         this.totalApostado = totalApostado;
     }
-    
+
     @Override
-    public String toString(){
+    public String toString() {
         return "Nombre: " + jugador.getNombreCompleto()
                 + " | Total Apostado" + totalApostado
                 + " | Saldo Incial: " + saldoInicial
                 + " | Total Ganado: " + totalGanado;
 
     }
-    
+
     @Override
     public boolean equals(Object o) {
         if (o == this) {
@@ -136,6 +136,5 @@ public class Participacion extends Observable {
         Participacion j = (Participacion) o;
         return this.jugador.nombreCompleto.equals(j.getJugador().getNombreCompleto());
     }
-    
-    
+
 }
