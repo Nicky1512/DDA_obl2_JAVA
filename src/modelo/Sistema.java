@@ -56,8 +56,8 @@ public class Sistema extends Observable {
         cJuegos.agregarJugador(jugador);
     }
 
-    public void recibirApuesta(double monto, Juego juego, Jugador jugador) throws JuegoException {
-        cJuegos.recibirApuesta(monto, juego, jugador);
+    public void recibirApuesta(double monto, Juego juego, Participacion participacion) throws JuegoException {
+        cJuegos.recibirApuesta(monto, juego, participacion);
     }
 
     public ArrayList<Jugador> getJugadores() {
@@ -72,8 +72,8 @@ public class Sistema extends Observable {
         return cJuegos.getJuegoAIniciar();
     }
 
-    public void terminarParticipacion(Jugador jugador, Juego juego) throws JuegoException {
-        cJuegos.terminarParticipacion(jugador, juego);
+    public void terminarParticipacion(Participacion participacion, Juego juego) throws JuegoException {
+        cJuegos.terminarParticipacion(participacion, juego);
     }
 
     public void verificarIngresoJugador(Jugador j) throws JuegoException {

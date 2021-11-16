@@ -16,7 +16,7 @@ public class Juego extends Observable {
     private Date fechaInicio;
 
     private ArrayList<Mano> manos = new ArrayList<>();
-    private ArrayList<Participacion> jugadores = new ArrayList<>();
+    private ArrayList<Participacion> participaciones = new ArrayList<>();
 
     public enum Eventos {
         nuevoJugador, nuevaMano, nuevoJuego, quitarJugador
@@ -33,13 +33,22 @@ public class Juego extends Observable {
         return manos;
     }
 
-    public ArrayList<Participacion> getJugadores() {
-        return jugadores;
+    public ArrayList<Participacion> getParticipaciones() {
+        return participaciones;
+    }
+
+    public Participacion getParticipacionDeJugador(Jugador jugador) {
+        for (Participacion p : participaciones) {
+            if (p.getJugador().equals(jugador)) {
+                return p;
+            }
+        }
+        return null;
     }
 
     public ArrayList<Participacion> getJugadoresActivos() {
         ArrayList<Participacion> aux = new ArrayList();
-        for (Participacion j : jugadores) {
+        for (Participacion j : participaciones) {
             if (j.isActivo()) {
                 aux.add(j);
             }
@@ -72,12 +81,12 @@ public class Juego extends Observable {
     }
 
     public void verificarIngresoJugador(Jugador jugador) throws JuegoException {
-        if (Juego.cantidadJugadores == jugadores.size()) {
+        if (Juego.cantidadJugadores == participaciones.size()) {
             throw new JuegoException("El juego no puede aceptar mas jugadores");
         }
         if (jugador.getSaldo() > (Juego.cantidadJugadores * Juego.apuestaBase)) {
             Participacion j = new Participacion(jugador);
-            if (jugadores.contains(j)) {              
+            if (participaciones.contains(j)) {
                 throw new JuegoException("El jugador ya fue ingresado al juego");
             }
         } else {
@@ -88,21 +97,21 @@ public class Juego extends Observable {
     public void agregarJugador(Jugador jugador) throws JuegoException {
         verificarIngresoJugador(jugador);
         Participacion j = new Participacion(jugador);
-        jugadores.add(j);
+        participaciones.add(j);
         avisar(Juego.Eventos.nuevoJugador);
     }
 
     public void verificarInicioJuego() throws JuegoException {
-        if (Juego.cantidadJugadores == jugadores.size()) {
+        if (Juego.cantidadJugadores == participaciones.size()) {
             Sistema.getInstancia().empezarJuego();
         }
     }
 
     public void retirarJugador(Participacion jugador) throws JuegoException {
         Boolean aux = false;
-        for (Participacion j : jugadores) {
+        for (Participacion j : participaciones) {
             if (j.equals(jugador)) {
-                jugadores.remove(j);
+                participaciones.remove(j);
                 aux = true;
                 avisar(Juego.Eventos.quitarJugador);
                 break;
@@ -115,12 +124,12 @@ public class Juego extends Observable {
 
     }
 
-    public void finalizarParticipacion(Jugador jugador) throws JuegoException {
+    public void finalizarParticipacion(Participacion participacion) throws JuegoException {
         ArrayList<Participacion> jugadoresActivos = getJugadoresActivos();
         Boolean aux = false;
-        for (Participacion j : jugadoresActivos) {
-            if (j.getJugador().equals(jugador)) {
-                j.setActivo(false);
+        for (Participacion p : jugadoresActivos) {
+            if (p.equals(participacion)) {
+                p.setActivo(false);
                 aux = true;
                 avisar(Juego.Eventos.quitarJugador);
             }
@@ -152,13 +161,13 @@ public class Juego extends Observable {
     }
 
     public ArrayList<Participacion> getListaJugadores() {
-        return jugadores;
+        return participaciones;
     }
 
     public void iniciarMano(double pozoAcumulado) throws JuegoException {
         Mazo mazo = SistemaJuegos.getInstancia().getMazo();
         mazo.barajar();
-        Mano nuevaMano = new Mano((Juego.apuestaBase * jugadores.size()) + pozoAcumulado, mazo, getJugadoresActivos());
+        Mano nuevaMano = new Mano((Juego.apuestaBase * participaciones.size()) + pozoAcumulado, mazo, getJugadoresActivos());
         this.manos.add(nuevaMano);
     }
 
@@ -173,7 +182,7 @@ public class Juego extends Observable {
 
     public void iniciarManoSig(double pozoAcumulado) throws JuegoException {
         removerJugadores();
-        if (this.jugadores.size() <= 1) {
+        if (this.participaciones.size() <= 1) {
             finalizarJuego();
         } else {
             iniciarMano(pozoAcumulado);
@@ -192,7 +201,6 @@ public class Juego extends Observable {
         this.iniciarManoSig(actual.getPozoInicial());
     }
 
-
     public void empezarJuego() throws JuegoException {
         this.fechaInicio = new Date();
         this.enCurso = true;
@@ -204,8 +212,8 @@ public class Juego extends Observable {
         this.enCurso = false;
     }
 
-    public void recibirApuesta(double monto, Jugador jugador) throws JuegoException {
-        this.getManoActual().recibirApuesta(monto, jugador);
+    public void recibirApuesta(double monto, Participacion participacion) throws JuegoException {
+        this.getManoActual().recibirApuesta(monto, participacion);
     }
 
     public double getTotalApostadoJuego() {
@@ -221,23 +229,5 @@ public class Juego extends Observable {
         DateFormat df = new SimpleDateFormat(patron);
         double totalApostado = this.getTotalApostadoJuego();
         return "Fecha inicio: " + df.format(this.fechaInicio) + "Cant jugadores: " + this.getJugadoresActivos().size() + "Total apostado: " + totalApostado + "Cant manos jugadas: " + this.manos.size();
-    }
-
-    public ArrayList<Participacion> getDetallesJugadores() {
-        for (Participacion j : jugadores) {
-            double totalApostado = 0;
-            double totalGanado = 0;
-            for(Mano m: manos){
-                Participacion p = m.getParticipacionDeJugador(j.getJugador());
-                if(p != null){
-                    totalApostado += p.getApuesta();
-                    totalGanado += p.getMontoGanado();
-                }
-                
-            }
-            j.setTotalApostado(totalApostado);
-            j.setTotalGanado(totalGanado);
-        }
-        return jugadores;
     }
 }

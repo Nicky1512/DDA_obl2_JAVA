@@ -47,23 +47,22 @@ public class Mano {
     }
 
     private void iniciarMano(ArrayList<Participacion> jugadores) {
-        for (Participacion j : jugadores) {
-//            Participacion newPart = new Participacion(j);
+        for (Participacion p : jugadores) {
             ArrayList<Carta> cartas = this.mazo.repartirCartas();
-            j.setCartas(cartas);
-            this.participantes.add(j);
+            p.setCartas(cartas);
+            this.participantes.add(p);
         }
     }
 
-    public void recibirApuesta(double monto, Jugador jugador) throws JuegoException {
-        Boolean puedoApostar = jugador.puedoApostar(monto);
+    public void recibirApuesta(double monto, Participacion participacion) throws JuegoException {
+        Boolean puedoApostar = participacion.getJugador().puedoApostar(monto);
         if (puedoApostar) {
             if (this.apuestaFijada == 0) {
                 this.apuestaFijada = monto;
-                this.completarApuesta(monto, jugador);
+                this.completarApuesta(monto, participacion);
             }
             if (this.apuestaFijada == monto) {
-                this.completarApuesta(monto, jugador);
+                this.completarApuesta(monto, participacion);
             } else {
                 throw new JuegoException("La apuesta ingresada es distinta a la apuesta fijada.");
             }
@@ -72,16 +71,9 @@ public class Mano {
         }
     }
 
-    public void completarApuesta(double monto, Jugador jugador) throws JuegoException {
+    public void completarApuesta(double monto, Participacion p) throws JuegoException {
         this.totalApostado += monto;
-        for (Participacion p : participantes) {
-            if (p.getJugador().equals(jugador)) {
-                p.realizarApuesta(monto);
-                
-                break;
-            }
-        }
-
+        p.realizarApuesta(monto);
     }
 
     public Participacion determinarGanador() {
@@ -101,25 +93,22 @@ public class Mano {
                 break;
             }
         }
-        ganador.getJugador().agregarSaldo(this.getPozoInicial() + this.getTotalApostado());
-        ganador.avisar(Participacion.Eventos.saldoModificado);
-        ganador.setMontoGanado(totalApostado);
+        ganador.agregarSaldo(this.getPozoInicial() + this.getTotalApostado());
         return ganador;
     }
-    
-    public Participacion getParticipacionDeJugador(Jugador j){
-        for(Participacion p:participantes){
-            if(p.getJugador().equals(j)){
+
+    public Participacion getParticipacionDeJugador(Jugador j) {
+        for (Participacion p : participantes) {
+            if (p.getJugador().equals(j)) {
                 return p;
             }
         }
         return null;
     }
-    
+
     public void descontarSaldoTodos() throws JuegoException {
-        for (Participacion j : participantes) {
-            j.getJugador().descontarSaldo(Juego.getApuestaBase());
-            j.avisar(Participacion.Eventos.saldoModificado);
+        for (Participacion p : participantes) {
+            p.descontarSaldo(Juego.getApuestaBase());
         }
     }
 }

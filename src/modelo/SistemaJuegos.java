@@ -76,8 +76,8 @@ public class SistemaJuegos {
         this.juegoAIniciar.agregarJugador(jugador);
     }
 
-    public void recibirApuesta(double monto, Juego juego, Jugador jugador) throws JuegoException {
-        juego.recibirApuesta(monto, jugador);
+    public void recibirApuesta(double monto, Juego juego, Participacion participacion) throws JuegoException {
+        juego.recibirApuesta(monto, participacion);
     }
 
     public void quitarJugador(Participacion jugador) throws JuegoException {
@@ -88,8 +88,8 @@ public class SistemaJuegos {
         juegoAIniciar.verificarInicioJuego();
     }
     
-    public void terminarParticipacion(Jugador jugador, Juego juego) throws JuegoException{
-        juego.finalizarParticipacion(jugador);
+    public void terminarParticipacion(Participacion participacion, Juego juego) throws JuegoException{
+        juego.finalizarParticipacion(participacion);
     }
 
     public void verificarIngresoJugador(Jugador j) throws JuegoException{

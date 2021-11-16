@@ -2,6 +2,7 @@ package controlador;
 
 import java.util.ArrayList;
 import modelo.Carta;
+import modelo.Participacion;
 
 public interface VistaJuego {
 
@@ -12,6 +13,8 @@ public interface VistaJuego {
     public void terminarJuego();
 
     public void terminarParticipacion();
+    
+    public void mostrarJugadoresActivos(ArrayList<Participacion> p);
 
     public void empezarJuego();
 

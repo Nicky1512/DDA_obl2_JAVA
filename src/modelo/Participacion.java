@@ -16,7 +16,6 @@ public class Participacion extends Observable {
     private double apuesta;
     private Figura figura;
     private ArrayList<Carta> cartas;
-    private double montoGanado;
 
     public enum Eventos {
         salir, apostar, pasar, saldoModificado
@@ -32,14 +31,6 @@ public class Participacion extends Observable {
         this.activo = true;
         this.totalApostado = 0;
         this.totalGanado = 0;
-    }
-
-    public double getMontoGanado() {
-        return montoGanado;
-    }
-
-    public void setMontoGanado(double montoGanado) {
-        this.montoGanado = montoGanado;
     }
 
     public Figura getFigura() {
@@ -60,12 +51,6 @@ public class Participacion extends Observable {
 
     public void setCartas(ArrayList<Carta> cartas) {
         this.cartas = cartas;
-    }
-
-    public void realizarApuesta(double monto) throws JuegoException {
-        this.apuesta = monto;
-        this.jugador.descontarSaldo(monto);
-        avisar(Eventos.saldoModificado);
     }
 
     public void figurasEnMano() {
@@ -94,6 +79,10 @@ public class Participacion extends Observable {
         return saldoInicial;
     }
 
+    public String getNombreJugador() {
+        return this.jugador.getNombreCompleto();
+    }
+
     public void setSaldoInicial(double saldoInicial) {
         this.saldoInicial = saldoInicial;
     }
@@ -120,7 +109,6 @@ public class Participacion extends Observable {
                 + " | Total Apostado" + totalApostado
                 + " | Saldo Incial: " + saldoInicial
                 + " | Total Ganado: " + totalGanado;
-
     }
 
     @Override
@@ -137,4 +125,22 @@ public class Participacion extends Observable {
         return this.jugador.nombreCompleto.equals(j.getJugador().getNombreCompleto());
     }
 
+    public void agregarSaldo(double d) {
+        this.jugador.agregarSaldo(d);
+        this.totalGanado += d;
+        avisar(Eventos.saldoModificado);
+    }
+
+    public void descontarSaldo(double apuestaBase) throws JuegoException {
+        this.jugador.descontarSaldo(apuestaBase);
+        this.totalApostado += apuestaBase;
+        this.avisar(Participacion.Eventos.saldoModificado);
+    }
+
+    public void realizarApuesta(double monto) throws JuegoException {
+        this.apuesta = monto;
+        this.jugador.descontarSaldo(monto);
+        this.totalApostado += monto;
+        avisar(Eventos.saldoModificado);
+    }
 }

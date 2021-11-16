@@ -1,36 +1,26 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package iu;
 
 import controlador.ControladorJuego;
 import controlador.VistaJuego;
 import java.awt.Frame;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import modelo.Carta;
+import modelo.Juego;
 import modelo.Jugador;
+import modelo.Participacion;
 
-/**
- *
- * @author Nicky
- */
 public class VentanaJuego extends javax.swing.JDialog implements VistaJuego {
 
     private ControladorJuego controlador;
 
-    public VentanaJuego(Jugador j) {
+    public VentanaJuego(Jugador jugador, Juego juego) {
         super((Frame) null, false);
         initComponents();
-        controlador = new ControladorJuego(this, j);
-        setTitle("Jugador: " + j.getNombreCompleto() + " | Juego: ");
-        controlador.setearSaldoJugador(); 
-        controlador.mostrarCartas();
+        controlador = new ControladorJuego(this, jugador, juego);
+        setTitle("Jugador: " + jugador.getNombreCompleto() + " | Juego: ");
+        controlador.IniciarVentana();
     }
 
     /**
@@ -146,6 +136,7 @@ public class VentanaJuego extends javax.swing.JDialog implements VistaJuego {
 
         jLabel2.setText("Jugadores en linea");
 
+        list_jugadores.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(list_jugadores);
 
         jLabel6.setText("Apuesta realizada");
@@ -410,11 +401,18 @@ public class VentanaJuego extends javax.swing.JDialog implements VistaJuego {
     private javax.swing.JTextField txt_montoApostado;
     // End of variables declaration//GEN-END:variables
 
-
-
     @Override
     public void mostrarSaldoJugador(String d) {
         lbl_saldoJugador.setText(d);
+    }
+
+    @Override
+    public void mostrarJugadoresActivos(ArrayList<Participacion> p) {
+        ArrayList<String> lista = new ArrayList();
+        for (Participacion participacion : p) {
+            lista.add(participacion.getNombreJugador());
+        }
+        list_jugadores.setListData(lista.toArray());
     }
 
 }

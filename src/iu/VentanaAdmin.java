@@ -107,11 +107,11 @@ public class VentanaAdmin extends javax.swing.JDialog implements VistaAdmin {
     private void listaJuegosActivosValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listaJuegosActivosValueChanged
         int selection = listaJuegosActivos.getSelectedIndex();
         Juego juegoSelected = juegos.get(selection);
-        //jugadores = juegoSelected.getJugadores();
+        //jugadores = juegoSelected.getParticipaciones();
         
         listaJugadores.clearSelection();
         
-        listaJugadores.setListData(juegoSelected.getDetallesJugadores().toArray());
+        listaJugadores.setListData(juegoSelected.getParticipaciones().toArray());
         
     }//GEN-LAST:event_listaJuegosActivosValueChanged
 
@@ -158,6 +158,7 @@ public class VentanaAdmin extends javax.swing.JDialog implements VistaAdmin {
 
     @Override
     public void mostrarJuegos(ArrayList<Juego> juegos) {
+        this.juegos = juegos;
         ArrayList<String> lista = new ArrayList();
         for (Juego j : juegos) {
             lista.add(j.toString());

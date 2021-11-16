@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controlador;
 
 import iu.VentanaJuego;
@@ -57,7 +52,7 @@ public class ControladorEspera implements Observador {
 
     public void mostrarFaltan() {
         Juego j = sistema.getJuegoAIniciar();
-        int cantJugadoresConectados = j.getJugadores().size();
+        int cantJugadoresConectados = j.getParticipaciones().size();
         String datos = cantJugadoresConectados + "/" + Juego.getCantidadJugadores();
         vistaEspera.mostrarFaltan(datos);
     }
@@ -72,7 +67,7 @@ public class ControladorEspera implements Observador {
 
     public void empezarJuego() {
         vistaEspera.salir();
-        new VentanaJuego(jugador).setVisible(true);
+        new VentanaJuego(jugador, juego).setVisible(true);
     }
     
     public void quitarJugador() {

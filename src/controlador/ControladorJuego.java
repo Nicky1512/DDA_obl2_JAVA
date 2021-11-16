@@ -1,10 +1,5 @@
 package controlador;
 
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import modelo.Carta;
-import modelo.Participacion;
 import modelo.Juego;
 import modelo.Jugador;
 import modelo.Participacion;
@@ -17,15 +12,15 @@ public class ControladorJuego implements Observador {
 
     private VistaJuego vistaJuego;
     private Sistema sistema = Sistema.getInstancia();
-    private Jugador jugador;
+    private Participacion participacion;
     private Juego juego;
 
-    public ControladorJuego(VistaJuego vista, Jugador jugador) {
+    public ControladorJuego(VistaJuego vista, Jugador jugador, Juego juego) {
         this.vistaJuego = vista;
-        this.jugador = jugador;
-        this.juego = sistema.getJuegoAIniciar();
+        this.juego = juego;
+        this.participacion = juego.getParticipacionDeJugador(jugador);
         juego.agregar(this);
-        vista.mostrarNombreJugador(jugador.getNombreCompleto());
+        participacion.agregar(this);
     }
 
     public VistaJuego getVista() {
@@ -46,53 +41,55 @@ public class ControladorJuego implements Observador {
 
     @Override
     public void actualizar(Object evento, Observable origen) {
-        switch((modelo.Participacion.Eventos)evento){
-            
-            case salir: this.terminarParticipacion();
+        switch ((modelo.Participacion.Eventos) evento) {
+
+            case salir:
+                this.terminarParticipacion();
                 break;
-            case saldoModificado: this.setearSaldoJugador();
+            case saldoModificado:
+                this.setearSaldoJugador();
                 break;
 //            case pasar: vistaJuego.pasar();
 //                break;
         }
-    
-
     }
 
-    private void cargarJugador(Jugador jugador) throws JuegoException {
-        sistema.ingresarJugadorJuego(jugador);
-    }
-
-    public void terminarParticipacion(){
+    public void terminarParticipacion() {
         try {
-            sistema.terminarParticipacion(jugador, juego);
+            sistema.terminarParticipacion(participacion, juego);
         } catch (JuegoException ex) {
             vistaJuego.error(ex.getMessage());
         }
     }
-    
-    public void mostrarCartas(){
-        ArrayList<Participacion> copia = juego.getManoActual().getParticipantes();
-        for (Participacion p : copia) {
-            if(p.getJugador().equals(jugador)){
-                vistaJuego.observarCartas(p.getCartas());
-            }
-        }
+
+    public void mostrarCartas() {
+        vistaJuego.observarCartas(participacion.getCartas());
     }
-    
-    public void apostar(String monto){
+
+    public void apostar(String monto) {
         try {
             double m = Double.parseDouble(monto);
-            if(m > 0)
-                sistema.recibirApuesta(m, juego, jugador);
-            else
+            if (m > 0) {
+                sistema.recibirApuesta(m, juego, participacion);
+            } else {
                 vistaJuego.error("Monto apostado tiene que ser mayor a 0");
+            }
         } catch (JuegoException ex) {
             vistaJuego.error(ex.getMessage());
         }
     }
 
     public void setearSaldoJugador() {
-        vistaJuego.mostrarSaldoJugador(String.valueOf(jugador.getSaldo()));
+        vistaJuego.mostrarSaldoJugador(String.valueOf(participacion.getJugador().getSaldo()));
+    }
+
+    public void mostrarJugadoresActivos() {
+        vistaJuego.mostrarJugadoresActivos(this.juego.getJugadoresActivos());
+    }
+
+    public void IniciarVentana() {
+        this.setearSaldoJugador();
+        this.mostrarCartas();
+        this.mostrarJugadoresActivos();
     }
 }
