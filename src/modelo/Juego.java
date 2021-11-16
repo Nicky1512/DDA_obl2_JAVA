@@ -10,7 +10,7 @@ import observador.Observable;
 public class Juego extends Observable {
 
     private static int cantidadJugadores;
-    private static double apuestaBase;
+    public static double apuestaBase;
 
     private Boolean enCurso;
     private Date fechaInicio;
@@ -19,7 +19,7 @@ public class Juego extends Observable {
     private ArrayList<HistoricoJugador> jugadores = new ArrayList<>();
 
     public enum Eventos {
-        nuevoJugador, nuevaMano
+        nuevoJugador, nuevaMano, nuevoJuego, quitarJugador
     };
 
     public Juego() {
@@ -89,7 +89,7 @@ public class Juego extends Observable {
         verificarIngresoJugador(jugador);
         HistoricoJugador j = new HistoricoJugador(jugador);
         jugadores.add(j);
-        Sistema.getInstancia().avisar(Sistema.Eventos.nuevoJugador);
+        avisar(Juego.Eventos.nuevoJugador);
     }
 
     public void verificarInicioJuego() throws JuegoException {
@@ -104,7 +104,7 @@ public class Juego extends Observable {
             if (j.equals(jugador)) {
                 jugadores.remove(j);
                 aux = true;
-                Sistema.getInstancia().avisar(Sistema.Eventos.quitarJugador);
+                avisar(Juego.Eventos.quitarJugador);
                 break;
             }
         }
@@ -122,7 +122,7 @@ public class Juego extends Observable {
             if (j.getJugador().equals(jugador)) {
                 j.setActivo(false);
                 aux = true;
-                Sistema.getInstancia().avisar(Sistema.Eventos.quitarJugador);
+                avisar(Juego.Eventos.quitarJugador);
             }
         }
 
@@ -160,12 +160,10 @@ public class Juego extends Observable {
     }
 
     public void iniciarMano(double pozoAcumulado) throws JuegoException {
-        descontarSaldoTodos();
         Mazo mazo = SistemaJuegos.getInstancia().getMazo();
         mazo.barajar();
         Mano nuevaMano = new Mano((Juego.apuestaBase * jugadores.size()) + pozoAcumulado, mazo, getListaJugadores());
         this.manos.add(nuevaMano);
-        avisar(Eventos.nuevaMano);
     }
 
     public Mano getManoActual() {
@@ -190,7 +188,6 @@ public class Juego extends Observable {
     public void terminarMano() throws JuegoException {
         Mano actual = this.getManoActual();
         Participacion ganador = actual.determinarGanador();
-        ganador.getJugador().agregarSaldo(actual.getPozoInicial() + actual.getTotalApostado());
         this.iniciarManoSig(0);
     }
 
@@ -199,17 +196,12 @@ public class Juego extends Observable {
         this.iniciarManoSig(actual.getPozoInicial());
     }
 
-    public void descontarSaldoTodos() throws JuegoException {
-        for (HistoricoJugador j : jugadores) {
-            j.getJugador().descontarSaldo(Juego.apuestaBase);
-        }
-    }
 
     public void empezarJuego() throws JuegoException {
         this.fechaInicio = new Date();
         this.enCurso = true;
         iniciarMano(0);
-        Sistema.getInstancia().avisar(Sistema.Eventos.nuevoJuego);
+        avisar(Juego.Eventos.nuevoJuego);
     }
 
     public void finalizarJuego() {
@@ -237,9 +229,18 @@ public class Juego extends Observable {
 
     public ArrayList<HistoricoJugador> getDetallesJugadores() {
         for (HistoricoJugador j : jugadores) {
-            //TODO:
-            //Calcular total apostado
-            //Calcular total ganado
+            double totalApostado = 0;
+            double totalGanado = 0;
+            for(Mano m: manos){
+                Participacion p = m.getParticipacionDeJugador(j.getJugador());
+                if(p != null){
+                    totalApostado += p.getApuesta();
+                    totalGanado += p.getMontoGanado();
+                }
+                
+            }
+            j.setTotalApostado(totalApostado);
+            j.setTotalGanado(totalGanado);
         }
         return jugadores;
     }

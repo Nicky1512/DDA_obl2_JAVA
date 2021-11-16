@@ -1,6 +1,8 @@
 package modelo;
 
-public abstract class Usuario {
+import observador.Observable;
+
+public abstract class Usuario{
 
     protected String nombreUsuario;
     protected String contraseña;

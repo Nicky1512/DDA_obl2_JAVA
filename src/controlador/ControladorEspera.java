@@ -21,12 +21,14 @@ public class ControladorEspera implements Observador {
     private VistaEspera vistaEspera;
     private Sistema sistema = Sistema.getInstancia();
     private Jugador jugador;
+    private Juego juego;
     
 
     public ControladorEspera(VistaEspera vista, Jugador jugador) {
         this.vistaEspera = vista;
         this.jugador = jugador;
-        sistema.agregar(this);
+        this.juego = sistema.getJuegoAIniciar();
+        juego.agregar(this);
         ingresarJugadorJuego();
     }
 
@@ -41,14 +43,14 @@ public class ControladorEspera implements Observador {
 
     @Override
     public void actualizar(Object evento, Observable origen) { 
-        if (evento.equals(Sistema.Eventos.nuevoJugador)) {
+        if (evento.equals(Juego.Eventos.nuevoJugador)) {
             mostrarFaltan();
             verificarInicio();
         }
-        if (evento.equals(Sistema.Eventos.nuevoJuego)) {
+        if (evento.equals(Juego.Eventos.nuevoJuego)) {
             empezarJuego();
         }
-        if (evento.equals(Sistema.Eventos.quitarJugador)) {
+        if (evento.equals(Juego.Eventos.quitarJugador)) {
             mostrarFaltan();
         }
     }

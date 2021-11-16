@@ -13,12 +13,13 @@ public class Mano {
 
     private ArrayList<Participacion> participantes;
 
-    public Mano(double pozoInicial, Mazo mazo, ArrayList<Jugador> jugadores) {
+    public Mano(double pozoInicial, Mazo mazo, ArrayList<Jugador> jugadores) throws JuegoException {
         this.pozoInicial = pozoInicial;
         this.mazo = mazo;
         this.participantes = new ArrayList<>();
         this.apuestaFijada = 0;
         iniciarMano(jugadores);
+        descontarSaldoTodos();
     }
 
     public double getTotalApostado() {
@@ -76,6 +77,7 @@ public class Mano {
         for (Participacion p : participantes) {
             if (p.getJugador().equals(jugador)) {
                 p.realizarApuesta(monto);
+                
                 break;
             }
         }
@@ -99,7 +101,25 @@ public class Mano {
                 break;
             }
         }
+        ganador.getJugador().agregarSaldo(this.getPozoInicial() + this.getTotalApostado());
+        ganador.avisar(Participacion.Eventos.saldoModificado);
         ganador.setMontoGanado(totalApostado);
         return ganador;
+    }
+    
+    public Participacion getParticipacionDeJugador(Jugador j){
+        for(Participacion p:participantes){
+            if(p.getJugador().equals(j)){
+                return p;
+            }
+        }
+        return null;
+    }
+    
+    public void descontarSaldoTodos() throws JuegoException {
+        for (Participacion j : participantes) {
+            j.getJugador().descontarSaldo(Juego.getApuestaBase());
+            j.avisar(Participacion.Eventos.saldoModificado);
+        }
     }
 }
