@@ -3,11 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/Conan/Desktop/S4/DDA/DDA_obl2_JAVA/src/controlador/ControladorEspera.java</file>
             <file>file:/C:/Users/Conan/Desktop/S4/DDA/DDA_obl2_JAVA/src/iu/VentanaAdmin.java</file>
             <file>file:/C:/Users/Conan/Desktop/S4/DDA/DDA_obl2_JAVA/src/modelo/Juego.java</file>
-            <file>file:/C:/Users/Conan/Desktop/S4/DDA/DDA_obl2_JAVA/src/iu/VentanaEspera.java</file>
-            <file>file:/C:/Users/Conan/Desktop/S4/DDA/DDA_obl2_JAVA/src/controlador/VistaEspera.java</file>
+            <file>file:/C:/Users/Conan/Desktop/S4/DDA/DDA_obl2_JAVA/src/controlador/ControladorJuego.java</file>
+            <file>file:/C:/Users/Conan/Desktop/S4/DDA/DDA_obl2_JAVA/src/modelo/Mano.java</file>
             <file>file:/C:/Users/Conan/Desktop/S4/DDA/DDA_obl2_JAVA/src/iu/VentanaJuego.java</file>
+            <file>file:/C:/Users/Conan/Desktop/S4/DDA/DDA_obl2_JAVA/src/modelo/Sistema.java</file>
+            <file>file:/C:/Users/Conan/Desktop/S4/DDA/DDA_obl2_JAVA/src/modelo/SistemaJuegos.java</file>
         </group>
     </open-files>
 </project-private>

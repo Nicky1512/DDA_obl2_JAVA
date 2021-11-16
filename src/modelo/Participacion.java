@@ -162,4 +162,7 @@ public class Participacion extends Observable {
         }
     }
 
+    public void TerminoJuego() {
+        this.avisar(Participacion.Eventos.juegoTerminado);
+    }
 }

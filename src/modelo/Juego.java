@@ -133,10 +133,7 @@ public class Juego extends Observable {
                     p.setActivo(false);
                     aux = true;
                     avisar(Juego.Eventos.terminarParticipacion);
-                    jugadoresActivos = getJugadoresActivos();
-                    if(jugadoresActivos.size() == 1){
-                        
-                    }
+                    verificarFinalJuego();
                 }
             }
             if (!aux) {
@@ -160,8 +157,13 @@ public class Juego extends Observable {
                 cont++;
             }
         }
-        if (cont == 1) {
-            finalizarJuego();
+        verificarFinalJuego();
+    }
+
+    public void verificarFinalJuego() {
+        ArrayList<Participacion> jugadoresActivos = getJugadoresActivos();
+        if (jugadoresActivos.size() == 1) {
+            finalizarJuego(jugadoresActivos.get(0));
         }
     }
 
@@ -187,9 +189,7 @@ public class Juego extends Observable {
 
     public void iniciarManoSig(double pozoAcumulado) throws JuegoException {
         removerJugadores();
-        if (this.participaciones.size() <= 1) {
-            finalizarJuego();
-        } else {
+        if (this.estaEnCurso()) {
             iniciarMano(pozoAcumulado);
             avisar(Eventos.nuevaMano);
         }
@@ -213,10 +213,10 @@ public class Juego extends Observable {
         avisar(Juego.Eventos.nuevoJuego);
     }
 
-    public void finalizarJuego() {
+    public void finalizarJuego(Participacion participacion) {
         this.enCurso = false;
-//        agregar saldo al jugador
-//        avisar(Juego.Eventos.terminarJuego);
+        participacion.agregarSaldo(this.getMontoPozoActual());
+        participacion.TerminoJuego();
     }
 
     public void recibirApuesta(double monto, Participacion participacion) throws JuegoException {
