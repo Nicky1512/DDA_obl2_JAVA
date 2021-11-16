@@ -61,6 +61,11 @@ public class VentanaJuego extends javax.swing.JDialog implements VistaJuego {
         jSeparator1 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         btn_pasar.setText("Pasar");
         btn_pasar.addActionListener(new java.awt.event.ActionListener() {
@@ -321,6 +326,10 @@ public class VentanaJuego extends javax.swing.JDialog implements VistaJuego {
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_pagarActionPerformed
 
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        terminarParticipacion();
+    }//GEN-LAST:event_formWindowClosing
+
     @Override
     public void mostrarJuego() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -333,7 +342,8 @@ public class VentanaJuego extends javax.swing.JDialog implements VistaJuego {
 
     @Override
     public void terminarJuego() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        JOptionPane.showMessageDialog(this, "Felicitaciones, Juego terminado, se acredito el pozo a su saldo.");
+        this.dispose();
     }
 
     @Override
@@ -348,7 +358,7 @@ public class VentanaJuego extends javax.swing.JDialog implements VistaJuego {
     }
 
     @Override
-    public void observarCartas(ArrayList<Carta> cartas) {      
+    public void observarCartas(ArrayList<Carta> cartas) {
         lbl_card1.setIcon(new ImageIcon(cartas.get(0).getImgPath()));
         lbl_card2.setIcon(new ImageIcon(cartas.get(1).getImgPath()));
         lbl_card3.setIcon(new ImageIcon(cartas.get(2).getImgPath()));
@@ -413,6 +423,21 @@ public class VentanaJuego extends javax.swing.JDialog implements VistaJuego {
             lista.add(participacion.getNombreJugador());
         }
         list_jugadores.setListData(lista.toArray());
+    }
+
+    @Override
+    public void mostrarApuestaActual(String monto) {
+        lbl_apuestaRealizada.setText(monto);
+    }
+
+    @Override
+    public void mostrarNombreJugadorApostador(String nombre) {
+        lbl_nombreJugadorApuesta.setText(nombre);
+    }
+
+    @Override
+    public void mostrarMontoPozoActual(String monto) {
+        lbl_pozoActual.setText(monto);
     }
 
 }

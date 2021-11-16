@@ -75,7 +75,7 @@ public class ControladorEspera implements Observador {
         try {
             sistema.expulsarJugador(j);
         } catch (JuegoException ex) {
-            Logger.getLogger(ControladorEspera.class.getName()).log(Level.SEVERE, null, ex);
+            vistaEspera.error(ex.getMessage());
         }
     }
 }

@@ -89,7 +89,7 @@ public class SistemaJuegos {
     }
     
     public void terminarParticipacion(Participacion participacion, Juego juego) throws JuegoException{
-        juego.finalizarParticipacion(participacion);
+        juego.finalizarParticipacion(participacion);        
     }
 
     public void verificarIngresoJugador(Jugador j) throws JuegoException{

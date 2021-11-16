@@ -10,6 +10,7 @@ public class Mano {
     private Mazo mazo;
     private double totalApostado;
     private double apuestaFijada;
+    private String nombreApostador;
 
     private ArrayList<Participacion> participantes;
 
@@ -18,6 +19,7 @@ public class Mano {
         this.mazo = mazo;
         this.participantes = new ArrayList<>();
         this.apuestaFijada = 0;
+        this.totalApostado = jugadores.size() * Juego.apuestaBase;
         iniciarMano(jugadores);
         descontarSaldoTodos();
     }
@@ -46,6 +48,18 @@ public class Mano {
         this.participantes = participantes;
     }
 
+    public double getApuestaFijada() {
+        return apuestaFijada;
+    }
+
+    public void setApuestaFijada(double apuestaFijada) {
+        this.apuestaFijada = apuestaFijada;
+    }
+
+    public String getNombreApostador() {
+        return nombreApostador;
+    }
+
     private void iniciarMano(ArrayList<Participacion> jugadores) {
         for (Participacion p : jugadores) {
             ArrayList<Carta> cartas = this.mazo.repartirCartas();
@@ -55,20 +69,19 @@ public class Mano {
     }
 
     public void recibirApuesta(double monto, Participacion participacion) throws JuegoException {
-        Boolean puedoApostar = participacion.getJugador().puedoApostar(monto);
-        if (puedoApostar) {
-            if (this.apuestaFijada == 0) {
-                this.apuestaFijada = monto;
-                this.completarApuesta(monto, participacion);
-            }
-            if (this.apuestaFijada == monto) {
-                this.completarApuesta(monto, participacion);
-            } else {
-                throw new JuegoException("La apuesta ingresada es distinta a la apuesta fijada.");
-            }
+        participacion.puedoApostar(monto);
+        if (this.apuestaFijada == 0) {
+            this.apuestaFijada = monto;
+            this.nombreApostador = participacion.getNombreJugador();
+            this.completarApuesta(monto, participacion);
         } else {
-            throw new JuegoException("El jugador no dispone del saldo para realizar la apuesta");
+            throw new JuegoException("Ya hay una apuesta fijada");
         }
+//            if (this.apuestaFijada == monto) {
+//                this.completarApuesta(monto, participacion);
+//            } else {
+//                throw new JuegoException("La apuesta ingresada es distinta a la apuesta fijada.");
+//            }
     }
 
     public void completarApuesta(double monto, Participacion p) throws JuegoException {

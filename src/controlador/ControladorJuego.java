@@ -41,19 +41,43 @@ public class ControladorJuego implements Observador {
 
     @Override
     public void actualizar(Object evento, Observable origen) {
-        switch ((modelo.Participacion.Eventos) evento) {
 
-            case salir:
-                this.terminarParticipacion();
+        if ("modelo.Participacion".equals(origen.getClass().getName())) {
+
+            switch ((modelo.Participacion.Eventos) evento) {
+                case salir:
+                    this.mostrarJugadoresActivos();
+                    break;
+                case saldoModificado:
+                    this.setearSaldoJugador();
+                    break;
+            case juegoTerminado: 
+                this.juegoTerminado();
                 break;
-            case saldoModificado:
-                this.setearSaldoJugador();
-                break;
-//            case pasar: vistaJuego.pasar();
-//                break;
+            }
+        } else {
+
+            if (Juego.Eventos.terminarParticipacion.equals(evento)) {
+                this.mostrarJugadoresActivos();
+            }
+            if (Juego.Eventos.apuestaFijada.equals(evento)) {
+                this.mostrarApuestaActual();
+                this.mostrarNombreJugadorApostador();
+            }
+            if (Juego.Eventos.actualizacionPozo.equals(evento)) {
+                this.mostrarApuestaActual();
+                this.mostrarPozoActual();
+            }
+//            if (Juego.Eventos.terminarJuego.equals(evento)) {
+//               this.juegoTerminado();
+//            }
         }
     }
 
+    public void juegoTerminado(){
+        vistaJuego.terminarJuego();
+    }
+    
     public void terminarParticipacion() {
         try {
             sistema.terminarParticipacion(participacion, juego);
@@ -68,11 +92,15 @@ public class ControladorJuego implements Observador {
 
     public void apostar(String monto) {
         try {
-            double m = Double.parseDouble(monto);
-            if (m > 0) {
-                sistema.recibirApuesta(m, juego, participacion);
+            if (isNumeric(monto)) {
+                double m = Double.parseDouble(monto);
+                if (m > 0) {
+                    sistema.recibirApuesta(m, juego, participacion);
+                } else {
+                    vistaJuego.error("Monto apostado tiene que ser mayor a 0");
+                }
             } else {
-                vistaJuego.error("Monto apostado tiene que ser mayor a 0");
+                vistaJuego.error("Ingrese un numero");
             }
         } catch (JuegoException ex) {
             vistaJuego.error(ex.getMessage());
@@ -87,9 +115,32 @@ public class ControladorJuego implements Observador {
         vistaJuego.mostrarJugadoresActivos(this.juego.getJugadoresActivos());
     }
 
+    public void mostrarApuestaActual() {
+        vistaJuego.mostrarApuestaActual(String.valueOf(juego.getApuetaActual()));
+    }
+
+    public void mostrarNombreJugadorApostador() {
+        vistaJuego.mostrarNombreJugadorApostador(juego.getNombreJugadorApostador());
+    }
+
+    public void mostrarPozoActual() {
+        vistaJuego.mostrarMontoPozoActual(String.valueOf(juego.getMontoPozoActual()));
+    }
+
     public void IniciarVentana() {
         this.setearSaldoJugador();
         this.mostrarCartas();
         this.mostrarJugadoresActivos();
+        this.mostrarApuestaActual();
+        this.mostrarPozoActual();
+    }
+
+    public static boolean isNumeric(String str) {
+        try {
+            Double.parseDouble(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 }

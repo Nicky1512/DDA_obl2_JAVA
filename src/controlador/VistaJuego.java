@@ -28,5 +28,11 @@ public interface VistaJuego {
     
     public void mostrarSaldoJugador(String d);
     
+    public void mostrarApuestaActual(String monto);
+    
+    public void mostrarNombreJugadorApostador(String nombre);
+    
+    public void mostrarMontoPozoActual(String monto);
+    
 
 }
