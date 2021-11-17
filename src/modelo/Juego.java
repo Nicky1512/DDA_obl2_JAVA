@@ -23,6 +23,7 @@ public class Juego extends Observable {
     };
 
     public Juego() {
+        this.enCurso = false;
     }
 
     public Date getFechaInicio() {
@@ -136,7 +137,8 @@ public class Juego extends Observable {
                 if (p.equals(participacion)) {
                     p.setActivo(false);
                     aux = true;
-                    avisar(Juego.Eventos.terminarParticipacion);                    
+                    avisar(Juego.Eventos.terminarParticipacion);  
+                    Sistema.getInstancia().avisar(Sistema.Eventos.eventoAdmin);
                     verificarFinalJuego();
                     verificarFinalMano();
                 }
@@ -197,6 +199,7 @@ public class Juego extends Observable {
         if (this.estaEnCurso()) {
             iniciarMano(pozoAcumulado);
             avisar(Eventos.nuevaMano);
+            Sistema.getInstancia().avisar(Sistema.Eventos.eventoAdmin);
         }
     }
 
@@ -217,6 +220,8 @@ public class Juego extends Observable {
         this.enCurso = true;
         iniciarMano(0);
         avisar(Juego.Eventos.nuevoJuego);
+        Sistema.getInstancia().avisar(Sistema.Eventos.eventoAdmin);
+        
     }
 
     public void finalizarJuego(Participacion participacion) {
@@ -229,11 +234,13 @@ public class Juego extends Observable {
         this.getManoActual().recibirApuesta(monto, participacion);
         avisar(Juego.Eventos.apuestaFijada);
         avisar(Juego.Eventos.actualizacionPozo);
+        Sistema.getInstancia().avisar(Sistema.Eventos.eventoAdmin);
     }
 
     public void pagarApuestaFijada(Participacion p) throws JuegoException {
         this.getManoActual().pagarApuesta(p);
         avisar(Juego.Eventos.actualizacionPozo);
+        Sistema.getInstancia().avisar(Sistema.Eventos.eventoAdmin);
         verificarFinalMano();
     }
 
@@ -271,6 +278,6 @@ public class Juego extends Observable {
         String patron = "dd/MM/yyyy HH:mm";
         DateFormat df = new SimpleDateFormat(patron);
         double totalApostado = this.getTotalApostadoJuego();
-        return "Fecha inicio: " + df.format(this.fechaInicio) + "Cant jugadores: " + this.getJugadoresActivos().size() + "Total apostado: " + totalApostado + "Cant manos jugadas: " + this.manos.size();
+        return "Fecha inicio: " + df.format(this.fechaInicio) + " Cant jugadores: " + this.getJugadoresActivos().size() + " Total apostado: " + totalApostado + " Cant manos jugadas: " + this.manos.size();
     }
 }
