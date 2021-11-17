@@ -160,7 +160,7 @@ public class Mano {
 
     public boolean verificarEstadoParticipantes() {
         for (Participacion p : participantes) {
-            if (!p.debeJugar()) {
+            if (!p.yaJugo()) {
                 return false;
             }
         }

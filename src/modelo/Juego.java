@@ -136,8 +136,9 @@ public class Juego extends Observable {
                 if (p.equals(participacion)) {
                     p.setActivo(false);
                     aux = true;
-                    avisar(Juego.Eventos.terminarParticipacion);
+                    avisar(Juego.Eventos.terminarParticipacion);                    
                     verificarFinalJuego();
+                    verificarFinalMano();
                 }
             }
             if (!aux) {
