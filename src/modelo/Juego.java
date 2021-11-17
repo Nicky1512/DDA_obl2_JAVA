@@ -111,11 +111,11 @@ public class Juego extends Observable {
         }
     }
 
-    public void retirarJugador(Participacion jugador) throws JuegoException {
+    public void retirarJugador(Jugador jugador) throws JuegoException {
         Boolean aux = false;
-        for (Participacion j : participaciones) {
-            if (j.equals(jugador)) {
-                participaciones.remove(j);
+        for (Participacion p : participaciones) {
+            if (p.getJugador().equals(jugador)) {
+                participaciones.remove(p);
                 aux = true;
                 avisar(Juego.Eventos.quitarJugador);
                 break;
@@ -152,11 +152,11 @@ public class Juego extends Observable {
         for (Participacion j : jugadoresActivos) {
             Participacion copia = j;
             if (copia.getJugador().getSaldo() == 0) {
-                retirarJugador(copia);
+                finalizarParticipacion(copia);
             }
             Boolean puedo = copia.getJugador().puedoApostar(Juego.apuestaBase);
             if (!puedo) {
-                retirarJugador(copia);
+                finalizarParticipacion(copia);
             } else {
                 cont++;
             }

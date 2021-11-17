@@ -72,26 +72,10 @@ public class SistemaJuegos {
         this.figuras.add(figura);
     }
 
-    public void agregarJugador(Jugador jugador) throws JuegoException {
-        this.juegoAIniciar.agregarJugador(jugador);
-    }
-
-    public void recibirApuesta(double monto, Juego juego, Participacion participacion) throws JuegoException {
-        juego.recibirApuesta(monto, participacion);
-    }
-
-    public void quitarJugador(Participacion jugador) throws JuegoException {
-        juegoAIniciar.retirarJugador(jugador);
-    }
-
     public void verificarInicioJuego() throws JuegoException {
         juegoAIniciar.verificarInicioJuego();
     }
     
-    public void terminarParticipacion(Participacion participacion, Juego juego) throws JuegoException{
-        juego.finalizarParticipacion(participacion);        
-    }
-
     public void verificarIngresoJugador(Jugador j) throws JuegoException{
         juegoAIniciar.verificarIngresoJugador(j);
     }

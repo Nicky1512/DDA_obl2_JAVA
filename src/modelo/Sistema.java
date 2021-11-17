@@ -10,12 +10,15 @@ public class Sistema extends Observable {
     private SistemaUsuarios cUsuarios = SistemaUsuarios.getInstancia();
     private SistemaJuegos cJuegos = SistemaJuegos.getInstancia();
 
-    public enum Eventos {nuevoJuego};
+    public enum Eventos {
+        eventoAdmin
+    };
 
     private static Sistema instancia = new Sistema();
 
-    private Sistema() {}
-    
+    private Sistema() {
+    }
+
     public static Sistema getInstancia() {
         return instancia;
     }
@@ -36,6 +39,10 @@ public class Sistema extends Observable {
         cUsuarios.agregarJugador(j);
     }
 
+    public Juego getJuegoAIniciar() {
+        return cJuegos.getJuegoAIniciar();
+    }
+
     public ArrayList<Juego> getJuegosEnCurso() {
         return cJuegos.getJuegosEnCurso();
     }
@@ -48,37 +55,11 @@ public class Sistema extends Observable {
         cJuegos.empezarJuego();
     }
 
-    public void vericarInicioJuego() throws JuegoException{
+    public void vericarInicioJuego() throws JuegoException {
         cJuegos.verificarInicioJuego();
-    }
-    
-    public void ingresarJugadorJuego(Jugador jugador) throws JuegoException {
-        cJuegos.agregarJugador(jugador);
-    }
-
-    public void recibirApuesta(double monto, Juego juego, Participacion participacion) throws JuegoException {
-        cJuegos.recibirApuesta(monto, juego, participacion);
-    }
-
-    public ArrayList<Jugador> getJugadores() {
-        return cUsuarios.getJugadores();
-    }
-
-    public void expulsarJugador(Participacion j) throws JuegoException{
-        cJuegos.quitarJugador(j);
-    }
-    
-    public Juego getJuegoAIniciar(){
-        return cJuegos.getJuegoAIniciar();
-    }
-
-    public void terminarParticipacion(Participacion participacion, Juego juego) throws JuegoException {
-        cJuegos.terminarParticipacion(participacion, juego);
     }
 
     public void verificarIngresoJugador(Jugador j) throws JuegoException {
         cJuegos.verificarIngresoJugador(j);
     }
-       
-    
 }

@@ -29,7 +29,7 @@ public class ControladorEspera implements Observador {
 
     public void ingresarJugadorJuego() {
         try {
-            sistema.ingresarJugadorJuego(jugador);
+            juego.agregarJugador(jugador);
         } catch (JuegoException ex) {           
             vistaEspera.error(ex.getMessage()); 
             vistaEspera.salir();
@@ -71,9 +71,8 @@ public class ControladorEspera implements Observador {
     }
     
     public void quitarJugador() {
-        Participacion j = new Participacion(jugador);
         try {
-            sistema.expulsarJugador(j);
+            juego.retirarJugador(jugador);
         } catch (JuegoException ex) {
             vistaEspera.error(ex.getMessage());
         }

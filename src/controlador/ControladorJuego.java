@@ -89,7 +89,7 @@ public class ControladorJuego implements Observador {
     
     public void terminarParticipacion() {
         try {
-            sistema.terminarParticipacion(participacion, juego);
+            juego.finalizarParticipacion(participacion);
         } catch (JuegoException ex) {
             vistaJuego.error(ex.getMessage());
         }
@@ -105,7 +105,7 @@ public class ControladorJuego implements Observador {
             if (isNumeric(monto)) {
                 double m = Double.parseDouble(monto);
                 if (m > 0) {
-                    sistema.recibirApuesta(m, juego, participacion);
+                    juego.recibirApuesta(m, participacion);
                     modificarEstado();
                 } else {
                     vistaJuego.error("Monto apostado tiene que ser mayor a 0");
