@@ -41,6 +41,7 @@ public class VentanaJuego extends javax.swing.JDialog implements VistaJuego {
         lbl_card3 = new javax.swing.JLabel();
         lbl_card4 = new javax.swing.JLabel();
         lbl_card5 = new javax.swing.JLabel();
+        lbl_figura = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -105,6 +106,8 @@ public class VentanaJuego extends javax.swing.JDialog implements VistaJuego {
         lbl_card5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/modelo/cartas/Invertida.gif"))); // NOI18N
         lbl_card5.setLabelFor(lbl_card5);
 
+        lbl_figura.setText("Figura");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -112,7 +115,6 @@ public class VentanaJuego extends javax.swing.JDialog implements VistaJuego {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(lbl_card1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(15, 15, 15)
@@ -122,14 +124,21 @@ public class VentanaJuego extends javax.swing.JDialog implements VistaJuego {
                         .addGap(15, 15, 15)
                         .addComponent(lbl_card4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(15, 15, 15)
-                        .addComponent(lbl_card5, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(20, Short.MAX_VALUE))
+                        .addComponent(lbl_card5, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(20, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lbl_figura)
+                        .addGap(219, 219, 219))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addComponent(jLabel1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(lbl_figura))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -434,6 +443,7 @@ public class VentanaJuego extends javax.swing.JDialog implements VistaJuego {
     private javax.swing.JLabel lbl_card4;
     private javax.swing.JLabel lbl_card5;
     private javax.swing.JLabel lbl_estado;
+    private javax.swing.JLabel lbl_figura;
     private javax.swing.JLabel lbl_nombreJugadorApuesta;
     private javax.swing.JLabel lbl_pozoActual;
     private javax.swing.JLabel lbl_saldoJugador;
@@ -483,6 +493,11 @@ public class VentanaJuego extends javax.swing.JDialog implements VistaJuego {
     @Override
     public void mostarGanador(String s) {
         JOptionPane.showMessageDialog(this, s);
+    }
+
+    @Override
+    public void mostrarFigura(String figura) {
+        lbl_figura.setText("Figura: " + figura);
     }
 
 }

@@ -191,4 +191,8 @@ public class Participacion extends Observable {
     public void TerminoJuego() {
         this.avisar(Participacion.Eventos.juegoTerminado);
     }
+    
+    public String datosGanador(){
+        return "El ganador es: " + this.getNombreJugador() + " con la figura: " + this.figura.getNombre(); //TODO: Falta mostrar las cartas que tiene
+    }
 }

@@ -40,5 +40,5 @@ public interface VistaJuego {
     
     public void mostarGanador(String s);
    
-
+    public void mostrarFigura(String figura);
 }

@@ -11,6 +11,7 @@ public class Mano {
     private double totalApostado;
     private double apuestaFijada;
     private String nombreApostador;
+    private Participacion ganador;
 
     private ArrayList<Participacion> participantes;
 
@@ -19,6 +20,7 @@ public class Mano {
         this.mazo = mazo;
         this.participantes = new ArrayList<>();
         this.apuestaFijada = 0;
+        this.ganador = null;
         this.totalApostado = jugadores.size() * Juego.apuestaBase;
         this.nombreApostador = "";
         iniciarMano(jugadores);
@@ -27,6 +29,10 @@ public class Mano {
 
     public double getTotalApostado() {
         return totalApostado;
+    }
+
+    public Participacion getGanador() {
+        return ganador;
     }
 
     public double getPozoInicial() {
@@ -67,6 +73,7 @@ public class Mano {
             p.setCartas(cartas);
             p.setPasar(false);
             p.setApuestaActual(0);
+            p.figurasEnMano();
             this.participantes.add(p);
         }
     }
@@ -82,20 +89,20 @@ public class Mano {
             throw new JuegoException("Ya hay una apuesta fijada");
         }
     }
-    
-    public void resetearPasar(){
-        for(Participacion p:participantes){
+
+    public void resetearPasar() {
+        for (Participacion p : participantes) {
             p.setPasar(false);
         }
     }
-    
-    public void pagarApuesta(Participacion p) throws JuegoException{
+
+    public void pagarApuesta(Participacion p) throws JuegoException {
         p.puedoApostar(this.apuestaFijada);
         if (this.apuestaFijada != 0) {
             this.completarApuesta(this.apuestaFijada, p);
         } else {
             throw new JuegoException("Ya hay una apuesta fijada");
-        } 
+        }
     }
 
     public void completarApuesta(double monto, Participacion p) throws JuegoException {
@@ -103,13 +110,11 @@ public class Mano {
         p.realizarApuesta(monto);
     }
 
-    public Participacion determinarGanador() {
-        Participacion ganador = null;
+    public void determinarGanador() {
         ArrayList<Participacion> participaciones = new ArrayList<>();
         for (Figura fig : SistemaJuegos.getInstancia().getFiguras()) {
             for (Participacion p : participantes) {
-                if(p.getApuesta() > 0 ){
-                    p.figurasEnMano();
+                if (p.getApuesta() > 0) {
                     if (fig.getClass().getName() == null ? p.getFigura().getClass().getName() == null : fig.getClass().getName().equals(p.getFigura().getClass().getName())) {
                         participaciones.add(p);
                     }
@@ -126,7 +131,6 @@ public class Mano {
             }
         }
         ganador.agregarSaldo(this.getPozoInicial() + this.getTotalApostado());
-        return ganador;
     }
 
     public Participacion getParticipacionDeJugador(Jugador j) {
@@ -143,11 +147,12 @@ public class Mano {
             p.descontarSaldo(Juego.getApuestaBase());
         }
     }
-    
-    public boolean verificarEstadoParticipantes(){
-        for(Participacion p: participantes){
-            if(!p.debeJugar())
+
+    public boolean verificarEstadoParticipantes() {
+        for (Participacion p : participantes) {
+            if (!p.debeJugar()) {
                 return false;
+            }
         }
         return true;
     }

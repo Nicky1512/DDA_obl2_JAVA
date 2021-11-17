@@ -97,6 +97,7 @@ public class ControladorJuego implements Observador {
 
     public void mostrarCartas() {
         vistaJuego.observarCartas(participacion.getCartas());
+        vistaJuego.mostrarFigura(participacion.getFigura().getNombre());
     }
 
     public void apostar(String monto) {
@@ -187,7 +188,7 @@ public class ControladorJuego implements Observador {
     }
 
     private void mostrarGanador() {
-        vistaJuego.mostarGanador(juego.getGanador().getNombreJugador());
+        vistaJuego.mostarGanador(juego.getGanador().datosGanador());
     }
 
 }
