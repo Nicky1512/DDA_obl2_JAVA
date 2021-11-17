@@ -11,7 +11,7 @@ public class SistemaJuegos {
 
     private ArrayList<Juego> juegos;
     private ArrayList<Figura> figuras;
-    private ArrayList<Sesion> conectados;
+    
 
     private static SistemaJuegos instancia;
 
@@ -43,10 +43,6 @@ public class SistemaJuegos {
         this.juegoAIniciar = juegoAIniciar;
     }
 
-    public ArrayList<Sesion> getConexiones() {
-        return conectados;
-    }
-
     public ArrayList<Juego> getJuegosEnCurso() {
         ArrayList<Juego> ret = new ArrayList<>();
         for (Juego j : juegos) {
@@ -61,11 +57,15 @@ public class SistemaJuegos {
         return juegoAIniciar;
     }
     
+    public void agregarJuego(Juego j){
+        juegos.add(j);
+    }
     public void empezarJuego() throws JuegoException {
         juegoAIniciar.empezarJuego();
         Juego nuevo = new Juego();
-        this.juegos.add(nuevo);
         this.juegoAIniciar = nuevo;
+        this.juegos.add(nuevo);
+        
     }
 
     public void agregarFigura(Figura figura) {

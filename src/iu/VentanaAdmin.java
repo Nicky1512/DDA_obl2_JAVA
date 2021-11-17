@@ -79,9 +79,9 @@ public class VentanaAdmin extends javax.swing.JDialog implements VistaAdmin {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel7)
                     .addComponent(jLabel3)
-                    .addComponent(jScrollPane1)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(30, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 651, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2))
+                .addContainerGap(62, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -161,7 +161,7 @@ public class VentanaAdmin extends javax.swing.JDialog implements VistaAdmin {
         this.juegos = juegos;
         ArrayList<String> lista = new ArrayList();
         for (Juego j : juegos) {
-            lista.add(j.toString());
+            lista.add(j.getDatosJuego());
         }
         listaJuegosActivos.setListData(lista.toArray());
     }

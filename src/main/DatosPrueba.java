@@ -92,6 +92,8 @@ public class DatosPrueba {
         SistemaJuegos.getInstancia().setMazo(mazo);
         Juego juego = new Juego();
         SistemaJuegos.getInstancia().setJuegoAIniciar(juego);
+        
+        SistemaJuegos.getInstancia().agregarJuego(juego);
         //TODO setear mazo en juego
 
     }
