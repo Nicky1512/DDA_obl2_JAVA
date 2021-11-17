@@ -8,7 +8,6 @@ package iu;
 import controlador.ControladorEspera;
 import controlador.VistaEspera;
 import java.awt.Frame;
-import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import modelo.Jugador;
 import modelo.excepciones.JuegoException;
@@ -27,7 +26,6 @@ public class VentanaEspera extends javax.swing.JDialog implements VistaEspera {
         setLocationRelativeTo(null);
         setTitle("Jugador: " + jugador.getNombreCompleto());
         controlador = new ControladorEspera(this, jugador);
-        controlador.mostrarFaltan();
     }
 
     /**

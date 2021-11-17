@@ -278,6 +278,10 @@ public class Juego extends Observable {
         String patron = "dd/MM/yyyy HH:mm";
         DateFormat df = new SimpleDateFormat(patron);
         double totalApostado = this.getTotalApostadoJuego();
-        return "Fecha inicio: " + df.format(this.fechaInicio) + " Cant jugadores: " + this.getJugadoresActivos().size() + " Total apostado: " + totalApostado + " Cant manos jugadas: " + this.manos.size();
+        return "Fecha inicio: " + df.format(this.fechaInicio) + 
+                " | Cant jugadores: " + this.getJugadoresActivos().size() + 
+                " | Total apostado: " + totalApostado + 
+                " | Cant manos jugadas: " + this.manos.size();
     }
+   
 }

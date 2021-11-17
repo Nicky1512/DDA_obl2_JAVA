@@ -12,14 +12,13 @@ public class VentanaAdmin extends javax.swing.JDialog implements VistaAdmin {
 
     private ControladorAdmin controlador;
     private ArrayList<Juego> juegos;
-        
+
     public VentanaAdmin(Administrador admin) {
-        super((Frame)null, false);
+        super((Frame) null, false);
         initComponents();
         controlador = new ControladorAdmin(this, admin);
         setLocationRelativeTo(null);
         setTitle("Administrador: " + admin.getNombreCompleto());
-        controlador.mostrarJuegos();
     }
 
     /**
@@ -81,7 +80,7 @@ public class VentanaAdmin extends javax.swing.JDialog implements VistaAdmin {
                     .addComponent(jLabel3)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 651, Short.MAX_VALUE)
                     .addComponent(jScrollPane2))
-                .addContainerGap(62, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -105,14 +104,7 @@ public class VentanaAdmin extends javax.swing.JDialog implements VistaAdmin {
     }//GEN-LAST:event_listaJuegosActivosMouseClicked
 
     private void listaJuegosActivosValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listaJuegosActivosValueChanged
-        int selection = listaJuegosActivos.getSelectedIndex();
-        Juego juegoSelected = juegos.get(selection);
-        //jugadores = juegoSelected.getParticipaciones();
-        
-        listaJugadores.clearSelection();
-        
-        listaJugadores.setListData(juegoSelected.getParticipaciones().toArray());
-        
+        listaJuegos();
     }//GEN-LAST:event_listaJuegosActivosValueChanged
 
     private void listaJugadoresValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listaJugadoresValueChanged
@@ -133,12 +125,6 @@ public class VentanaAdmin extends javax.swing.JDialog implements VistaAdmin {
     @Override
     public void salir() {
         controlador.salir();
-    }
-    
-    @Override
-    public void detallesPartida(String detalles) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-
     }
 
     @Override
@@ -165,5 +151,12 @@ public class VentanaAdmin extends javax.swing.JDialog implements VistaAdmin {
         }
         listaJuegosActivos.setListData(lista.toArray());
     }
-     
+
+    private void listaJuegos() {
+        int selection = listaJuegosActivos.getSelectedIndex();
+        Juego juegoSelected = juegos.get(selection);
+        listaJugadores.clearSelection();
+        listaJugadores.setListData(juegoSelected.getParticipaciones().toArray());
+    }
+
 }

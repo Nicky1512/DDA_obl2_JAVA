@@ -8,7 +8,6 @@ public class SistemaUsuarios {
     private ArrayList<Jugador> jugadores;
     private ArrayList<Administrador> admins;
     private ArrayList<Jugador> conectados;
-//    private ArrayList<Sesion> conectados;
 
     private static SistemaUsuarios instancia;
 
@@ -63,8 +62,5 @@ public class SistemaUsuarios {
     public void agregarAdmin(Administrador a) {
         admins.add(a);
     }
-
-//    public ArrayList<Sesion> getConexiones(){
-//        return conectados;
-//    }
+    
 }

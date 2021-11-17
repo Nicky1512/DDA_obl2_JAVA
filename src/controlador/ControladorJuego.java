@@ -21,6 +21,7 @@ public class ControladorJuego implements Observador {
         this.participacion = juego.getParticipacionDeJugador(jugador);
         juego.agregar(this);
         participacion.agregar(this);
+        IniciarVentana();
     }
 
     public VistaJuego getVista() {
@@ -51,40 +52,42 @@ public class ControladorJuego implements Observador {
                 case saldoModificado:
                     this.setearSaldoJugador();
                     break;
-                case juegoTerminado: 
+                case juegoTerminado:
                     this.juegoTerminado();
                     break;
-                case modificarEstado: 
+                case modificarEstado:
                     this.modificarEstado();
-                    break;   
-                
+                    break;
+
             }
         } else {
 
-            if (Juego.Eventos.terminarParticipacion.equals(evento)) {
-                this.mostrarJugadoresActivos();
-            }
-            if (Juego.Eventos.apuestaFijada.equals(evento)) {
-                this.mostrarApuestaActual();
-                this.mostrarNombreJugadorApostador();
-            }
-            if (Juego.Eventos.actualizacionPozo.equals(evento)) {
-                this.mostrarApuestaActual();
-                this.mostrarPozoActual();
-            }
-            if (Juego.Eventos.nuevaMano.equals(evento)) {
-               this.IniciarVentana();
-            }
-            if (Juego.Eventos.mostrarGanador.equals(evento)) {
-               this.mostrarGanador();
+            switch ((modelo.Juego.Eventos) evento) {
+                case terminarParticipacion:
+                    this.mostrarJugadoresActivos();
+                    break;
+                case apuestaFijada:
+                    this.mostrarApuestaActual();
+                    this.mostrarNombreJugadorApostador();
+                    break;
+                case actualizacionPozo:
+                    this.mostrarApuestaActual();
+                    this.mostrarPozoActual();
+                    break;
+                case nuevaMano:
+                    this.IniciarVentana();
+                    break;
+                case mostrarGanador:
+                    this.mostrarGanador();
+                    break;
             }
         }
     }
 
-    public void juegoTerminado(){
+    public void juegoTerminado() {
         vistaJuego.terminarJuego();
     }
-    
+
     public void terminarParticipacion() {
         try {
             juego.finalizarParticipacion(participacion);
@@ -130,7 +133,7 @@ public class ControladorJuego implements Observador {
 
     public void mostrarNombreJugadorApostador() {
         String nombre = juego.getNombreJugadorApostador();
-        if(nombre.length() == 0 || nombre == null){
+        if (nombre.length() == 0 || nombre == null) {
             nombre = "Aun no hay apuestas";
         }
         vistaJuego.mostrarNombreJugadorApostador(nombre);
@@ -148,6 +151,7 @@ public class ControladorJuego implements Observador {
             return false;
         }
     }
+
     public void pagarApuestaFijada() {
         try {
             juego.pagarApuestaFijada(participacion);
@@ -168,13 +172,18 @@ public class ControladorJuego implements Observador {
     }
 
     private void modificarEstado() {
-        if(participacion.yaJugo()){
+        if (participacion.yaJugo()) {
             vistaJuego.modificarEstado("En espera!");
-        }else{
+        } else {
             vistaJuego.modificarEstado("Es tu turno!");
         }
     }
-    
+
+    private void mostrarGanador() {
+        Participacion p = juego.getGanador();
+        vistaJuego.mostarGanador(p.datosGanador(), p.cartasGanador());
+    }
+
     public void IniciarVentana() {
         this.setearSaldoJugador();
         this.mostrarCartas();
@@ -184,9 +193,5 @@ public class ControladorJuego implements Observador {
         this.modificarEstado();
         this.mostrarNombreJugadorApostador();
     }
-
-    private void mostrarGanador() {
-        vistaJuego.mostarGanador(juego.getGanador().datosGanador());
-    }
-
+    
 }
