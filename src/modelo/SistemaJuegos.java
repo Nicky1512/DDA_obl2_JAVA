@@ -11,7 +11,6 @@ public class SistemaJuegos {
 
     private ArrayList<Juego> juegos;
     private ArrayList<Figura> figuras;
-    
 
     private static SistemaJuegos instancia;
 
@@ -25,7 +24,11 @@ public class SistemaJuegos {
     }
 
     public Mazo getMazo() {
-        return mazo;
+        Mazo ret = new Mazo();
+        mazo.getCartas().forEach(c -> {
+            ret.agregarCarta(c);
+        });
+        return ret;
     }
 
     public static SistemaJuegos getInstancia() {
@@ -56,16 +59,17 @@ public class SistemaJuegos {
     public Juego getJuegoAIniciar() {
         return juegoAIniciar;
     }
-    
-    public void agregarJuego(Juego j){
+
+    public void agregarJuego(Juego j) {
         juegos.add(j);
     }
+
     public void empezarJuego() throws JuegoException {
         juegoAIniciar.empezarJuego();
         Juego nuevo = new Juego();
         this.juegoAIniciar = nuevo;
         this.juegos.add(nuevo);
-        
+
     }
 
     public void agregarFigura(Figura figura) {
@@ -75,8 +79,8 @@ public class SistemaJuegos {
     public void verificarInicioJuego() throws JuegoException {
         juegoAIniciar.verificarInicioJuego();
     }
-    
-    public void verificarIngresoJugador(Jugador j) throws JuegoException{
+
+    public void verificarIngresoJugador(Jugador j) throws JuegoException {
         juegoAIniciar.verificarIngresoJugador(j);
     }
 }

@@ -7,11 +7,23 @@ public class Mazo {
 
     private ArrayList<Carta> cartas;
 
+    public Mazo(){
+        this.cartas = new ArrayList<Carta>();
+    }
+    
     public Mazo(ArrayList<Carta> cartas) {
         this.cartas = cartas;
         this.barajar();
     }
 
+    public ArrayList<Carta> getCartas() {
+        return cartas;
+    }
+
+    public void agregarCarta(Carta c){
+        this.cartas.add(c);
+    }
+    
     public void barajar() {
         Collections.shuffle(cartas);
     }

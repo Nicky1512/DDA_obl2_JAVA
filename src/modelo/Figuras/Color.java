@@ -31,7 +31,7 @@ public class Color extends Figura {
         Color ret = null;
         int pos = 1;
         Palo palo = cartas[0].getPalo();
-        while (!hayDistinto && pos <= cartas.length) {
+        while (!hayDistinto && pos < cartas.length) {
             if (palo == cartas[pos].getPalo()) {
                 pos++;
             } else {
