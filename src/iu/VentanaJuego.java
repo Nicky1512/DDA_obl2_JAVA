@@ -18,9 +18,9 @@ public class VentanaJuego extends javax.swing.JDialog implements VistaJuego {
     public VentanaJuego(Jugador jugador, Juego juego) {
         super((Frame) null, false);
         initComponents();
+        setLocationRelativeTo(this);
         controlador = new ControladorJuego(this, jugador, juego);
-        setTitle("Jugador: " + jugador.getNombreCompleto() + " | Juego: ");
-        controlador.IniciarVentana();
+        setTitle("Jugador: " + jugador.getNombreCompleto() + " | Juego: " + juego.toString());
     }
 
     /**
@@ -290,13 +290,13 @@ public class VentanaJuego extends javax.swing.JDialog implements VistaJuego {
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addComponent(jSeparator2)
                                         .addGroup(layout.createSequentialGroup()
-                                            .addComponent(txt_montoApostado, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txt_montoApostado, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                 .addComponent(btn_pasar, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addComponent(btn_apostar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addComponent(btn_salir, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGap(18, 18, 18))))))
+                                            .addGap(40, 40, 40))))))
                         .addGap(10, 10, 10))))
             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                 .addGap(199, 199, 199)
@@ -309,7 +309,10 @@ public class VentanaJuego extends javax.swing.JDialog implements VistaJuego {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                        .addComponent(lbl_estado)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(31, 31, 31)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -325,13 +328,11 @@ public class VentanaJuego extends javax.swing.JDialog implements VistaJuego {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btn_apostar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txt_montoApostado, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btn_pasar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btn_salir, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lbl_estado)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btn_salir, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 1, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -370,8 +371,53 @@ public class VentanaJuego extends javax.swing.JDialog implements VistaJuego {
     }//GEN-LAST:event_btn_NoPagarActionPerformed
 
     @Override
-    public void mostrarJuego() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void mostrarSaldoJugador(String d) {
+        lbl_saldoJugador.setText(d + "$");
+    }
+
+    @Override
+    public void mostrarJugadoresActivos(ArrayList<Participacion> p) {
+        ArrayList<String> lista = new ArrayList();
+        for (Participacion participacion : p) {
+            lista.add(participacion.getNombreJugador());
+        }
+        list_jugadores.setListData(lista.toArray());
+    }
+
+    @Override
+    public void mostrarApuestaActual(String monto) {
+        lbl_apuestaRealizada.setText(monto + "$");
+    }
+
+    @Override
+    public void mostrarNombreJugadorApostador(String nombre) {
+        lbl_nombreJugadorApuesta.setText(nombre);
+    }
+
+    @Override
+    public void mostrarMontoPozoActual(String monto) {
+        lbl_pozoActual.setText(monto + "$");
+    }
+
+    @Override
+    public void pagarApuestaFijada() {
+        controlador.pagarApuestaFijada();
+    }
+
+    @Override
+    public void modificarEstado(String estado) {
+        lbl_estado.setText(estado);
+    }
+
+    @Override
+    public void mostarGanador(String s, Carta[] c) {
+//        JOptionPane.showMessageDialog(this, s);
+        new VentanaGanador(null, false, s, c).setVisible(true);
+    }
+
+    @Override
+    public void mostrarFigura(String figura) {
+        lbl_figura.setText("Figura: " + figura);
     }
 
     @Override
@@ -389,11 +435,6 @@ public class VentanaJuego extends javax.swing.JDialog implements VistaJuego {
     public void terminarParticipacion() {
         controlador.terminarParticipacion();
         this.dispose();
-    }
-
-    @Override
-    public void empezarJuego() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -453,54 +494,5 @@ public class VentanaJuego extends javax.swing.JDialog implements VistaJuego {
     private javax.swing.JList list_jugadores;
     private javax.swing.JTextField txt_montoApostado;
     // End of variables declaration//GEN-END:variables
-
-    @Override
-    public void mostrarSaldoJugador(String d) {
-        lbl_saldoJugador.setText(d);
-    }
-
-    @Override
-    public void mostrarJugadoresActivos(ArrayList<Participacion> p) {
-        ArrayList<String> lista = new ArrayList();
-        for (Participacion participacion : p) {
-            lista.add(participacion.getNombreJugador());
-        }
-        list_jugadores.setListData(lista.toArray());
-    }
-
-    @Override
-    public void mostrarApuestaActual(String monto) {
-        lbl_apuestaRealizada.setText(monto);
-    }
-
-    @Override
-    public void mostrarNombreJugadorApostador(String nombre) {
-        lbl_nombreJugadorApuesta.setText(nombre);
-    }
-
-    @Override
-    public void mostrarMontoPozoActual(String monto) {
-        lbl_pozoActual.setText(monto);
-    }
-
-    @Override
-    public void pagarApuestaFijada() {
-        controlador.pagarApuestaFijada();
-    }
-
-    @Override
-    public void modificarEstado(String estado) {
-        lbl_estado.setText(estado);
-    }
-
-    @Override
-    public void mostarGanador(String s) {
-        JOptionPane.showMessageDialog(this, s);
-    }
-
-    @Override
-    public void mostrarFigura(String figura) {
-        lbl_figura.setText("Figura: " + figura);
-    }
 
 }

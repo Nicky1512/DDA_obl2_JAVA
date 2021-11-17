@@ -6,17 +6,13 @@ import modelo.excepciones.JuegoException;
 import observador.Observable;
 
 public class Participacion extends Observable {
-
+   
+    private boolean activo, pasar;
+    private double saldoInicial, totalGanado, totalApostado, apuestaActual;
+    
     private Jugador jugador;
-    private boolean activo;
-    private double saldoInicial;
-    private double totalGanado;
-    private double totalApostado;
-    private boolean pasar;
-    private double apuestaActual;
     private Figura figura;
     private ArrayList<Carta> cartas;
-
 
     public enum Eventos {
         salir, apostar, pasar, saldoModificado, juegoTerminado, modificarEstado
@@ -58,7 +54,7 @@ public class Participacion extends Observable {
     public void setCartas(ArrayList<Carta> cartas) {
         this.cartas = cartas;
     }
-    
+
     public boolean isPasar() {
         return pasar;
     }
@@ -66,21 +62,20 @@ public class Participacion extends Observable {
     public void setPasar(boolean pasar) {
         this.pasar = pasar;
     }
-    
+
     public void pasar() {
         this.pasar = true;
     }
-    
-    public boolean yaJugo(){
+
+    public boolean yaJugo() {
         return pasar || apuestaActual > 0 || !activo;
     }
-
 
     public void figurasEnMano() {
         for (Figura fig : SistemaJuegos.getInstancia().getFiguras()) {
             Carta[] array = new Carta[this.cartas.size()];
             array = this.cartas.toArray(array);
-            Figura miFigura = fig.determinarFigura (array);
+            Figura miFigura = fig.determinarFigura(array);
             if (miFigura != null) {
                 this.figura = miFigura;
                 break;
@@ -128,28 +123,6 @@ public class Participacion extends Observable {
         this.totalApostado = totalApostado;
     }
 
-    @Override
-    public String toString() {
-        return "Nombre: " + jugador.getNombreCompleto()
-                + " | Total Apostado" + totalApostado
-                + " | Saldo Incial: " + saldoInicial
-                + " | Total Ganado: " + totalGanado;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this) {
-            return true;
-        }
-
-        if (!(o instanceof Participacion)) {
-            return false;
-        }
-
-        Participacion j = (Participacion) o;
-        return this.jugador.nombreCompleto.equals(j.getJugador().getNombreCompleto());
-    }
-
     public void agregarSaldo(double d) {
         this.jugador.agregarSaldo(d);
         this.totalGanado += d;
@@ -195,8 +168,45 @@ public class Participacion extends Observable {
         this.avisar(Participacion.Eventos.juegoTerminado);
         Sistema.getInstancia().avisar(Sistema.Eventos.eventoAdmin);
     }
+
+    public String datosGanador() {
+        Carta[] c = new Carta[this.getCartas().size()];
+        this.cartas.toArray(c);
+        String cartasGanadoras = "";
+        for (int i = 0; i < c.length; i++) {
+            cartasGanadoras += c[i].getValor() + c[i].getPalo().getNombre()  + " | ";
+        }
     
-    public String datosGanador(){
-        return "El ganador es: " + this.getNombreJugador() + " con la figura: " + this.figura.getNombre(); //TODO: Falta mostrar las cartas que tiene
+        return "El ganador es: " + this.getNombreJugador() + " con: \n" + this.figura.getNombre() + 
+                "\n"+ cartasGanadoras; 
+    }
+    
+    public Carta[] cartasGanador(){
+        Carta[] cartasGanadoras = new Carta[this.getCartas().size()];
+        this.cartas.toArray(cartasGanadoras);
+        return cartasGanadoras;
+    }
+    
+    
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+
+        if (!(o instanceof Participacion)) {
+            return false;
+        }
+
+        Participacion j = (Participacion) o;
+        return this.jugador.nombreCompleto.equals(j.getJugador().getNombreCompleto());
+    }
+
+    @Override
+    public String toString() {
+        return "Nombre: " + jugador.getNombreCompleto()
+                + " | Total Apostado" + totalApostado
+                + " | Saldo Incial: " + saldoInicial
+                + " | Total Ganado: " + totalGanado;
     }
 }

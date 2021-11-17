@@ -30,7 +30,6 @@ public class ControladorAdmin implements Observador {
     }
 
     public void salir() {
-        //TODO Admin extends Observable??
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -38,13 +37,9 @@ public class ControladorAdmin implements Observador {
         vista.mostrarJuegos(sistema.getJuegosEnCurso());
     }
 
-    public void detalles() {
-
-    }
-
     public void detallesJugadores(Sesion s) {
         if (s != null) {
-            String datos = ""; //TODO
+            String datos = "";
             vista.detallesJugadores(datos);
         } else {
             vista.detallesJugadores("");

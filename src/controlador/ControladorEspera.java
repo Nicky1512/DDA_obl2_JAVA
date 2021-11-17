@@ -3,7 +3,6 @@ package controlador;
 import iu.VentanaJuego;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import modelo.Participacion;
 import modelo.Juego;
 import modelo.Jugador;
 import modelo.Sistema;
@@ -25,6 +24,7 @@ public class ControladorEspera implements Observador {
         this.juego = sistema.getJuegoAIniciar();
         juego.agregar(this);
         ingresarJugadorJuego();
+        mostrarFaltan();
     }
 
     public void ingresarJugadorJuego() {
