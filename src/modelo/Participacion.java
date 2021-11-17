@@ -155,12 +155,14 @@ public class Participacion extends Observable {
         this.jugador.agregarSaldo(d);
         this.totalGanado += d;
         avisar(Eventos.saldoModificado);
+        Sistema.getInstancia().avisar(Sistema.Eventos.eventoAdmin);
     }
 
     public void descontarSaldo(double apuestaBase) throws JuegoException {
         this.jugador.descontarSaldo(apuestaBase);
         this.totalApostado += apuestaBase;
         this.avisar(Participacion.Eventos.saldoModificado);
+        Sistema.getInstancia().avisar(Sistema.Eventos.eventoAdmin);
     }
 
     public void realizarApuesta(double monto) throws JuegoException {
@@ -168,12 +170,14 @@ public class Participacion extends Observable {
         this.jugador.descontarSaldo(monto);
         this.totalApostado += monto;
         avisar(Eventos.saldoModificado);
+        Sistema.getInstancia().avisar(Sistema.Eventos.eventoAdmin);
     }
 
     public void terminarParticipacion(Participacion p) {
         if (p.equals(this)) {
             p.setActivo(false);
             avisar(Participacion.Eventos.salir);
+            Sistema.getInstancia().avisar(Sistema.Eventos.eventoAdmin);
         }
 
     }
@@ -190,6 +194,7 @@ public class Participacion extends Observable {
 
     public void TerminoJuego() {
         this.avisar(Participacion.Eventos.juegoTerminado);
+        Sistema.getInstancia().avisar(Sistema.Eventos.eventoAdmin);
     }
     
     public String datosGanador(){
