@@ -1,7 +1,5 @@
 package controlador;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import modelo.Juego;
 import modelo.Jugador;
 import modelo.Participacion;

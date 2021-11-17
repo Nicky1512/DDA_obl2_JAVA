@@ -51,6 +51,16 @@ public class Mano {
         return participantes;
     }
 
+    public ArrayList<Participacion> getParticipantesApostadores() {
+        ArrayList<Participacion> ret = new ArrayList<>();
+        for (Participacion p : participantes) {
+            if (p.getApuesta() > 0) {
+                ret.add(p);
+            }
+        }
+        return ret;
+    }
+
     public void setParticipantes(ArrayList<Participacion> participantes) {
         this.participantes = participantes;
     }
@@ -111,22 +121,22 @@ public class Mano {
     }
 
     public void determinarGanador() {
-        ArrayList<Participacion> participaciones = new ArrayList<>();
+        ArrayList<Participacion> posiblesGanadores = new ArrayList<>();
+        ArrayList<Participacion> participaciones = this.getParticipantesApostadores();
+
         for (Figura fig : SistemaJuegos.getInstancia().getFiguras()) {
-            for (Participacion p : participantes) {
-                if (p.getApuesta() > 0) {
-                    if (fig.getClass().getName() == null ? p.getFigura().getClass().getName() == null : fig.getClass().getName().equals(p.getFigura().getClass().getName())) {
-                        participaciones.add(p);
-                    }
+            for (Participacion p : participaciones) {
+                if (fig.getClass().getName() == null ? p.getFigura().getClass().getName() == null : fig.getClass().getName().equals(p.getFigura().getClass().getName())) {
+                    posiblesGanadores.add(p);
                 }
             }
-            if (participaciones.size() > 1) {
-                Participacion[] array = new Participacion[participaciones.size()];
-                array = participaciones.toArray(array);
+            if (posiblesGanadores.size() > 1) {
+                Participacion[] array = new Participacion[posiblesGanadores.size()];
+                array = posiblesGanadores.toArray(array);
                 ganador = fig.desempatarFiguras(array);
                 break;
-            } else if (participaciones.size() == 1) {
-                ganador = participaciones.get(0);
+            } else if (posiblesGanadores.size() == 1) {
+                ganador = posiblesGanadores.get(0);
                 break;
             }
         }

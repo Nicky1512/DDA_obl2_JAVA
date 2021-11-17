@@ -41,10 +41,9 @@ public class Par extends Figura {
         Boolean hayPar = false;
         Carta cartaPar = null;
         Carta cartaMayor = null;
-        Arrays.sort(cartas); //QQ j 2 3  K QQ 2 3   
-        //TODO: Completar algoritmo para encontrar pares
-        for (int i = 0; i < cartas.length; i++) {
-            for (int j = 1; j < cartas.length - 1; j++) {
+        Arrays.sort(cartas);
+        for (int i = 0; i < cartas.length - 1; i++) {
+            for (int j = i + 1; j < cartas.length; j++) {
                 if (cartas[i].getValor().equals(cartas[j].getValor())) {
                     hayPar = true;
                     cartaPar = cartas[i];

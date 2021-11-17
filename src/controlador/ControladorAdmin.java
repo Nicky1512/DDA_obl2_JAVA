@@ -19,17 +19,13 @@ public class ControladorAdmin implements Observador {
         vista.mostrarNombreAdmin(a.getNombreCompleto());
         mostrarJuegos();
     }
-    
-    
+
     @Override
     public void actualizar(Object evento, Observable origen) {
         switch ((Sistema.Eventos) evento) {
-            case nuevoJuego:
+            case eventoAdmin:
                 mostrarJuegos();
                 break;
-//            case nuevoJugador:
-//                mostrarJuegos();//TODO 
-//                break;
         }
     }
 
@@ -46,12 +42,13 @@ public class ControladorAdmin implements Observador {
 
     }
 
-
-    public void detallesJugadores(Sesion s){
+    public void detallesJugadores(Sesion s) {
         if (s != null) {
             String datos = ""; //TODO
             vista.detallesJugadores(datos);
-        }else vista.detallesJugadores("");
+        } else {
+            vista.detallesJugadores("");
+        }
     }
 
 }

@@ -238,7 +238,11 @@ public class Juego extends Observable {
 
     public void verificarFinalMano() throws JuegoException {
         if (this.getManoActual().verificarEstadoParticipantes()) {
-            terminarMano();
+            if (this.getManoActual().getParticipantesApostadores().size() > 0) {
+                terminarMano();
+            } else {
+                terminaManoSinApuestas();
+            }
         }
     }
 
@@ -259,7 +263,7 @@ public class Juego extends Observable {
     }
 
     public double getMontoPozoActual() {
-        return this.getManoActual().getTotalApostado();
+        return this.getManoActual().getPozoInicial();
     }
 
     public String getDatosJuego() {
