@@ -405,7 +405,6 @@ public class VentanaJuego extends javax.swing.JDialog implements VistaJuego {
     public void apostar(String t) {
         controlador.apostar(t);
         txt_montoApostado.setText("");
-        
     }
 
     @Override
