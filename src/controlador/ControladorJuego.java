@@ -168,7 +168,7 @@ public class ControladorJuego implements Observador {
     }
 
     private void modificarEstado() {
-        if(participacion.debeJugar()){
+        if(participacion.yaJugo()){
             vistaJuego.modificarEstado("En espera!");
         }else{
             vistaJuego.modificarEstado("Es tu turno!");

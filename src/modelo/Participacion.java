@@ -72,8 +72,8 @@ public class Participacion extends Observable {
         this.pasar = true;
     }
     
-    public boolean debeJugar(){
-        return pasar || apuestaActual > 0;
+    public boolean yaJugo(){
+        return pasar || apuestaActual > 0 || !activo;
     }
 
 
