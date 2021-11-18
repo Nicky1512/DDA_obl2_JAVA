@@ -6,10 +6,10 @@ import modelo.excepciones.JuegoException;
 import observador.Observable;
 
 public class Participacion extends Observable {
-   
+
     private boolean activo, pasar;
     private double saldoInicial, totalGanado, totalApostado, apuestaActual;
-    
+
     private Jugador jugador;
     private Figura figura;
     private ArrayList<Carta> cartas;
@@ -145,13 +145,13 @@ public class Participacion extends Observable {
         Sistema.getInstancia().avisar(Sistema.Eventos.eventoAdmin);
     }
 
-    public void terminarParticipacion(Participacion p) {
-        if (p.equals(this)) {
-            p.setActivo(false);
+    public void terminarParticipacion(Boolean expulsado) {
+        this.activo = false;
+        if (expulsado) {
             avisar(Participacion.Eventos.salir);
-            Sistema.getInstancia().avisar(Sistema.Eventos.eventoAdmin);
-        }
 
+        }
+        Sistema.getInstancia().avisar(Sistema.Eventos.eventoAdmin);
     }
 
     public void puedoApostar(double monto) throws JuegoException {
@@ -174,20 +174,19 @@ public class Participacion extends Observable {
         this.cartas.toArray(c);
         String cartasGanadoras = "";
         for (int i = 0; i < c.length; i++) {
-            cartasGanadoras += c[i].getValor() + c[i].getPalo().getNombre()  + " | ";
+            cartasGanadoras += c[i].getValor() + c[i].getPalo().getNombre() + " | ";
         }
-    
-        return "El ganador es: " + this.getNombreJugador() + " con: \n" + this.figura.getNombre() + 
-                "\n"+ cartasGanadoras; 
+
+        return "El ganador es: " + this.getNombreJugador() + " con: \n" + this.figura.getNombre()
+                + " \n" + cartasGanadoras;
     }
-    
-    public Carta[] cartasGanador(){
+
+    public Carta[] cartasGanador() {
         Carta[] cartasGanadoras = new Carta[this.getCartas().size()];
         this.cartas.toArray(cartasGanadoras);
         return cartasGanadoras;
     }
-    
-    
+
     @Override
     public boolean equals(Object o) {
         if (o == this) {

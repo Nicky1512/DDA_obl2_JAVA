@@ -37,4 +37,6 @@ public interface VistaJuego {
     public void mostrarFigura(String figura);
 
     public void error(String m);
+    
+    public void salir(String m);
 }

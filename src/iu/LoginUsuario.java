@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package iu;
 
 
@@ -14,10 +9,7 @@ import modelo.Sistema;
 import modelo.Usuario;
 import modelo.excepciones.JuegoException;
 
-/**
- *
- * @author Bruno
- */
+
 public class LoginUsuario extends LoginAbstracto {
 
     public LoginUsuario(){

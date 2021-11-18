@@ -45,6 +45,11 @@ public class VentanaAdmin extends javax.swing.JDialog implements VistaAdmin {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Juegos en linea");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jLabel3.setText("Juegos en linea: ");
 
@@ -110,6 +115,10 @@ public class VentanaAdmin extends javax.swing.JDialog implements VistaAdmin {
     private void listaJugadoresValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listaJugadoresValueChanged
         // TODO add your handling code here:
     }//GEN-LAST:event_listaJugadoresValueChanged
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        this.salir();
+    }//GEN-LAST:event_formWindowClosing
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;

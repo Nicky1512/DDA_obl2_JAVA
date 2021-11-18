@@ -495,4 +495,10 @@ public class VentanaJuego extends javax.swing.JDialog implements VistaJuego {
     private javax.swing.JTextField txt_montoApostado;
     // End of variables declaration//GEN-END:variables
 
+    @Override
+    public void salir(String m) {
+        JOptionPane.showMessageDialog(this, m);
+        this.dispose();
+    }
+
 }

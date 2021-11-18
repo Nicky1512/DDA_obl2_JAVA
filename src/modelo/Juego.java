@@ -114,57 +114,45 @@ public class Juego extends Observable {
 
     public void retirarJugador(Jugador jugador) throws JuegoException {
         Boolean aux = false;
-        for (Participacion p : participaciones) {
-            if (p.getJugador().equals(jugador)) {
-                participaciones.remove(p);
-                aux = true;
-                avisar(Juego.Eventos.quitarJugador);
-                break;
-            }
-        }
-
-        if (!aux) {
-            throw new JuegoException("El jugador no fue ingresado previamente.");
-        }
-
-    }
-
-    public void finalizarParticipacion(Participacion participacion) throws JuegoException {
-        ArrayList<Participacion> jugadoresActivos = getJugadoresActivos();
-        Boolean aux = false;
-        if (jugadoresActivos.size() > 0) {
-            for (Participacion p : jugadoresActivos) {
-                if (p.equals(participacion)) {
-                    p.setActivo(false);
+        if (!this.estaEnCurso()) {
+            for (Participacion p : participaciones) {
+                if (p.getJugador().equals(jugador)) {
+                    participaciones.remove(p);
                     aux = true;
-                    avisar(Juego.Eventos.terminarParticipacion);  
-                    Sistema.getInstancia().avisar(Sistema.Eventos.eventoAdmin);
-                    verificarFinalJuego();
-                    verificarFinalMano();
+                    avisar(Juego.Eventos.quitarJugador);
+                    break;
                 }
             }
+
             if (!aux) {
                 throw new JuegoException("El jugador no fue ingresado previamente.");
             }
         }
     }
 
+    public void finalizarParticipacion(Participacion participacion, Boolean expulsado) throws JuegoException {
+        participacion.terminarParticipacion(expulsado);
+        avisar(Juego.Eventos.terminarParticipacion);
+        verificarFinalJuego();
+        verificarFinalMano();
+    }
+
     private void removerJugadores() throws JuegoException {
         int cont = 0;
         ArrayList<Participacion> jugadoresActivos = getJugadoresActivos();
-        for (Participacion j : jugadoresActivos) {
-            Participacion copia = j;
-            if (copia.getJugador().getSaldo() == 0) {
-                finalizarParticipacion(copia);
-            }
-            Boolean puedo = copia.getJugador().puedoApostar(Juego.apuestaBase);
-            if (!puedo) {
-                finalizarParticipacion(copia);
-            } else {
-                cont++;
+        if (jugadoresActivos.size() > 0) {
+            for (Participacion p : jugadoresActivos) {
+                if (p.getJugador().getSaldo() == 0) {
+                    finalizarParticipacion(p, true);
+                }
+                Boolean puedo = p.getJugador().puedoApostar(Juego.apuestaBase);
+                if (!puedo) {
+                    finalizarParticipacion(p, true);
+                } else {
+                    cont++;
+                }
             }
         }
-        verificarFinalJuego();
     }
 
     public void verificarFinalJuego() {
@@ -221,7 +209,7 @@ public class Juego extends Observable {
         iniciarMano(0);
         avisar(Juego.Eventos.nuevoJuego);
         Sistema.getInstancia().avisar(Sistema.Eventos.eventoAdmin);
-        
+
     }
 
     public void finalizarJuego(Participacion participacion) {
@@ -278,10 +266,10 @@ public class Juego extends Observable {
         String patron = "dd/MM/yyyy HH:mm";
         DateFormat df = new SimpleDateFormat(patron);
         double totalApostado = this.getTotalApostadoJuego();
-        return "Fecha inicio: " + df.format(this.fechaInicio) + 
-                " | Cant jugadores: " + this.getJugadoresActivos().size() + 
-                " | Total apostado: " + totalApostado + 
-                " | Cant manos jugadas: " + this.manos.size();
+        return "Fecha inicio: " + df.format(this.fechaInicio)
+                + " | Cant jugadores: " + this.getJugadoresActivos().size()
+                + " | Total apostado: " + totalApostado
+                + " | Cant manos jugadas: " + this.manos.size();
     }
-   
+
 }

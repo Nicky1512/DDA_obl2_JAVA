@@ -47,7 +47,7 @@ public class ControladorJuego implements Observador {
 
             switch ((modelo.Participacion.Eventos) evento) {
                 case salir:
-                    this.mostrarJugadoresActivos();
+                    this.salir();
                     break;
                 case saldoModificado:
                     this.setearSaldoJugador();
@@ -90,7 +90,9 @@ public class ControladorJuego implements Observador {
 
     public void terminarParticipacion() {
         try {
-            juego.finalizarParticipacion(participacion);
+            juego.finalizarParticipacion(participacion, false);
+            juego.quitar(this);
+            participacion.quitar(this);
         } catch (JuegoException ex) {
             vistaJuego.error(ex.getMessage());
         }
@@ -193,5 +195,10 @@ public class ControladorJuego implements Observador {
         this.modificarEstado();
         this.mostrarNombreJugadorApostador();
     }
-    
+
+    public void salir() {
+        juego.quitar(this);
+        participacion.quitar(this);
+        vistaJuego.salir("Fuiste expulsado debido a que tu saldo actual es insuficiente para realizar una apuesta");
+    }
 }

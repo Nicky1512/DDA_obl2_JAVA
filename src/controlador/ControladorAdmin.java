@@ -1,7 +1,6 @@
 package controlador;
 
 import modelo.Administrador;
-import modelo.Sesion;
 import modelo.Sistema;
 import observador.Observable;
 import observador.Observador;
@@ -30,20 +29,10 @@ public class ControladorAdmin implements Observador {
     }
 
     public void salir() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        sistema.quitar(this);
     }
 
     public void mostrarJuegos() {
         vista.mostrarJuegos(sistema.getJuegosEnCurso());
     }
-
-    public void detallesJugadores(Sesion s) {
-        if (s != null) {
-            String datos = "";
-            vista.detallesJugadores(datos);
-        } else {
-            vista.detallesJugadores("");
-        }
-    }
-
 }

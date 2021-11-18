@@ -51,8 +51,8 @@ public class ControladorEspera implements Observador {
     }
 
     public void mostrarFaltan() {
-        Juego j = sistema.getJuegoAIniciar();
-        int cantJugadoresConectados = j.getParticipaciones().size();
+        Juego juego = sistema.getJuegoAIniciar();
+        int cantJugadoresConectados = juego.getParticipaciones().size();
         String datos = cantJugadoresConectados + "/" + Juego.getCantidadJugadores();
         vistaEspera.mostrarFaltan(datos);
     }
@@ -73,6 +73,7 @@ public class ControladorEspera implements Observador {
     public void quitarJugador() {
         try {
             juego.retirarJugador(jugador);
+            juego.quitar(this);
         } catch (JuegoException ex) {
             vistaEspera.error(ex.getMessage());
         }
