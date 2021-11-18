@@ -20,7 +20,7 @@ public class VentanaJuego extends javax.swing.JDialog implements VistaJuego {
         initComponents();
         setLocationRelativeTo(this);
         controlador = new ControladorJuego(this, jugador, juego);
-        setTitle("Jugador: " + jugador.getNombreCompleto() + " | Juego: " + juego.toString());
+        setTitle("Jugador: " + jugador.getNombreCompleto());
     }
 
     /**
