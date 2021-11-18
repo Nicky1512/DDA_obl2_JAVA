@@ -126,7 +126,7 @@ public class Juego extends Observable {
         participacion.terminarParticipacion(expulsado);
         avisar(Juego.Eventos.terminarParticipacion);
         verificarFinalJuego();
-        verificarFinalMano();
+//        verificarFinalMano();
     }
 
     private void removerJugadores() throws JuegoException {

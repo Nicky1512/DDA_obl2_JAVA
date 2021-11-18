@@ -15,7 +15,7 @@ import modelo.Sistema;
 public class LoginAdmin extends LoginAbstracto{
 
     public LoginAdmin(){
-        
+    
     }
     @Override
     public Object invocarLoginLogicaNegocio(String nom, String pwd) {
