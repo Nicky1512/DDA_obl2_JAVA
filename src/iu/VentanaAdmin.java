@@ -137,11 +137,6 @@ public class VentanaAdmin extends javax.swing.JDialog implements VistaAdmin {
     }
 
     @Override
-    public void detallesJugadores(String detalles) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public void mostrarNombreAdmin(String nombre) {
         setTitle("Administrador: " + nombre);
     }

@@ -177,7 +177,7 @@ public class Participacion extends Observable {
         }
 
         return "El ganador es: " + this.getNombreJugador() + " con: \n" + this.figura.getNombre()
-                + " \n" + cartasGanadoras;
+                + " \n  " + cartasGanadoras;
     }
 
     public Carta[] cartasGanador() {
