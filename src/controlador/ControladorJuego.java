@@ -66,6 +66,9 @@ public class ControladorJuego implements Observador {
                 case terminarParticipacion:
                     this.mostrarJugadoresActivos();
                     break;
+                case accionRealizada:
+                    this.mostrarJugadoresActivos();
+                    break;
                 case apuestaFijada:
                     this.mostrarApuestaActual();
                     this.mostrarNombreJugadorApostador();
@@ -165,6 +168,7 @@ public class ControladorJuego implements Observador {
 
     public void pasar() {
         participacion.pasar();
+        this.mostrarJugadoresActivos();
         modificarEstado();
         try {
             juego.verificarFinalMano();

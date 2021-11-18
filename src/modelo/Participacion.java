@@ -31,6 +31,13 @@ public class Participacion extends Observable {
         this.pasar = false;
     }
 
+    public void nuevaMano(ArrayList<Carta> cartas) {
+        this.cartas = cartas;
+        pasar = false;
+        apuestaActual = 0;
+        figurasEnMano();
+    }
+
     public Figura getFigura() {
         return figura;
     }
@@ -103,24 +110,16 @@ public class Participacion extends Observable {
         return this.jugador.getNombreCompleto();
     }
 
-    public void setSaldoInicial(double saldoInicial) {
-        this.saldoInicial = saldoInicial;
-    }
-
-    public double getTotalGanado() {
-        return totalGanado;
-    }
-
-    public void setTotalGanado(double totalGanado) {
-        this.totalGanado = totalGanado;
-    }
-
-    public double getTotalApostado() {
-        return totalApostado;
-    }
-
-    public void setTotalApostado(double totalApostado) {
-        this.totalApostado = totalApostado;
+    public String getDatosJugadorActivo() {
+        String estado = "";
+        if (this.apuestaActual > 0) {
+            estado = " (Apuesta: " + String.valueOf(this.apuestaActual) + ")";
+        } else if (this.pasar) {
+            estado = " (Paso en esta mano)";
+        } else {
+            estado = " (Sin participacion en esta mano)";
+        }
+        return this.jugador.getNombreCompleto() + estado;
     }
 
     public void agregarSaldo(double d) {

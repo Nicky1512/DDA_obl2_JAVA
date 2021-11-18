@@ -80,10 +80,7 @@ public class Mano {
     private void iniciarMano(ArrayList<Participacion> jugadores) {
         for (Participacion p : jugadores) {
             ArrayList<Carta> cartas = this.mazo.repartirCartas();
-            p.setCartas(cartas);
-            p.setPasar(false);
-            p.setApuestaActual(0);
-            p.figurasEnMano();
+            p.nuevaMano(cartas);
             this.participantes.add(p);
         }
     }

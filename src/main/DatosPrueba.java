@@ -33,11 +33,11 @@ public class DatosPrueba {
         Jugador j2 = new Jugador(250, "Ana", "123", "Ana Pou");
         Jugador j3 = new Jugador(1000, "Jessica", "otraPass", "Jessica Suarez");
         Jugador j4 = new Jugador(200, "Pepe", "1", "Pepe Chaplin");
-        Jugador j5 = new Jugador(8000, "Rosa", "Ppass123", "Rosa Flores");
-        Jugador j6 = new Jugador(900, "Juan", "pass3", "Juan Juanes");
-        Jugador j7 = new Jugador(0, "Silvina", "258pass", "Silvina Fuentes");
-        Jugador j8 = new Jugador(350, "Luigi", "pass258", "Luigi Lista");
-        Jugador j9 = new Jugador(10000, "Martina", "wweers4", "Martina James");
+        Jugador j5 = new Jugador(20, "Rosa", "12", "Rosa Flores");
+        Jugador j6 = new Jugador(900, "Juan", "13", "Juan Juanes");
+        Jugador j7 = new Jugador(0, "Silvina", "25", "Silvina Fuentes");
+        Jugador j8 = new Jugador(350, "Luigi", "28", "Luigi Lista");
+        Jugador j9 = new Jugador(10000, "Martina", "36", "Martina James");
 
         Sistema.getInstancia().agregarJugador(j1);
         Sistema.getInstancia().agregarJugador(j2);

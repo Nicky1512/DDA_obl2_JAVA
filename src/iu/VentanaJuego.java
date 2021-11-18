@@ -379,7 +379,7 @@ public class VentanaJuego extends javax.swing.JDialog implements VistaJuego {
     public void mostrarJugadoresActivos(ArrayList<Participacion> p) {
         ArrayList<String> lista = new ArrayList();
         for (Participacion participacion : p) {
-            lista.add(participacion.getNombreJugador());
+            lista.add(participacion.getDatosJugadorActivo());
         }
         list_jugadores.setListData(lista.toArray());
     }

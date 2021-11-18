@@ -19,19 +19,11 @@ public class Juego extends Observable {
     private ArrayList<Participacion> participaciones = new ArrayList<>();
 
     public enum Eventos {
-        nuevoJugador, nuevaMano, nuevoJuego, quitarJugador, terminarParticipacion, apuestaFijada, actualizacionPozo, terminarJuego, mostrarGanador
+        nuevoJugador, nuevaMano, nuevoJuego, quitarJugador, terminarParticipacion, apuestaFijada, actualizacionPozo, terminarJuego, mostrarGanador, accionRealizada
     };
 
     public Juego() {
         this.enCurso = false;
-    }
-
-    public Date getFechaInicio() {
-        return fechaInicio;
-    }
-
-    public ArrayList<Mano> getManos() {
-        return manos;
     }
 
     public Participacion getGanador() {
@@ -222,12 +214,15 @@ public class Juego extends Observable {
         this.getManoActual().recibirApuesta(monto, participacion);
         avisar(Juego.Eventos.apuestaFijada);
         avisar(Juego.Eventos.actualizacionPozo);
+        avisar(Juego.Eventos.accionRealizada);
+
         Sistema.getInstancia().avisar(Sistema.Eventos.eventoAdmin);
     }
 
     public void pagarApuestaFijada(Participacion p) throws JuegoException {
         this.getManoActual().pagarApuesta(p);
         avisar(Juego.Eventos.actualizacionPozo);
+        avisar(Juego.Eventos.accionRealizada);
         Sistema.getInstancia().avisar(Sistema.Eventos.eventoAdmin);
         verificarFinalMano();
     }

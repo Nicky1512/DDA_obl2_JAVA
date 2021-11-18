@@ -17,7 +17,6 @@ public class Observable {
     }
 
     public void avisar(Object evento) {
-
         ArrayList<Observador> copia = new ArrayList(observadores);
 
         for (Observador o : copia) {
