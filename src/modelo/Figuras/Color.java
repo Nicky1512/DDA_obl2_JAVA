@@ -21,10 +21,6 @@ public class Color extends Figura {
         return palo;
     }
 
-    public void setPalo(Palo palo) {
-        this.palo = palo;
-    }
-
     @Override
     public Figura determinarFigura(Carta[] cartas) {
         Boolean hayDistinto = false;

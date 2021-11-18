@@ -7,14 +7,12 @@ public class SistemaUsuarios {
 
     private ArrayList<Jugador> jugadores;
     private ArrayList<Administrador> admins;
-    private ArrayList<Jugador> conectados;
 
     private static SistemaUsuarios instancia;
 
     private SistemaUsuarios() {
         jugadores = new ArrayList();
         admins = new ArrayList();
-//        conectados = new ArrayList();
     }
 
     public static SistemaUsuarios getInstancia() {
@@ -22,10 +20,6 @@ public class SistemaUsuarios {
             instancia = new SistemaUsuarios();
         }
         return instancia;
-    }
-
-    ArrayList<Jugador> getJugadores() {
-        return conectados;
     }
 
     public Usuario login(String usuario, String password, ArrayList listaUsuarios) {

@@ -19,6 +19,13 @@ public class SistemaJuegos {
         figuras = new ArrayList();
     }
 
+    public static SistemaJuegos getInstancia() {
+        if (instancia == null) {
+            instancia = new SistemaJuegos();
+        }
+        return instancia;
+    }
+
     public ArrayList<Figura> getFiguras() {
         return figuras;
     }
@@ -29,13 +36,6 @@ public class SistemaJuegos {
             ret.agregarCarta(c);
         });
         return ret;
-    }
-
-    public static SistemaJuegos getInstancia() {
-        if (instancia == null) {
-            instancia = new SistemaJuegos();
-        }
-        return instancia;
     }
 
     public void setMazo(Mazo mazo) {

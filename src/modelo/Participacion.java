@@ -12,6 +12,7 @@ public class Participacion extends Observable {
 
     private Jugador jugador;
     private Figura figura;
+
     private ArrayList<Carta> cartas;
 
     public enum Eventos {
@@ -31,13 +32,6 @@ public class Participacion extends Observable {
         this.pasar = false;
     }
 
-    public void nuevaMano(ArrayList<Carta> cartas) {
-        this.cartas = cartas;
-        pasar = false;
-        apuestaActual = 0;
-        figurasEnMano();
-    }
-
     public Figura getFigura() {
         return figura;
     }
@@ -46,8 +40,12 @@ public class Participacion extends Observable {
         return jugador;
     }
 
-    public void setApuestaActual(double apuestaActual) {
-        this.apuestaActual = apuestaActual;
+    public String getNombreJugador() {
+        return this.jugador.getNombreCompleto();
+    }
+
+    public double getSaldoInicial() {
+        return saldoInicial;
     }
 
     public double getApuesta() {
@@ -58,12 +56,11 @@ public class Participacion extends Observable {
         return cartas;
     }
 
-    public void setCartas(ArrayList<Carta> cartas) {
+    public void nuevaMano(ArrayList<Carta> cartas) {
         this.cartas = cartas;
-    }
-
-    public boolean isPasar() {
-        return pasar;
+        pasar = false;
+        apuestaActual = 0;
+        figurasEnMano();
     }
 
     public void setPasar(boolean pasar) {
@@ -90,36 +87,12 @@ public class Participacion extends Observable {
         }
     }
 
-    public void setJugador(Jugador jugador) {
-        this.jugador = jugador;
-    }
-
     public boolean isActivo() {
         return activo;
     }
 
     public void setActivo(boolean activo) {
         this.activo = activo;
-    }
-
-    public double getSaldoInicial() {
-        return saldoInicial;
-    }
-
-    public String getNombreJugador() {
-        return this.jugador.getNombreCompleto();
-    }
-
-    public String getDatosJugadorActivo() {
-        String estado = "";
-        if (this.apuestaActual > 0) {
-            estado = " (Apuesta: " + String.valueOf(this.apuestaActual) + ")";
-        } else if (this.pasar) {
-            estado = " (Paso en esta mano)";
-        } else {
-            estado = " (Sin participacion en esta mano)";
-        }
-        return this.jugador.getNombreCompleto() + estado;
     }
 
     public void agregarSaldo(double d) {
@@ -168,6 +141,18 @@ public class Participacion extends Observable {
         Sistema.getInstancia().avisar(Sistema.Eventos.eventoAdmin);
     }
 
+    public String getDatosJugadorActivo() {
+        String estado = "";
+        if (this.apuestaActual > 0) {
+            estado = " (Apuesta: " + String.valueOf(this.apuestaActual) + ")";
+        } else if (this.pasar) {
+            estado = " (Paso en esta mano)";
+        } else {
+            estado = " (Sin participacion en esta mano)";
+        }
+        return this.jugador.getNombreCompleto() + estado;
+    }
+
     public String datosGanador() {
         Carta[] c = new Carta[this.getCartas().size()];
         this.cartas.toArray(c);
@@ -203,8 +188,8 @@ public class Participacion extends Observable {
     @Override
     public String toString() {
         return "Nombre: " + jugador.getNombreCompleto()
-                + " | Total Apostado" + totalApostado
-                + " | Saldo Incial: " + saldoInicial
-                + " | Total Ganado: " + totalGanado;
+                + " | Total Apostado: $" + totalApostado
+                + " | Saldo Incial: $" + saldoInicial
+                + " | Total Ganado: $" + totalGanado;
     }
 }

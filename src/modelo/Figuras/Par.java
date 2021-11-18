@@ -27,14 +27,6 @@ public class Par extends Figura {
         return cartaMasAlta;
     }
 
-    public void setCartaMasAlta(Carta cartaMasAlta) {
-        this.cartaMasAlta = cartaMasAlta;
-    }
-
-    public void setCartaPar(Carta cartaPar) {
-        this.cartaPar = cartaPar;
-    }
-
     @Override
     public Figura determinarFigura(Carta[] cartas) {
         Par ret = null;

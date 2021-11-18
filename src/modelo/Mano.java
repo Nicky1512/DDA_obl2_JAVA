@@ -21,7 +21,7 @@ public class Mano {
         this.participantes = new ArrayList<>();
         this.apuestaFijada = 0;
         this.ganador = null;
-        this.totalApostado = jugadores.size() * Juego.apuestaBase;
+        this.totalApostado = pozoInicial;
         this.nombreApostador = "";
         iniciarMano(jugadores);
         descontarSaldoTodos();
@@ -39,18 +39,6 @@ public class Mano {
         return pozoInicial;
     }
 
-    public Mazo getMazo() {
-        return mazo;
-    }
-
-    public void setMazo(Mazo mazo) {
-        this.mazo = mazo;
-    }
-
-    public ArrayList<Participacion> getParticipantes() {
-        return participantes;
-    }
-
     public ArrayList<Participacion> getParticipantesApostadores() {
         ArrayList<Participacion> ret = new ArrayList<>();
         for (Participacion p : participantes) {
@@ -59,10 +47,6 @@ public class Mano {
             }
         }
         return ret;
-    }
-
-    public void setParticipantes(ArrayList<Participacion> participantes) {
-        this.participantes = participantes;
     }
 
     public double getApuestaFijada() {

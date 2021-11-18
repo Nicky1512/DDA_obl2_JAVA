@@ -7,6 +7,8 @@ public interface VistaAdmin {
     
     public void mostrarJuegos(ArrayList<Juego> juegos);
                
+    public void mostrarJugadoresJuego();
+    
     public void mostrarNombreAdmin(String nombre);
     
     public void salir();

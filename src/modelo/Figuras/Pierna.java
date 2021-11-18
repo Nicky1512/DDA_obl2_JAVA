@@ -21,10 +21,6 @@ public class Pierna extends Figura {
         return cartaClave;
     }
 
-    public void setCartaClave(Carta cartaClave) {
-        this.cartaClave = cartaClave;
-    }
-
     @Override
     public Figura determinarFigura(Carta[] cartas) {
         Pierna ret = null;

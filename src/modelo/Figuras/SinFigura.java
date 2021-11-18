@@ -17,12 +17,8 @@ public class SinFigura extends Figura {
         this.CartaMasAlta = c;
     }
 
-    public Carta getCartaMasAlra() {
+    public Carta getCartaMasAlta() {
         return CartaMasAlta;
-    }
-
-    public void setCartaMasAlra(Carta CartaMasAlra) {
-        this.CartaMasAlta = CartaMasAlra;
     }
 
     @Override
@@ -39,7 +35,7 @@ public class SinFigura extends Figura {
     public Participacion desempatarFiguras(Participacion[] participaciones) {
         Participacion max = participaciones[0];
         for (Participacion p : participaciones) {
-            if (((SinFigura) max.getFigura()).getCartaMasAlra().getOrden() < ((SinFigura) p.getFigura()).getCartaMasAlra().getOrden()) {
+            if (((SinFigura) max.getFigura()).getCartaMasAlta().getOrden() < ((SinFigura) p.getFigura()).getCartaMasAlta().getOrden()) {
                 max = p;
             }
         }
