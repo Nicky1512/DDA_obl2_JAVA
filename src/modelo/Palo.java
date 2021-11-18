@@ -14,15 +14,8 @@ public class Palo {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
     public int getOrden() {
         return orden;
     }
 
-    public void setOrden(int orden) {
-        this.orden = orden;
-    }
 }

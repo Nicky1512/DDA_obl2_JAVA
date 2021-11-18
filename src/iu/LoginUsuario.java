@@ -1,8 +1,5 @@
 package iu;
 
-
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import modelo.Jugador;
 import modelo.Sistema;
@@ -21,7 +18,7 @@ public class LoginUsuario extends LoginAbstracto {
             Usuario u = Sistema.getInstancia().loginJugador(nom, pwd);
             return u;
         } catch (JuegoException ex) {
-            Logger.getLogger(LoginUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, ex.getMessage());
         }
         return null;
     }

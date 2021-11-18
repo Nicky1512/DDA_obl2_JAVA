@@ -18,32 +18,16 @@ public class Carta implements Comparable<Carta> {
         return valor;
     }
 
-    public void setValor(String valor) {
-        this.valor = valor;
-    }
-
     public Palo getPalo() {
         return palo;
-    }
-
-    public void setPalo(Palo palo) {
-        this.palo = palo;
     }
 
     public int getOrden() {
         return orden;
     }
 
-    public void setOrden(int orden) {
-        this.orden = orden;
-    }
-
     public String getImgPath() {
         return imgPath;
-    }
-
-    public void setUrlImg(String imgPath) {
-        this.imgPath = imgPath;
     }
 
     @Override

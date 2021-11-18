@@ -79,13 +79,19 @@ public class VentanaAdmin extends javax.swing.JDialog implements VistaAdmin {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel3)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 651, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel3)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 607, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 607, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -106,14 +112,13 @@ public class VentanaAdmin extends javax.swing.JDialog implements VistaAdmin {
 
     private void listaJuegosActivosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaJuegosActivosMouseClicked
         // TODO add your handling code here:
+        mostrarJugadoresJuego();
     }//GEN-LAST:event_listaJuegosActivosMouseClicked
 
     private void listaJuegosActivosValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listaJuegosActivosValueChanged
-        listaJuegos();
     }//GEN-LAST:event_listaJuegosActivosValueChanged
 
     private void listaJugadoresValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listaJugadoresValueChanged
-        // TODO add your handling code here:
     }//GEN-LAST:event_listaJugadoresValueChanged
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
@@ -156,10 +161,11 @@ public class VentanaAdmin extends javax.swing.JDialog implements VistaAdmin {
         listaJuegosActivos.setListData(lista.toArray());
     }
 
-    private void listaJuegos() {
+    @Override
+    public void mostrarJugadoresJuego() {
+        listaJugadores.clearSelection();
         int selection = listaJuegosActivos.getSelectedIndex();
         Juego juegoSelected = juegos.get(selection);
-        listaJugadores.clearSelection();
         listaJugadores.setListData(juegoSelected.getParticipaciones().toArray());
     }
 

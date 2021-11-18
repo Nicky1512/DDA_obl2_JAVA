@@ -1,8 +1,6 @@
 package controlador;
 
 import iu.VentanaJuego;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import modelo.Juego;
 import modelo.Jugador;
 import modelo.Sistema;
@@ -61,7 +59,7 @@ public class ControladorEspera implements Observador {
         try {
             sistema.vericarInicioJuego();
         } catch (JuegoException ex) {
-            Logger.getLogger(ControladorJuego.class.getName()).log(Level.SEVERE, null, ex);
+             vistaEspera.error(ex.getMessage());
         }
     }
 

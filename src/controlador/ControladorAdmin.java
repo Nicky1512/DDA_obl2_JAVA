@@ -35,4 +35,5 @@ public class ControladorAdmin implements Observador {
     public void mostrarJuegos() {
         vista.mostrarJuegos(sistema.getJuegosEnCurso());
     }
+    
 }

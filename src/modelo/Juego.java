@@ -26,6 +26,15 @@ public class Juego extends Observable {
         this.enCurso = false;
     }
 
+    public Mano getManoActual() {
+        if (manos.size() > 0) {
+            Mano ultima = manos.get(manos.size() - 1);
+            return ultima;
+        } else {
+            return null;
+        }
+    }
+
     public Participacion getGanador() {
         return this.getManoActual().getGanador();
     }
@@ -51,6 +60,26 @@ public class Juego extends Observable {
             }
         }
         return aux;
+    }
+
+    public double getTotalApostadoJuego() {
+        double total = 0;
+        for (Mano m : manos) {
+            total += m.getTotalApostado();
+        }
+        return total;
+    }
+
+    public double getApuetaActual() {
+        return this.getManoActual().getApuestaFijada();
+    }
+
+    public String getNombreJugadorApostador() {
+        return this.getManoActual().getNombreApostador();
+    }
+
+    public double getMontoPozoActual() {
+        return this.getManoActual().getTotalApostado();
     }
 
     public Boolean estaEnCurso() {
@@ -126,8 +155,9 @@ public class Juego extends Observable {
         participacion.terminarParticipacion(expulsado);
         avisar(Juego.Eventos.terminarParticipacion);
         verificarFinalJuego();
-        if(!expulsado)
+        if (!expulsado) {
             verificarFinalMano();
+        }
     }
 
     private void removerJugadores() throws JuegoException {
@@ -155,24 +185,11 @@ public class Juego extends Observable {
         }
     }
 
-    public ArrayList<Participacion> getListaJugadores() {
-        return participaciones;
-    }
-
     public void iniciarMano(double pozoAcumulado) throws JuegoException {
         Mazo mazo = SistemaJuegos.getInstancia().getMazo();
         mazo.barajar();
         Mano nuevaMano = new Mano((Juego.apuestaBase * participaciones.size()) + pozoAcumulado, mazo, getJugadoresActivos());
         this.manos.add(nuevaMano);
-    }
-
-    public Mano getManoActual() {
-        if (manos.size() > 0) {
-            Mano ultima = manos.get(manos.size() - 1);
-            return ultima;
-        } else {
-            return null;
-        }
     }
 
     public void iniciarManoSig(double pozoAcumulado) throws JuegoException {
@@ -216,7 +233,6 @@ public class Juego extends Observable {
         avisar(Juego.Eventos.apuestaFijada);
         avisar(Juego.Eventos.actualizacionPozo);
         avisar(Juego.Eventos.accionRealizada);
-
         Sistema.getInstancia().avisar(Sistema.Eventos.eventoAdmin);
     }
 
@@ -238,33 +254,13 @@ public class Juego extends Observable {
         }
     }
 
-    public double getTotalApostadoJuego() {
-        double total = 0;
-        for (Mano m : manos) {
-            total += m.getTotalApostado();
-        }
-        return total;
-    }
-
-    public double getApuetaActual() {
-        return this.getManoActual().getApuestaFijada();
-    }
-
-    public String getNombreJugadorApostador() {
-        return this.getManoActual().getNombreApostador();
-    }
-
-    public double getMontoPozoActual() {
-        return this.getManoActual().getPozoInicial();
-    }
-
     public String getDatosJuego() {
         String patron = "dd/MM/yyyy HH:mm";
         DateFormat df = new SimpleDateFormat(patron);
         double totalApostado = this.getTotalApostadoJuego();
         return "Fecha inicio: " + df.format(this.fechaInicio)
                 + " | Cant jugadores: " + this.getJugadoresActivos().size()
-                + " | Total apostado: " + totalApostado
+                + " | Total apostado: " + totalApostado + "$ "
                 + " | Cant manos jugadas: " + this.manos.size();
     }
 
